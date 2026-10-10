@@ -1,0 +1,135 @@
+input_dir: data/input
+output_dir: data/output
+random_seed: 42
+test_size: 0.3
+sample_fraction: 0.1
+max_decay_percent: 10.0
+min_auc_test: 0.55
+cols_excluir:
+- partition
+- tip_doc
+- key_value
+- codunicocli
+- prob_value_contact
+- fch_creacion
+- p_fecinformacion
+target_col: target
+cols_categoricas_ohe:
+- ent_1erlntcrallsfm01
+cols_categoricas_label:
+- grp_campecs06m
+csv_sep: ','
+csv_encoding: utf-8
+temporal:
+  development_files:
+  - p1_extrac.csv
+  - p2_extrac.csv
+  - p3_extrac.csv
+  - p4_extrac.csv
+  - p5_extrac.csv
+  - p6_extrac.csv
+  backtesting_files:
+  - p7_extrac.csv
+  - p8_extrac.csv
+  - p9_extrac.csv
+  - p10_extrac.csv
+  period_col: null
+  file_periods: {}
+hpo:
+  cv_folds: 3
+  n_jobs: 1
+  verbose: 1
+  grids:
+    xgb:
+      n_estimators:
+      - 100
+      - 200
+      max_depth:
+      - 3
+      - 5
+      learning_rate:
+      - 0.05
+      - 0.1
+    catb:
+      iterations:
+      - 100
+      - 200
+      depth:
+      - 4
+      - 6
+      learning_rate:
+      - 0.05
+      - 0.1
+    lgbm:
+      n_estimators:
+      - 100
+      - 200
+      num_leaves:
+      - 15
+      - 31
+      learning_rate:
+      - 0.05
+      - 0.1
+    logistic_regression:
+      C:
+      - 0.01
+      - 0.1
+      - 1
+      - 10
+    random_forest:
+      n_estimators:
+      - 100
+      - 200
+      max_depth:
+      - 8
+      - 16
+      min_samples_leaf:
+      - 2
+      - 5
+    ridge_classifier:
+      alpha:
+      - 0.01
+      - 0.1
+      - 1
+      - 10
+    adaboost:
+      n_estimators:
+      - 50
+      - 100
+      learning_rate:
+      - 0.05
+      - 0.1
+    gradient_boosting_sklearn:
+      n_estimators:
+      - 100
+      - 200
+      max_depth:
+      - 2
+      - 4
+      learning_rate:
+      - 0.05
+      - 0.1
+    extra_trees:
+      n_estimators:
+      - 100
+      - 200
+      max_depth:
+      - 8
+      - 16
+      min_samples_leaf:
+      - 2
+      - 5
+modules:
+  hpo: true
+  parallel: true
+  backtesting: true
+parallel:
+  workers: 2
+  hpo_run_dir: null
+backtesting:
+  source_run_dir: null
+  sample_fraction: 0.1
+n_jobs: 2
+use_gpu: true
+parallel_enabled: true
+drift_alert_threshold: 5.0

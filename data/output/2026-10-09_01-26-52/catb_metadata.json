@@ -1,0 +1,303 @@
+{
+  "ml_name": "catb",
+  "performance": {
+    "auc_train": 0.8922287019857443,
+    "auc_test": 0.8544678002797831,
+    "auc": 0.8544678002797831,
+    "gini": 0.7089356005595662,
+    "ks": 0.5544075189468192,
+    "f1": 0.18976157082748948,
+    "decay_percent": 4.2321998409063255,
+    "training_time_segs": 4.250889400000233,
+    "ronda": 1
+  },
+  "hyperparameters": {
+    "iterations": 200,
+    "learning_rate": 0.05,
+    "depth": 6,
+    "thread_count": 1,
+    "random_seed": 42,
+    "verbose": false,
+    "auto_class_weights": "Balanced",
+    "allow_writing_files": false,
+    "task_type": "GPU",
+    "devices": "0"
+  },
+  "library_versions": {
+    "scikit-learn": "1.9.1",
+    "xgboost": "3.4.1",
+    "lightgbm": "4.7.0",
+    "catboost": "1.2.10",
+    "pandas": "3.0.6",
+    "numpy": "2.5.3",
+    "joblib": "1.6.0"
+  },
+  "timestamp": "2026-10-09 01:26:11",
+  "hpo": {
+    "strategy": "GridSearchCV",
+    "n_trials": 8,
+    "cv_folds": 3,
+    "best_parameters": {
+      "depth": 6,
+      "iterations": 200,
+      "learning_rate": 0.05
+    },
+    "auc_cv": 0.8506952827074789,
+    "elapsed_seconds": 141.84661310000047,
+    "cv_note": "AUC de selección HPO; no es estimación independiente ni CV anidada.",
+    "best_params": {
+      "depth": 6,
+      "iterations": 200,
+      "learning_rate": 0.05
+    },
+    "best_cv_score": 0.8506952827074789,
+    "time_s": 141.84661310000047
+  },
+  "hpo_source": "data\\output\\2026-10-09_00-20-02",
+  "hardware": {
+    "device": "GPU",
+    "parameters": {
+      "task_type": "GPU",
+      "devices": "0"
+    },
+    "reason": "Backend GPU verificado mediante fit"
+  },
+  "execution_device": "gpu",
+  "parallel": {
+    "sequential": {
+      "fit_seconds": 2.8277768999996624,
+      "gpu_wait_seconds": 0.000898300000699237,
+      "process_seconds": 2.8286752000003617,
+      "pid": 18268,
+      "device": "GPU"
+    },
+    "parallel": {
+      "fit_seconds": 4.250889400000233,
+      "gpu_wait_seconds": 0.0007719000004726695,
+      "process_seconds": 4.2516613000007055,
+      "pid": 2200,
+      "device": "GPU"
+    }
+  },
+  "parallelism": {
+    "backend": "joblib",
+    "n_workers": 2,
+    "t_sequential_s": 347.1733845999988,
+    "t_parallel_s": 262.35374669999874,
+    "speed_up": 1.3233025598715435,
+    "parallel_executed": true,
+    "cpu_cores": 32
+  },
+  "data_split": {
+    "development": [
+      {
+        "file": "p1_extrac.csv",
+        "rows_original": 328488,
+        "rows_sample": 32848,
+        "positive_rate_original": 0.034193029882370135,
+        "positive_rate_sample": 0.03418777398928397
+      },
+      {
+        "file": "p2_extrac.csv",
+        "rows_original": 329324,
+        "rows_sample": 32932,
+        "positive_rate_original": 0.03119116736101833,
+        "positive_rate_sample": 0.031185473096076763
+      },
+      {
+        "file": "p3_extrac.csv",
+        "rows_original": 322356,
+        "rows_sample": 32235,
+        "positive_rate_original": 0.035166089664842595,
+        "positive_rate_sample": 0.03517915309446254
+      },
+      {
+        "file": "p4_extrac.csv",
+        "rows_original": 304813,
+        "rows_sample": 30481,
+        "positive_rate_original": 0.029470527831818197,
+        "positive_rate_sample": 0.029460975689773957
+      },
+      {
+        "file": "p5_extrac.csv",
+        "rows_original": 295732,
+        "rows_sample": 29573,
+        "positive_rate_original": 0.029448960545358636,
+        "positive_rate_sample": 0.029452541169309843
+      },
+      {
+        "file": "p6_extrac.csv",
+        "rows_original": 236914,
+        "rows_sample": 23691,
+        "positive_rate_original": 0.038368353073267095,
+        "positive_rate_sample": 0.03836900088641256
+      }
+    ],
+    "development_periods": [],
+    "reserved_backtesting_files": [
+      "p7_extrac.csv",
+      "p8_extrac.csv",
+      "p9_extrac.csv",
+      "p10_extrac.csv"
+    ],
+    "future_files_loaded": false,
+    "sample_fraction": 0.1,
+    "feature_columns": [
+      "monto",
+      "grp_campecs06m",
+      "tea",
+      "ingreso_neto",
+      "mnt_ptm",
+      "ent_1erlntcrallsfm01",
+      "sldvig_tcrsrcf",
+      "ant_ultprdallsf",
+      "nro_configuracion_6m",
+      "nro_transfer_6m",
+      "nro_producto_6m",
+      "cre_sldtotfinprm03",
+      "ctd_campecsm01",
+      "max_campecs06m",
+      "ctd_camptotm01",
+      "ctd_camptot06m",
+      "ctd_camptototrcnl06m",
+      "ctd_sms_received",
+      "prm_cnt_fee_amt_u7d",
+      "telefonos_6meses",
+      "prom_score_acepta_12meses",
+      "dif_no_gestionado_4meses",
+      "dif_contacto_efectivo_10meses",
+      "ctd_app_productos_m1",
+      "monto_consumos_ecommerce_tc",
+      "avg_sald_pas_3m",
+      "act_avg6m_max12m",
+      "act_1m_avg3m",
+      "pas_avg6m_max12m",
+      "pas_1m_avg6m",
+      "pas_1m_avg3m",
+      "prop_atm_4m",
+      "cnl_atm_p4m_p12m",
+      "cnl_age_p4m_p12m",
+      "max_nact_12m",
+      "nprod_1m",
+      "senthtml_1m",
+      "openhtml_1m",
+      "avg_openhtml_6m",
+      "bpitrx_1m",
+      "apppag_1m",
+      "cre_lin_tc_rccibk_m07",
+      "lin_tcrrstsf03m",
+      "max_usotcribksf06m",
+      "max_usotcrrstsf03m",
+      "prom_pct_saldopprcc6m",
+      "prm_lintcribksf03m",
+      "prom_sow_lintcribksf3m",
+      "prom_uso_tc_rccsf3m",
+      "dsv_svppallsf06m",
+      "prm_svprmlibdis06m",
+      "prm_svprmecs06m",
+      "flg_saltotppe12m",
+      "num_incrsaldispefe06m",
+      "seg_un",
+      "beta_pctusotcr12m",
+      "rat_disefepnm01",
+      "pct_usotcrm01",
+      "beta_saltotppe12m",
+      "ctd_entrdm01",
+      "prm_saltotrdpj03m"
+    ],
+    "rows_train": 127229,
+    "rows_validation": 54531,
+    "chronology": "Orden explícito declarado en config; confirmar meses reales del curso."
+  },
+  "backtesting": {
+    "waves": [
+      {
+        "wave": 1,
+        "partition": "p7",
+        "file": "p7_extrac.csv",
+        "period": null,
+        "auc": 0.8261266218961156,
+        "decay_pct": 7.408647574608606,
+        "decay_percent": 7.408647574608606,
+        "auc_drop_pp": 6.61020800896287,
+        "n_obs": 24466,
+        "rows_evaluated": 24466,
+        "rows_original": 244666,
+        "drift_alert": true,
+        "status": "ok",
+        "prediction_seconds": 0.11146729999927629
+      },
+      {
+        "wave": 2,
+        "partition": "p8",
+        "file": "p8_extrac.csv",
+        "period": null,
+        "auc": 0.8486446194784983,
+        "decay_pct": 4.884855464775483,
+        "decay_percent": 4.884855464775483,
+        "auc_drop_pp": 4.358408250724599,
+        "n_obs": 24072,
+        "rows_evaluated": 24072,
+        "rows_original": 240726,
+        "drift_alert": false,
+        "status": "ok",
+        "prediction_seconds": 0.08579699999972945
+      },
+      {
+        "wave": 3,
+        "partition": "p9",
+        "file": "p9_extrac.csv",
+        "period": null,
+        "auc": 0.8426699855271282,
+        "decay_pct": 5.554485789161255,
+        "decay_percent": 5.554485789161255,
+        "auc_drop_pp": 4.95587164586161,
+        "n_obs": 26375,
+        "rows_evaluated": 26375,
+        "rows_original": 263753,
+        "drift_alert": false,
+        "status": "ok",
+        "prediction_seconds": 0.12058439999964321
+      },
+      {
+        "wave": 4,
+        "partition": "p10",
+        "file": "p10_extrac.csv",
+        "period": null,
+        "auc": 0.8544897460153184,
+        "decay_pct": 4.229740187289891,
+        "decay_percent": 4.229740187289891,
+        "auc_drop_pp": 3.773895597042598,
+        "n_obs": 31737,
+        "rows_evaluated": 31737,
+        "rows_original": 317378,
+        "drift_alert": false,
+        "status": "ok",
+        "prediction_seconds": 0.12237159999858704
+      }
+    ],
+    "reference_auc_train": 0.8922287019857443,
+    "development_files": [
+      "p1_extrac.csv",
+      "p2_extrac.csv",
+      "p3_extrac.csv",
+      "p4_extrac.csv",
+      "p5_extrac.csv",
+      "p6_extrac.csv"
+    ],
+    "backtesting_files": [
+      "p7_extrac.csv",
+      "p8_extrac.csv",
+      "p9_extrac.csv",
+      "p10_extrac.csv"
+    ],
+    "valid_waves": 4,
+    "avg_auc_backtest": 0.8429827432292651,
+    "avg_decay_pct": 5.519432253958809,
+    "drift_alert": true,
+    "severe_drift": false,
+    "drift_alert_threshold_pp": 5.0,
+    "evaluation_mode": "fixed_models_6_development_4_future",
+    "sample_fraction": 0.1
+  }
+}

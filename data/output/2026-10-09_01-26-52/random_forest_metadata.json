@@ -1,0 +1,309 @@
+{
+  "ml_name": "random_forest",
+  "performance": {
+    "auc_train": 0.9978743498963665,
+    "auc_test": 0.8458117431616506,
+    "auc": 0.8458117431616506,
+    "gini": 0.6916234863233013,
+    "ks": 0.5489950827788845,
+    "f1": 0.25636307881018094,
+    "decay_percent": 15.238652717199132,
+    "training_time_segs": 37.09863769999902,
+    "ronda": 1
+  },
+  "hyperparameters": {
+    "bootstrap": true,
+    "ccp_alpha": 0.0,
+    "class_weight": "balanced",
+    "criterion": "gini",
+    "max_depth": 16,
+    "max_features": "sqrt",
+    "max_leaf_nodes": null,
+    "max_samples": null,
+    "min_impurity_decrease": 0.0,
+    "min_samples_leaf": 5,
+    "min_samples_split": 2,
+    "min_weight_fraction_leaf": 0.0,
+    "monotonic_cst": null,
+    "n_estimators": 200,
+    "n_jobs": 1,
+    "oob_score": false,
+    "random_state": 42,
+    "verbose": 0,
+    "warm_start": false
+  },
+  "library_versions": {
+    "scikit-learn": "1.9.1",
+    "xgboost": "3.4.1",
+    "lightgbm": "4.7.0",
+    "catboost": "1.2.10",
+    "pandas": "3.0.6",
+    "numpy": "2.5.3",
+    "joblib": "1.6.0"
+  },
+  "timestamp": "2026-10-09 01:26:18",
+  "hpo": {
+    "strategy": "GridSearchCV",
+    "n_trials": 8,
+    "cv_folds": 3,
+    "best_parameters": {
+      "max_depth": 16,
+      "min_samples_leaf": 5,
+      "n_estimators": 200
+    },
+    "auc_cv": 0.8425152620641491,
+    "elapsed_seconds": 242.88120249999884,
+    "cv_note": "AUC de selección HPO; no es estimación independiente ni CV anidada.",
+    "best_params": {
+      "max_depth": 16,
+      "min_samples_leaf": 5,
+      "n_estimators": 200
+    },
+    "best_cv_score": 0.8425152620641491,
+    "time_s": 242.88120249999884
+  },
+  "hpo_source": "data\\output\\2026-10-09_00-20-02",
+  "hardware": {
+    "device": "CPU",
+    "parameters": {},
+    "reason": "Implementación CPU"
+  },
+  "execution_device": "cpu",
+  "parallel": {
+    "sequential": {
+      "fit_seconds": 43.459583899999416,
+      "gpu_wait_seconds": 0.0,
+      "process_seconds": 43.45958780000001,
+      "pid": 18268,
+      "device": "CPU"
+    },
+    "parallel": {
+      "fit_seconds": 37.09863769999902,
+      "gpu_wait_seconds": 0.0,
+      "process_seconds": 37.09864089999974,
+      "pid": 2200,
+      "device": "CPU"
+    }
+  },
+  "parallelism": {
+    "backend": "joblib",
+    "n_workers": 2,
+    "t_sequential_s": 347.1733845999988,
+    "t_parallel_s": 262.35374669999874,
+    "speed_up": 1.3233025598715435,
+    "parallel_executed": true,
+    "cpu_cores": 32
+  },
+  "data_split": {
+    "development": [
+      {
+        "file": "p1_extrac.csv",
+        "rows_original": 328488,
+        "rows_sample": 32848,
+        "positive_rate_original": 0.034193029882370135,
+        "positive_rate_sample": 0.03418777398928397
+      },
+      {
+        "file": "p2_extrac.csv",
+        "rows_original": 329324,
+        "rows_sample": 32932,
+        "positive_rate_original": 0.03119116736101833,
+        "positive_rate_sample": 0.031185473096076763
+      },
+      {
+        "file": "p3_extrac.csv",
+        "rows_original": 322356,
+        "rows_sample": 32235,
+        "positive_rate_original": 0.035166089664842595,
+        "positive_rate_sample": 0.03517915309446254
+      },
+      {
+        "file": "p4_extrac.csv",
+        "rows_original": 304813,
+        "rows_sample": 30481,
+        "positive_rate_original": 0.029470527831818197,
+        "positive_rate_sample": 0.029460975689773957
+      },
+      {
+        "file": "p5_extrac.csv",
+        "rows_original": 295732,
+        "rows_sample": 29573,
+        "positive_rate_original": 0.029448960545358636,
+        "positive_rate_sample": 0.029452541169309843
+      },
+      {
+        "file": "p6_extrac.csv",
+        "rows_original": 236914,
+        "rows_sample": 23691,
+        "positive_rate_original": 0.038368353073267095,
+        "positive_rate_sample": 0.03836900088641256
+      }
+    ],
+    "development_periods": [],
+    "reserved_backtesting_files": [
+      "p7_extrac.csv",
+      "p8_extrac.csv",
+      "p9_extrac.csv",
+      "p10_extrac.csv"
+    ],
+    "future_files_loaded": false,
+    "sample_fraction": 0.1,
+    "feature_columns": [
+      "monto",
+      "grp_campecs06m",
+      "tea",
+      "ingreso_neto",
+      "mnt_ptm",
+      "ent_1erlntcrallsfm01",
+      "sldvig_tcrsrcf",
+      "ant_ultprdallsf",
+      "nro_configuracion_6m",
+      "nro_transfer_6m",
+      "nro_producto_6m",
+      "cre_sldtotfinprm03",
+      "ctd_campecsm01",
+      "max_campecs06m",
+      "ctd_camptotm01",
+      "ctd_camptot06m",
+      "ctd_camptototrcnl06m",
+      "ctd_sms_received",
+      "prm_cnt_fee_amt_u7d",
+      "telefonos_6meses",
+      "prom_score_acepta_12meses",
+      "dif_no_gestionado_4meses",
+      "dif_contacto_efectivo_10meses",
+      "ctd_app_productos_m1",
+      "monto_consumos_ecommerce_tc",
+      "avg_sald_pas_3m",
+      "act_avg6m_max12m",
+      "act_1m_avg3m",
+      "pas_avg6m_max12m",
+      "pas_1m_avg6m",
+      "pas_1m_avg3m",
+      "prop_atm_4m",
+      "cnl_atm_p4m_p12m",
+      "cnl_age_p4m_p12m",
+      "max_nact_12m",
+      "nprod_1m",
+      "senthtml_1m",
+      "openhtml_1m",
+      "avg_openhtml_6m",
+      "bpitrx_1m",
+      "apppag_1m",
+      "cre_lin_tc_rccibk_m07",
+      "lin_tcrrstsf03m",
+      "max_usotcribksf06m",
+      "max_usotcrrstsf03m",
+      "prom_pct_saldopprcc6m",
+      "prm_lintcribksf03m",
+      "prom_sow_lintcribksf3m",
+      "prom_uso_tc_rccsf3m",
+      "dsv_svppallsf06m",
+      "prm_svprmlibdis06m",
+      "prm_svprmecs06m",
+      "flg_saltotppe12m",
+      "num_incrsaldispefe06m",
+      "seg_un",
+      "beta_pctusotcr12m",
+      "rat_disefepnm01",
+      "pct_usotcrm01",
+      "beta_saltotppe12m",
+      "ctd_entrdm01",
+      "prm_saltotrdpj03m"
+    ],
+    "rows_train": 127229,
+    "rows_validation": 54531,
+    "chronology": "Orden explícito declarado en config; confirmar meses reales del curso."
+  },
+  "backtesting": {
+    "waves": [
+      {
+        "wave": 1,
+        "partition": "p7",
+        "file": "p7_extrac.csv",
+        "period": null,
+        "auc": 0.8219391763047714,
+        "decay_pct": 17.630994684838495,
+        "decay_percent": 17.630994684838495,
+        "auc_drop_pp": 17.593517359159506,
+        "n_obs": 24466,
+        "rows_evaluated": 24466,
+        "rows_original": 244666,
+        "drift_alert": true,
+        "status": "ok",
+        "prediction_seconds": 0.711191799999142
+      },
+      {
+        "wave": 2,
+        "partition": "p8",
+        "file": "p8_extrac.csv",
+        "period": null,
+        "auc": 0.836877366789659,
+        "decay_pct": 16.13399353570194,
+        "decay_percent": 16.13399353570194,
+        "auc_drop_pp": 16.099698310670753,
+        "n_obs": 24072,
+        "rows_evaluated": 24072,
+        "rows_original": 240726,
+        "drift_alert": true,
+        "status": "ok",
+        "prediction_seconds": 0.6840460000003077
+      },
+      {
+        "wave": 3,
+        "partition": "p9",
+        "file": "p9_extrac.csv",
+        "period": null,
+        "auc": 0.8330672427707468,
+        "decay_pct": 16.515817561873956,
+        "decay_percent": 16.515817561873956,
+        "auc_drop_pp": 16.480710712561965,
+        "n_obs": 26375,
+        "rows_evaluated": 26375,
+        "rows_original": 263753,
+        "drift_alert": true,
+        "status": "ok",
+        "prediction_seconds": 0.7480676999985008
+      },
+      {
+        "wave": 4,
+        "partition": "p10",
+        "file": "p10_extrac.csv",
+        "period": null,
+        "auc": 0.8488323793210645,
+        "decay_pct": 14.935945651953139,
+        "decay_percent": 14.935945651953139,
+        "auc_drop_pp": 14.9041970575302,
+        "n_obs": 31737,
+        "rows_evaluated": 31737,
+        "rows_original": 317378,
+        "drift_alert": true,
+        "status": "ok",
+        "prediction_seconds": 0.8282228999996732
+      }
+    ],
+    "reference_auc_train": 0.9978743498963665,
+    "development_files": [
+      "p1_extrac.csv",
+      "p2_extrac.csv",
+      "p3_extrac.csv",
+      "p4_extrac.csv",
+      "p5_extrac.csv",
+      "p6_extrac.csv"
+    ],
+    "backtesting_files": [
+      "p7_extrac.csv",
+      "p8_extrac.csv",
+      "p9_extrac.csv",
+      "p10_extrac.csv"
+    ],
+    "valid_waves": 4,
+    "avg_auc_backtest": 0.8351790412965604,
+    "avg_decay_pct": 16.30418785859188,
+    "drift_alert": true,
+    "severe_drift": true,
+    "drift_alert_threshold_pp": 5.0,
+    "evaluation_mode": "fixed_models_6_development_4_future",
+    "sample_fraction": 0.1
+  }
+}

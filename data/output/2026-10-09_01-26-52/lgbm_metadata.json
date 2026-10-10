@@ -1,0 +1,311 @@
+{
+  "ml_name": "lgbm",
+  "performance": {
+    "auc_train": 0.8802017309800486,
+    "auc_test": 0.8536146170949834,
+    "auc": 0.8536146170949834,
+    "gini": 0.7072292341899669,
+    "ks": 0.5571851069138982,
+    "f1": 0.17969292980350035,
+    "decay_percent": 3.0205705066567097,
+    "training_time_segs": 2.844231700000819,
+    "ronda": 1
+  },
+  "hyperparameters": {
+    "boosting_type": "gbdt",
+    "class_weight": null,
+    "colsample_bytree": 1.0,
+    "importance_type": "split",
+    "learning_rate": 0.05,
+    "max_depth": -1,
+    "min_child_samples": 20,
+    "min_child_weight": 0.001,
+    "min_split_gain": 0.0,
+    "n_estimators": 100,
+    "n_jobs": 1,
+    "num_leaves": 15,
+    "objective": null,
+    "random_state": 42,
+    "reg_alpha": 0.0,
+    "reg_lambda": 0.0,
+    "subsample": 1.0,
+    "subsample_for_bin": 200000,
+    "subsample_freq": 0,
+    "verbosity": -1,
+    "scale_pos_weight": 29.481312889314808
+  },
+  "library_versions": {
+    "scikit-learn": "1.9.1",
+    "xgboost": "3.4.1",
+    "lightgbm": "4.7.0",
+    "catboost": "1.2.10",
+    "pandas": "3.0.6",
+    "numpy": "2.5.3",
+    "joblib": "1.6.0"
+  },
+  "timestamp": "2026-10-09 01:26:10",
+  "hpo": {
+    "strategy": "GridSearchCV",
+    "n_trials": 8,
+    "cv_folds": 3,
+    "best_parameters": {
+      "learning_rate": 0.05,
+      "n_estimators": 100,
+      "num_leaves": 15
+    },
+    "auc_cv": 0.8501266977349037,
+    "elapsed_seconds": 51.94853259999945,
+    "cv_note": "AUC de selección HPO; no es estimación independiente ni CV anidada.",
+    "best_params": {
+      "learning_rate": 0.05,
+      "n_estimators": 100,
+      "num_leaves": 15
+    },
+    "best_cv_score": 0.8501266977349037,
+    "time_s": 51.94853259999945
+  },
+  "hpo_source": "data\\output\\2026-10-09_00-20-02",
+  "hardware": {
+    "device": "CPU",
+    "parameters": {},
+    "reason": "Backend GPU no utilizable: CUDA Tree Learner was not enabled in this build.\nPlease recompile with CMake option -DUSE_CUDA=1 (NVIDIA GPUs) or -DUSE_ROCM=1 (AMD GPUs) | GPU Tree Learner was not enabled in this build.\nPlease recompile with CMake option -DUSE_GPU=1"
+  },
+  "execution_device": "cpu",
+  "parallel": {
+    "sequential": {
+      "fit_seconds": 3.9997364999999263,
+      "gpu_wait_seconds": 0.0,
+      "process_seconds": 3.999738900000011,
+      "pid": 18268,
+      "device": "CPU"
+    },
+    "parallel": {
+      "fit_seconds": 2.844231700000819,
+      "gpu_wait_seconds": 0.0,
+      "process_seconds": 2.844234400001369,
+      "pid": 24700,
+      "device": "CPU"
+    }
+  },
+  "parallelism": {
+    "backend": "joblib",
+    "n_workers": 2,
+    "t_sequential_s": 347.1733845999988,
+    "t_parallel_s": 262.35374669999874,
+    "speed_up": 1.3233025598715435,
+    "parallel_executed": true,
+    "cpu_cores": 32
+  },
+  "data_split": {
+    "development": [
+      {
+        "file": "p1_extrac.csv",
+        "rows_original": 328488,
+        "rows_sample": 32848,
+        "positive_rate_original": 0.034193029882370135,
+        "positive_rate_sample": 0.03418777398928397
+      },
+      {
+        "file": "p2_extrac.csv",
+        "rows_original": 329324,
+        "rows_sample": 32932,
+        "positive_rate_original": 0.03119116736101833,
+        "positive_rate_sample": 0.031185473096076763
+      },
+      {
+        "file": "p3_extrac.csv",
+        "rows_original": 322356,
+        "rows_sample": 32235,
+        "positive_rate_original": 0.035166089664842595,
+        "positive_rate_sample": 0.03517915309446254
+      },
+      {
+        "file": "p4_extrac.csv",
+        "rows_original": 304813,
+        "rows_sample": 30481,
+        "positive_rate_original": 0.029470527831818197,
+        "positive_rate_sample": 0.029460975689773957
+      },
+      {
+        "file": "p5_extrac.csv",
+        "rows_original": 295732,
+        "rows_sample": 29573,
+        "positive_rate_original": 0.029448960545358636,
+        "positive_rate_sample": 0.029452541169309843
+      },
+      {
+        "file": "p6_extrac.csv",
+        "rows_original": 236914,
+        "rows_sample": 23691,
+        "positive_rate_original": 0.038368353073267095,
+        "positive_rate_sample": 0.03836900088641256
+      }
+    ],
+    "development_periods": [],
+    "reserved_backtesting_files": [
+      "p7_extrac.csv",
+      "p8_extrac.csv",
+      "p9_extrac.csv",
+      "p10_extrac.csv"
+    ],
+    "future_files_loaded": false,
+    "sample_fraction": 0.1,
+    "feature_columns": [
+      "monto",
+      "grp_campecs06m",
+      "tea",
+      "ingreso_neto",
+      "mnt_ptm",
+      "ent_1erlntcrallsfm01",
+      "sldvig_tcrsrcf",
+      "ant_ultprdallsf",
+      "nro_configuracion_6m",
+      "nro_transfer_6m",
+      "nro_producto_6m",
+      "cre_sldtotfinprm03",
+      "ctd_campecsm01",
+      "max_campecs06m",
+      "ctd_camptotm01",
+      "ctd_camptot06m",
+      "ctd_camptototrcnl06m",
+      "ctd_sms_received",
+      "prm_cnt_fee_amt_u7d",
+      "telefonos_6meses",
+      "prom_score_acepta_12meses",
+      "dif_no_gestionado_4meses",
+      "dif_contacto_efectivo_10meses",
+      "ctd_app_productos_m1",
+      "monto_consumos_ecommerce_tc",
+      "avg_sald_pas_3m",
+      "act_avg6m_max12m",
+      "act_1m_avg3m",
+      "pas_avg6m_max12m",
+      "pas_1m_avg6m",
+      "pas_1m_avg3m",
+      "prop_atm_4m",
+      "cnl_atm_p4m_p12m",
+      "cnl_age_p4m_p12m",
+      "max_nact_12m",
+      "nprod_1m",
+      "senthtml_1m",
+      "openhtml_1m",
+      "avg_openhtml_6m",
+      "bpitrx_1m",
+      "apppag_1m",
+      "cre_lin_tc_rccibk_m07",
+      "lin_tcrrstsf03m",
+      "max_usotcribksf06m",
+      "max_usotcrrstsf03m",
+      "prom_pct_saldopprcc6m",
+      "prm_lintcribksf03m",
+      "prom_sow_lintcribksf3m",
+      "prom_uso_tc_rccsf3m",
+      "dsv_svppallsf06m",
+      "prm_svprmlibdis06m",
+      "prm_svprmecs06m",
+      "flg_saltotppe12m",
+      "num_incrsaldispefe06m",
+      "seg_un",
+      "beta_pctusotcr12m",
+      "rat_disefepnm01",
+      "pct_usotcrm01",
+      "beta_saltotppe12m",
+      "ctd_entrdm01",
+      "prm_saltotrdpj03m"
+    ],
+    "rows_train": 127229,
+    "rows_validation": 54531,
+    "chronology": "Orden explícito declarado en config; confirmar meses reales del curso."
+  },
+  "backtesting": {
+    "waves": [
+      {
+        "wave": 1,
+        "partition": "p7",
+        "file": "p7_extrac.csv",
+        "period": null,
+        "auc": 0.8284305952825105,
+        "decay_pct": 5.881735274468756,
+        "decay_percent": 5.881735274468756,
+        "auc_drop_pp": 5.177113569753811,
+        "n_obs": 24466,
+        "rows_evaluated": 24466,
+        "rows_original": 244666,
+        "drift_alert": true,
+        "status": "ok",
+        "prediction_seconds": 0.2764677000013762
+      },
+      {
+        "wave": 2,
+        "partition": "p8",
+        "file": "p8_extrac.csv",
+        "period": null,
+        "auc": 0.8489940831084959,
+        "decay_pct": 3.545510849746341,
+        "decay_percent": 3.545510849746341,
+        "auc_drop_pp": 3.1207647871552724,
+        "n_obs": 24072,
+        "rows_evaluated": 24072,
+        "rows_original": 240726,
+        "drift_alert": false,
+        "status": "ok",
+        "prediction_seconds": 0.2256197999995493
+      },
+      {
+        "wave": 3,
+        "partition": "p9",
+        "file": "p9_extrac.csv",
+        "period": null,
+        "auc": 0.8414162955941932,
+        "decay_pct": 4.406425711373042,
+        "decay_percent": 4.406425711373042,
+        "auc_drop_pp": 3.878543538585544,
+        "n_obs": 26375,
+        "rows_evaluated": 26375,
+        "rows_original": 263753,
+        "drift_alert": false,
+        "status": "ok",
+        "prediction_seconds": 0.26977590000024065
+      },
+      {
+        "wave": 4,
+        "partition": "p10",
+        "file": "p10_extrac.csv",
+        "period": null,
+        "auc": 0.8529217107148381,
+        "decay_pct": 3.099291821982208,
+        "decay_percent": 3.099291821982208,
+        "auc_drop_pp": 2.728002026521048,
+        "n_obs": 31737,
+        "rows_evaluated": 31737,
+        "rows_original": 317378,
+        "drift_alert": false,
+        "status": "ok",
+        "prediction_seconds": 0.2818528999996488
+      }
+    ],
+    "reference_auc_train": 0.8802017309800486,
+    "development_files": [
+      "p1_extrac.csv",
+      "p2_extrac.csv",
+      "p3_extrac.csv",
+      "p4_extrac.csv",
+      "p5_extrac.csv",
+      "p6_extrac.csv"
+    ],
+    "backtesting_files": [
+      "p7_extrac.csv",
+      "p8_extrac.csv",
+      "p9_extrac.csv",
+      "p10_extrac.csv"
+    ],
+    "valid_waves": 4,
+    "avg_auc_backtest": 0.8429406711750094,
+    "avg_decay_pct": 4.233240914392587,
+    "drift_alert": true,
+    "severe_drift": false,
+    "drift_alert_threshold_pp": 5.0,
+    "evaluation_mode": "fixed_models_6_development_4_future",
+    "sample_fraction": 0.1
+  }
+}

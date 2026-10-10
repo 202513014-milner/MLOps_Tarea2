@@ -1,0 +1,12 @@
+data/input/*
+!data/input/README.txt
+__pycache__/
+*.pyc
+.venv/
+.env
+.env.*
+*.pem
+*.key
+# No publicar modelos históricos por defecto. Para una única corrida seleccionada,
+# usar git add -f data/output/FECHA/*_model.pkl solo si el tamaño lo permite.
+*.pkl

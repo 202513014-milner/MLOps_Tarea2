@@ -1,0 +1,300 @@
+{
+  "ml_name": "logistic_regression",
+  "performance": {
+    "auc_train": 0.8304403193129269,
+    "auc_test": 0.8313958114653381,
+    "auc": 0.8313958114653381,
+    "gini": 0.6627916229306763,
+    "ks": 0.5109911528703132,
+    "f1": 0.16678984971667898,
+    "decay_percent": -0.11505849730438582,
+    "training_time_segs": 3.9074660999995103,
+    "ronda": 1
+  },
+  "hyperparameters": {
+    "C": 10,
+    "class_weight": "balanced",
+    "dual": false,
+    "fit_intercept": true,
+    "intercept_scaling": 1,
+    "l1_ratio": 0.0,
+    "max_iter": 2000,
+    "n_jobs": null,
+    "penalty": "deprecated",
+    "random_state": 42,
+    "solver": "lbfgs",
+    "tol": 0.0001,
+    "verbose": 0,
+    "warm_start": false
+  },
+  "library_versions": {
+    "scikit-learn": "1.9.1",
+    "xgboost": "3.4.1",
+    "lightgbm": "4.7.0",
+    "catboost": "1.2.10",
+    "pandas": "3.0.6",
+    "numpy": "2.5.3",
+    "joblib": "1.6.0"
+  },
+  "timestamp": "2026-10-09 01:26:12",
+  "hpo": {
+    "strategy": "GridSearchCV",
+    "n_trials": 4,
+    "cv_folds": 3,
+    "best_parameters": {
+      "C": 10
+    },
+    "auc_cv": 0.8275566983262658,
+    "elapsed_seconds": 12.304292000000714,
+    "cv_note": "AUC de selección HPO; no es estimación independiente ni CV anidada.",
+    "best_params": {
+      "C": 10
+    },
+    "best_cv_score": 0.8275566983262658,
+    "time_s": 12.304292000000714
+  },
+  "hpo_source": "data\\output\\2026-10-09_00-20-02",
+  "hardware": {
+    "device": "CPU",
+    "parameters": {},
+    "reason": "Implementación CPU"
+  },
+  "execution_device": "cpu",
+  "parallel": {
+    "sequential": {
+      "fit_seconds": 4.0413069000005635,
+      "gpu_wait_seconds": 0.0,
+      "process_seconds": 4.041308699999718,
+      "pid": 18268,
+      "device": "CPU"
+    },
+    "parallel": {
+      "fit_seconds": 3.9074660999995103,
+      "gpu_wait_seconds": 0.0,
+      "process_seconds": 3.90746979999858,
+      "pid": 24700,
+      "device": "CPU"
+    }
+  },
+  "parallelism": {
+    "backend": "joblib",
+    "n_workers": 2,
+    "t_sequential_s": 347.1733845999988,
+    "t_parallel_s": 262.35374669999874,
+    "speed_up": 1.3233025598715435,
+    "parallel_executed": true,
+    "cpu_cores": 32
+  },
+  "data_split": {
+    "development": [
+      {
+        "file": "p1_extrac.csv",
+        "rows_original": 328488,
+        "rows_sample": 32848,
+        "positive_rate_original": 0.034193029882370135,
+        "positive_rate_sample": 0.03418777398928397
+      },
+      {
+        "file": "p2_extrac.csv",
+        "rows_original": 329324,
+        "rows_sample": 32932,
+        "positive_rate_original": 0.03119116736101833,
+        "positive_rate_sample": 0.031185473096076763
+      },
+      {
+        "file": "p3_extrac.csv",
+        "rows_original": 322356,
+        "rows_sample": 32235,
+        "positive_rate_original": 0.035166089664842595,
+        "positive_rate_sample": 0.03517915309446254
+      },
+      {
+        "file": "p4_extrac.csv",
+        "rows_original": 304813,
+        "rows_sample": 30481,
+        "positive_rate_original": 0.029470527831818197,
+        "positive_rate_sample": 0.029460975689773957
+      },
+      {
+        "file": "p5_extrac.csv",
+        "rows_original": 295732,
+        "rows_sample": 29573,
+        "positive_rate_original": 0.029448960545358636,
+        "positive_rate_sample": 0.029452541169309843
+      },
+      {
+        "file": "p6_extrac.csv",
+        "rows_original": 236914,
+        "rows_sample": 23691,
+        "positive_rate_original": 0.038368353073267095,
+        "positive_rate_sample": 0.03836900088641256
+      }
+    ],
+    "development_periods": [],
+    "reserved_backtesting_files": [
+      "p7_extrac.csv",
+      "p8_extrac.csv",
+      "p9_extrac.csv",
+      "p10_extrac.csv"
+    ],
+    "future_files_loaded": false,
+    "sample_fraction": 0.1,
+    "feature_columns": [
+      "monto",
+      "grp_campecs06m",
+      "tea",
+      "ingreso_neto",
+      "mnt_ptm",
+      "ent_1erlntcrallsfm01",
+      "sldvig_tcrsrcf",
+      "ant_ultprdallsf",
+      "nro_configuracion_6m",
+      "nro_transfer_6m",
+      "nro_producto_6m",
+      "cre_sldtotfinprm03",
+      "ctd_campecsm01",
+      "max_campecs06m",
+      "ctd_camptotm01",
+      "ctd_camptot06m",
+      "ctd_camptototrcnl06m",
+      "ctd_sms_received",
+      "prm_cnt_fee_amt_u7d",
+      "telefonos_6meses",
+      "prom_score_acepta_12meses",
+      "dif_no_gestionado_4meses",
+      "dif_contacto_efectivo_10meses",
+      "ctd_app_productos_m1",
+      "monto_consumos_ecommerce_tc",
+      "avg_sald_pas_3m",
+      "act_avg6m_max12m",
+      "act_1m_avg3m",
+      "pas_avg6m_max12m",
+      "pas_1m_avg6m",
+      "pas_1m_avg3m",
+      "prop_atm_4m",
+      "cnl_atm_p4m_p12m",
+      "cnl_age_p4m_p12m",
+      "max_nact_12m",
+      "nprod_1m",
+      "senthtml_1m",
+      "openhtml_1m",
+      "avg_openhtml_6m",
+      "bpitrx_1m",
+      "apppag_1m",
+      "cre_lin_tc_rccibk_m07",
+      "lin_tcrrstsf03m",
+      "max_usotcribksf06m",
+      "max_usotcrrstsf03m",
+      "prom_pct_saldopprcc6m",
+      "prm_lintcribksf03m",
+      "prom_sow_lintcribksf3m",
+      "prom_uso_tc_rccsf3m",
+      "dsv_svppallsf06m",
+      "prm_svprmlibdis06m",
+      "prm_svprmecs06m",
+      "flg_saltotppe12m",
+      "num_incrsaldispefe06m",
+      "seg_un",
+      "beta_pctusotcr12m",
+      "rat_disefepnm01",
+      "pct_usotcrm01",
+      "beta_saltotppe12m",
+      "ctd_entrdm01",
+      "prm_saltotrdpj03m"
+    ],
+    "rows_train": 127229,
+    "rows_validation": 54531,
+    "chronology": "Orden explícito declarado en config; confirmar meses reales del curso."
+  },
+  "backtesting": {
+    "waves": [
+      {
+        "wave": 1,
+        "partition": "p7",
+        "file": "p7_extrac.csv",
+        "period": null,
+        "auc": 0.8035423662065247,
+        "decay_pct": 3.2389989359688705,
+        "decay_percent": 3.2389989359688705,
+        "auc_drop_pp": 2.6897953106402195,
+        "n_obs": 24466,
+        "rows_evaluated": 24466,
+        "rows_original": 244666,
+        "drift_alert": false,
+        "status": "ok",
+        "prediction_seconds": 0.07354420000046957
+      },
+      {
+        "wave": 2,
+        "partition": "p8",
+        "file": "p8_extrac.csv",
+        "period": null,
+        "auc": 0.8204761885871978,
+        "decay_pct": 1.199861145226309,
+        "decay_percent": 1.199861145226309,
+        "auc_drop_pp": 0.9964130725729103,
+        "n_obs": 24072,
+        "rows_evaluated": 24072,
+        "rows_original": 240726,
+        "drift_alert": false,
+        "status": "ok",
+        "prediction_seconds": 0.0697667000004003
+      },
+      {
+        "wave": 3,
+        "partition": "p9",
+        "file": "p9_extrac.csv",
+        "period": null,
+        "auc": 0.8114219785378816,
+        "decay_pct": 2.2901514212099428,
+        "decay_percent": 2.2901514212099428,
+        "auc_drop_pp": 1.9018340775045384,
+        "n_obs": 26375,
+        "rows_evaluated": 26375,
+        "rows_original": 263753,
+        "drift_alert": false,
+        "status": "ok",
+        "prediction_seconds": 0.0945876000005228
+      },
+      {
+        "wave": 4,
+        "partition": "p10",
+        "file": "p10_extrac.csv",
+        "period": null,
+        "auc": 0.8179421241592493,
+        "decay_pct": 1.5050082303347432,
+        "decay_percent": 1.5050082303347432,
+        "auc_drop_pp": 1.2498195153677671,
+        "n_obs": 31737,
+        "rows_evaluated": 31737,
+        "rows_original": 317378,
+        "drift_alert": false,
+        "status": "ok",
+        "prediction_seconds": 0.12163460000010673
+      }
+    ],
+    "reference_auc_train": 0.8304403193129269,
+    "development_files": [
+      "p1_extrac.csv",
+      "p2_extrac.csv",
+      "p3_extrac.csv",
+      "p4_extrac.csv",
+      "p5_extrac.csv",
+      "p6_extrac.csv"
+    ],
+    "backtesting_files": [
+      "p7_extrac.csv",
+      "p8_extrac.csv",
+      "p9_extrac.csv",
+      "p10_extrac.csv"
+    ],
+    "valid_waves": 4,
+    "avg_auc_backtest": 0.8133456643727133,
+    "avg_decay_pct": 2.0585049331849663,
+    "drift_alert": false,
+    "severe_drift": false,
+    "drift_alert_threshold_pp": 5.0,
+    "evaluation_mode": "fixed_models_6_development_4_future",
+    "sample_fraction": 0.1
+  }
+}
