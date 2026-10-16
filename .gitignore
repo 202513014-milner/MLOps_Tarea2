@@ -1,12 +1,24 @@
-data/input/*
-!data/input/README.txt
+# datos y credenciales (nunca al repositorio)
+data/input/
+.env
+.env.*
+!.env.example
+# artefactos locales del gestor de experimentos, bases de datos y logs de Airflow
+mlflow/
+mlruns/
+mlartifacts/
+*.db
+logs/
+# caches
 __pycache__/
 *.pyc
 .venv/
-.env
-.env.*
-*.pem
-*.key
-# No publicar modelos históricos por defecto. Para una única corrida seleccionada,
-# usar git add -f data/output/FECHA/*_model.pkl solo si el tamaño lo permite.
+.hash_cache.json
+# data/output/ SÍ se versiona (evidencia de al menos una corrida completa); solo se excluye lo pesado y regenerable
+data/output/runs/*/prepare_data/dataset.joblib
+
 *.pkl
+*.joblib
+*.lock
+# MLflow model bundles are stored by the tracking server, not Git.
+**/mlflow_model/

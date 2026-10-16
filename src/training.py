@@ -556,7 +556,7 @@ def entrenar_todos_los_modelos(
 # SELECCION DEL CAMPEON — GetBestModel() (FALLBACK de Ronda 1)
 # =============================================================================
 
-def _GetBestModelP1(models: dict, config: dict) -> tuple:
+def GetBestModelScoreCompuesto(models: dict, config: dict) -> tuple:
     """
     Selecciona el modelo campeon usando score compuesto (fallback de Ronda 1).
 
@@ -680,6 +680,60 @@ def _GetBestModelP1(models: dict, config: dict) -> tuple:
     print(f"  {'★' * 50}")
 
     return ml_name, modelo, performance
+
+
+def GetBestModel(models: dict, config: dict) -> tuple:
+    """Selecciona el campeón con la métrica primaria de NEGOCIO (D8, práctica 3).
+
+    Política (documentada en docs/decisiones_diseno.md):
+    1. Filtros de seguridad (heredados de P1/P2): sin error de entrenamiento,
+       decay <= max_decay_percent y AUC de validación >= min_auc_test.
+    2. Ranking por la métrica primaria de negocio (por defecto captura de ventas en el
+       top-k% de scores, ``business_metric.primary``).
+    3. Empate práctico: modelos a menos de ``business_metric.tie_tolerance`` de la mejor
+       métrica se consideran equivalentes y se prefiere mayor AUC, luego menor tiempo de
+       entrenamiento (costo operativo) y por último el nombre (determinismo).
+    Si ningún modelo trae la métrica de negocio (corridas P2 antiguas) se usa el score
+    compuesto de P1 como respaldo. Retorna (nombre, modelo, performance) o (None, None, None).
+    """
+    from src.ops_metrics import primary_metric_name
+    primary = primary_metric_name(config)
+    tol = float((config.get('business_metric') or {}).get('tie_tolerance', 0.005))
+    max_decay = config.get('max_decay_percent', 10.0)
+    min_auc = config.get('min_auc_test', 0.55)
+    if not any(primary in m['performance'] for m in models.values() if 'error' not in m['performance']):
+        print(f"  ⚠ Ningún modelo trae '{primary}'; se usa el score compuesto de P1.")
+        return GetBestModelScoreCompuesto(models, config)
+    print("\n" + "=" * 70)
+    print(f"  GetBestModel() — métrica primaria de negocio: {primary}")
+    print(f"  Filtros: decay <= {max_decay}% | AUC validación >= {min_auc} | empate práctico: {tol}")
+    print("=" * 70)
+    candidatos = []
+    for name, info in models.items():
+        perf = info['performance']
+        if 'error' in perf:
+            print(f"  ✗ {name}: descartado (error de entrenamiento)"); continue
+        value = perf.get(primary)
+        if value is None:
+            print(f"  ✗ {name}: descartado (sin {primary})"); continue
+        if perf['decay_percent'] is None or perf['decay_percent'] > max_decay:
+            print(f"  ✗ {name}: descartado (decay={perf['decay_percent']} > {max_decay}%)"); continue
+        if perf['auc_test'] < min_auc:
+            print(f"  ✗ {name}: descartado (AUC={perf['auc_test']:.4f} < {min_auc})"); continue
+        candidatos.append({'name': name, 'metric': value, 'auc': perf['auc_test'],
+                           'time': perf.get('training_time_segs', 0.0) or 0.0, 'decay': perf['decay_percent']})
+        print(f"  ✓ {name}: {primary}={value:.4f} | AUC={perf['auc_test']:.4f} | "
+              f"decay={perf['decay_percent']:.2f}% | fit={candidatos[-1]['time']:.1f}s")
+    if not candidatos:
+        print("\n  ⚠ NINGÚN MODELO CUMPLE LOS CRITERIOS.")
+        return None, None, None
+    best = max(c['metric'] for c in candidatos)
+    tied = [c for c in candidatos if c['metric'] >= best - tol]
+    tied.sort(key=lambda c: (-c['auc'], c['time'], c['name']))
+    champion = tied[0]
+    print(f"\n  ★ CAMPEÓN: {champion['name']} | {primary}={champion['metric']:.4f} | "
+          f"AUC={champion['auc']:.4f} | empatados en tolerancia: {[c['name'] for c in tied]}")
+    return champion['name'], models[champion['name']]['model'], models[champion['name']]['performance']
 
 
 # =============================================================================
@@ -940,9 +994,3 @@ def run_training(
         print("\n[Training] No se encontro un modelo campeon valido.")
 
     return campeon_name, campeon_model, campeon_perf, run_dir, models
-
-
-def GetBestModel(models: dict, config: dict) -> tuple:
-    """Compatibilidad P1: delega la selección extendida al módulo evaluation."""
-    from src.evaluation import GetBestModel as select
-    return select(models, config)

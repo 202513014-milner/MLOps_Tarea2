@@ -1,186 +1,150 @@
-# AutoML de venta financiera con HPO paralelismo y backtesting
+# AutoML — Parcial de orquestación
 
-Extensión del proyecto original de Milner Quispe, Rosabel Guzman y Kimberly Olivos. Se conserva el código P1 de preprocessing, training, evaluation y registry y se añaden funciones reutilizables P2. La partición fija autorizada es p1–p6 para desarrollo y p7–p10 para evaluación futura. No se usan 14 archivos, p_fecinformacion ni backtest_train_cutoff.
+Continuación de P2 y del avance `automl_p3_mlops_revisado_por_kim.zip`. Mantiene nueve modelos,
+Optuna/GridSearch, preprocesamiento dentro de CV, Docker/Airflow/MLflow y captura top-k.
+**Integrar en el repositorio de P2 conservando `.git`; no crear otro repositorio.**
 
-## Instalación y datos
+## Inicio en Windows (16 GB RAM)
 
-Python 3.11 recomendado en un entorno virtual. Desde esta carpeta:
+1. Abrir Docker Desktop (contenedores Linux/WSL2).
+2. Copiar el contenido de esta carpeta a una rama del repositorio P2. Conservar `.git` y los CSV locales.
+   Se renombró el DAG antiguo a `dags/training_dag.py`: eliminar `dags/automl_training_dag.py` si quedó de una copia anterior.
+3. Colocar `p1_extrac.csv` ... `p10_extrac.csv` en `data/input/`. Dataset del curso:
+   https://drive.google.com/drive/folders/1IKpzgvN9g9SxBO-dOGoWHmc_E-worDXU
+   No subir los CSV a Git. Se exige `p_fecinformacion` YYYYMMDD y diez meses consecutivos.
+4. Desde la carpeta que contiene `docker-compose.yml`:
 
-```bash
-python -m pip install -r requirements.txt
-python main.py --input data/input --config config/config.yaml --parallel
+```powershell
+Copy-Item .env.example .env
+python scripts/up.py
 ```
 
-Obtener los diez CSV del [Drive del curso](https://drive.google.com/drive/folders/1IKpzgvN9g9SxBO-dOGoWHmc_E-worDXU), y colocarlos en data/input con los nombres p1_extrac.csv ... p10_extrac.csv. No publicar los datos. Configurar csv_sep y csv_encoding según los archivos. Por defecto se conserva la muestra estratificada del 10%, semilla 42 y split 70/30 de desarrollo. La muestra mantiene proporciones del target; no garantiza representatividad de todas las variables.
+`up.py` registra commit/rama/imagen y ejecuta build/up. Alternativa:
 
-## Estructura y continuidad P1
-
-```text
-automl_venta_financiera/
-  main.py
-  config/config.yaml
-  src/preprocessing.py
-  src/training.py
-  src/hpo.py
-  src/parallelism.py
-  src/backtesting.py
-  src/evaluation.py
-  src/registry.py
-  data/input/
-  data/output/YYYY-MM-DD_HH-MM-SS/
-  notebooks/validacion.ipynb
-  notebooks/backtesting_analysis.ipynb
-  requirements.txt
-  README.md
+```powershell
+docker compose build
+docker compose up -d
+docker compose ps
+docker compose logs --tail 80 airflow-init airflow-scheduler mlflow
 ```
 
-El selector P1 original permanece en training._GetBestModelP1. training.GetBestModel delega en evaluation.GetBestModel. Antes de disponer de métricas temporales se conserva la política P1; después se aplican sus filtros y estabilidad temporal. Las funciones P1 permanecen disponibles; el preprocesamiento P2 se ajusta dentro del Pipeline para evitar fuga en validación cruzada. Los modelos de la versión original son los nueve candidatos P2.
+Airflow: http://localhost:8080 (`admin` / `admin`, entorno académico local).
+MLflow: http://localhost:5000. PostgreSQL es interno para Airflow; MLflow usa SQLite persistente.
+No instalar estas aplicaciones en Windows por separado. La construcción descarga paquetes/imágenes y requiere internet.
 
-## Configuración y ejecución independiente
+## Primera corrida pequeña
 
-```yaml
-modules:
-  hpo: true
-  parallel: true
-  backtesting: true
-n_jobs: 2                  # -1 usa os.cpu_count(); controlar RAM al aumentar
-parallel_enabled: true     # false: entrenar secuencialmente sin benchmark
-use_gpu: true
-drift_alert_threshold: 5.0 # puntos absolutos de AUC, no decay relativo
-```
-
---parallel activa el benchmark aun si parallel_enabled es false. El módulo parallel debe estar activado para ejecutar el entrenamiento final. HPO se ejecuta con GridSearchCV para los nueve modelos; los espacios están en config.yaml. El entrenamiento final reutiliza los mejores HP y no repite la búsqueda.
-
-- Flujo completo: config/full.yaml (o config/config.yaml).
-- Solo HPO: config/hpo_only.yaml.
-- Solo entrenamiento/benchmark: config/parallel_only.yaml; indicar parallel.hpo_run_dir con una corrida HPO compatible.
-- Solo evaluación temporal: config/backtesting_only.yaml; indicar backtesting.source_run_dir con la carpeta de entrenamiento o HPO. Debe contener los nueve modelos y sus metadatas.
-
-```bash
-python main.py --input data/input --config config/backtesting_only.yaml
-```
-
-Para modo secuencial, activar modules.parallel y establecer parallel_enabled: false. Se usan los mismos nueve finalistas y HP; los campos de tiempo paralelo y speed_up quedan null porque no fueron medidos. Se mantienen los switches de las tres secciones para evitar repetir HPO al analizar resultados.
-
-## CPU GPU y medición
-
-parallelism.py orquesta explícitamente joblib.Parallel con backend loky. No confunde n_jobs interno de un estimador con concurrencia de modelos. Cada modelo CPU usa un hilo; los workers lanzan tareas en batches. Se detecta GPU con nvidia-smi y se verifica el backend mediante un fit pequeño. XGBoost, CatBoost y LightGBM se prueban con sus parámetros nativos GPU. LightGBM puede necesitar un build GPU; si no existe se registra el motivo del fallback CPU. Si hay GPU y ningún backend logra usarla, la corrida se detiene y no declara cumplimiento GPU. use_gpu:false es un override explícito para pruebas CPU.
-
-Los modelos sklearn se ejecutan en CPU. Esta entrega no implementa el extra de sustitución completa por cuML/RAPIDS ni afirma que las operaciones de preprocessing usen CuPy. La lectura de la lista del punto 4.2 se adopta como alternativas de backend GPU; si se exigieran cuML y CuPy además de los backends nativos, sería necesaria esa ampliación. RAPIDS requiere un entorno Linux/WSL compatible.
-
-El benchmark entrena secuencial y paralelamente el mismo conjunto, con mismos datos, HP, hardware y dispositivos. Incluye ajuste del preprocesador y entrenamiento, junto con despacho y recuperación de resultados. Excluye carga CSV, HPO, preflight, evaluación y persistencia. Se registra tiempo por modelo, espera GPU, tiempo total de cada modo y speed_up = T_secuencial/T_paralelo.
-
-### Análisis técnico del speed-up
-
-Los procesos loky evitan que el GIL de Python limite las tareas Python CPU, aunque los estimadores también ejecutan código nativo. El número de workers y los núcleos lógicos se registran en parallelism; más workers no garantizan mayor rendimiento. El arranque de procesos, serialización de Pipelines y DataFrames, transferencias y memoria compartida añaden overhead. Con muestras pequeñas ese coste puede superar el ahorro y producir speed_up < 1. La velocidad debe interpretarse junto con RAM, duración y distribución de tareas.
-
-La GPU se protege con un lock: varios entrenamientos no compiten simultáneamente por la VRAM, pero pueden solaparse con CPU. Por ello la parte GPU limita el máximo speed-up y sus esperas explican parte del tiempo paralelo. La CPU mantiene un hilo por estimador para reducir sobreasignación de hilos. Un único benchmark, siempre secuencial primero, no permite atribuir diferencias pequeñas a la concurrencia: caché, calentamiento, temperatura y variación GPU también influyen. Los tiempos por modelo no se suman para obtener el tiempo global paralelo. Este benchmark compara modos de orquestación, no CPU contra GPU.
-
-El bloque de resultados reales se actualiza al ejecutar. No se presentan cifras sintéticas como resultados del dataset del curso.
-
-## Evaluación temporal y selección
-
-Se leen p7–p10 una sola vez y se toma la misma muestra de cada ola para los nueve modelos. Los Pipelines guardados conservan el preprocesamiento aprendido en desarrollo. No se reentrenan con datos futuros. Esta modalidad de origen fijo responde a la restricción expresa de seis archivos de desarrollo y cuatro reservados; no se presenta como expanding walk-forward con reentrenamiento mensual. Los nombres de archivo determinan la cronología declarada, sin inventar fechas.
-
-Para cada modelo:
-
-- AUC mensual, observaciones y tiempo de inferencia por ola.
-- decay_pct = 100 × (AUC_train − AUC_mes) / AUC_train.
-- auc_drop_pp = 100 × (AUC_train − AUC_mes).
-- drift_alert = auc_drop_pp > drift_alert_threshold.
-- avg_auc_backtest y avg_decay_pct: media aritmética de las cuatro olas, solo cuando todas son válidas.
-
-Una ola con una clase o muestra vacía tiene AUC/decay/alerta null y excluye al modelo de la selección final; no se sustituye por AUC 0.5. Una caída de AUC es una alerta de desempeño, no evidencia suficiente de concept drift.
-
-GetBestModel conserva los filtros P1 (AUC test mínimo y decay train/test máximo 10% por defecto). Excluye candidatos con alertas en todas las olas y elige menor decay promedio; desempata por mayor AUC promedio, mayor AUC test y nombre. Si ninguno cumple, registra campeón null y una razón, sin forzar ganador. Guarda campeón inicial, campeón final y razón del cambio. Mayor AUC promedio y menor decay promedio no son equivalentes si los AUC train de los candidatos difieren.
-
-Los cuatro meses se utilizan para seleccionar al ganador temporal; por ello sus métricas no constituyen un test independiente de ese ganador final. HPO y entrenamiento no usan esos meses.
-
-## Metadata y artefactos
-
-La corrida consolidada copia los nueve modelos iniciales, preserva los archivos de origen y añade metadata extendida. No duplica los modelos de cada ola porque no se reentrenan.
+En Airflow abrir `automl_training_pipeline` → Trigger DAG with config. Usar los parámetros:
 
 ```json
-{
-  "hpo": {"strategy": "GridSearchCV", "n_trials": 8, "best_params": {}, "best_cv_score": 0.0, "time_s": 0.0},
-  "parallelism": {"backend": "joblib", "n_workers": 2, "t_sequential_s": 0.0, "t_parallel_s": 0.0, "speed_up": 0.0},
-  "backtesting": {
-    "development_files": ["p1_extrac.csv", "p2_extrac.csv", "p3_extrac.csv", "p4_extrac.csv", "p5_extrac.csv", "p6_extrac.csv"],
-    "backtesting_files": ["p7_extrac.csv", "p8_extrac.csv", "p9_extrac.csv", "p10_extrac.csv"],
-    "waves": [], "avg_auc_backtest": null, "avg_decay_pct": null, "drift_alert": false
-  }
-}
+{"config_path":"config/smoke.yaml","run_key":"","force":false}
 ```
 
-El bloque anterior ilustra el esquema; los números son marcadores, no resultados. Cada waves real contiene cuatro entradas con partition, auc, decay_pct, n_obs, auc_drop_pp y drift_alert. results_summary.json incluye comparación y speed-up global; backtesting_results.json contiene los nueve modelos. También se generan CSV, auc_por_ola.png del campeón y un PNG por modelo. La referencia gráfica es AUC train.
+El perfil smoke usa 1% de muestra, 2 trials, ejecución secuencial y CPU. El pool HPO tiene 1 slot
+por defecto en `config/config.yaml`. Verificar suficientes positivos para CV. El esquema/nulos/fechas
+se validan en los archivos completos; la muestra pequeña reduce entrenamiento, no la lectura inicial.
+No usar resultados smoke como métricas finales. Perfil normal: `config/config.yaml` (10%, 15 trials,
+600 segundos por búsqueda; un trial en curso puede exceder el timeout). El presupuesto por tiempo
+puede producir diferente cantidad de trials entre máquinas.
 
-## Notebooks y pruebas
+Para cambiar concurrencia del pool editar `airflow.pool_slots` y ejecutar:
 
-validacion.ipynb ejecuta el ZIP en Colab, instala requirements y pide la ruta de Drive sin editar celdas. backtesting_analysis.ipynb solicita el JSON y muestra ranking, olas y nueve gráficos con AUC train. La celda local RESULTS_PATH es opcional. Bibliotecas GPU y modelos pickle deben ser compatibles con las versiones de entrenamiento; no cargar pickles de fuentes desconocidas.
-
-```bash
-python tests/smoke_full.py
-python tests/smoke_parallel.py
+```powershell
+docker compose exec airflow-scheduler python scripts/configure_pool.py
 ```
 
-smoke_full genera diez CSV sintéticos, ejecuta los nueve HPO, benchmark y backtesting y comprueba campos, gráficos y descarte por drift severo. La corrida incluida se identifica con SYNTHETIC_TEST_ONLY.txt: sirve para comprobar estructura, no para entregar resultados reales.
+`parallel.mode`: `sequential`, `parallel` o `benchmark`. Benchmark entrena en ambos modos y conserva
+ambos artefactos, runs y recursos; el modelo de modo parallel es el candidato final. Un modo único
+no tiene speed-up y lo reporta como null. `parallel.workers: 1` está permitido; `-1` usa CPU disponibles.
+Para esta laptop empezar con 1 slot HPO y 1–2 workers, sin aumentar memoria de Docker inicialmente.
 
-## Entrega en GitHub
+## GPU opcional
 
-Entregar URL de repositorio privado en Moodle, con acceso para manassesmauricio-cloud antes del sábado 10 de octubre de 2026 a las 9:00 a.m. El ZIP es para transportar el proyecto; no sustituye esa entrega. No publicar CSV, credenciales, .env ni modelos históricos. Ejecutar con datos reales y conservar una única corrida consolidada con resultados, gráficos y README. Los .pkl se ignoran por defecto: añadir explícitamente los de esa corrida si se requiere una carpeta completa y su tamaño lo permite; documentar cualquier exclusión por tamaño y regeneración. Sustituir o retirar la corrida sintética antes de entregar. La rúbrica requiere valores reales y sustentación individual.
+CPU es el valor inicial portable (`use_gpu: false`). Para probar GPU:
 
+```powershell
+python scripts/up.py --gpu
+```
 
+Activar además `use_gpu: true` en el perfil usado. La reserva GPU del Compose solo expone el hardware;
+los backends se prueban con un fit. Si un backend no funciona, queda en CPU. El HPO se mantiene en CPU.
+El tag `execution_device` identifica el dispositivo usado. La telemetría GPU es global del dispositivo,
+no consumo exclusivo de un modelo. GPU/Windows/WSL2 aún deben comprobarse en la laptop.
 
-La corrida sintética incluida está en `data/output/2026-10-09_00-05-22`. No representa el desempeño de los datos del curso.
+## Ejecución local conservada
 
-<!-- BENCHMARK_REAL -->
-# Benchmark de entrenamiento
-Fuente HPO: `data\output\2026-10-09_00-20-02`. Workers: 2.
-| Modelo | Dispositivo | Fit secuencial s | Fit paralelo s | Espera GPU paralelo s |
-|---|---|---:|---:|---:|
-| xgb | GPU | 1.510 | 1.290 | 0.001 |
-| lgbm | CPU | 4.000 | 2.844 | 0.000 |
-| catb | GPU | 2.828 | 4.251 | 0.001 |
-| logistic_regression | CPU | 4.041 | 3.907 | 0.000 |
-| random_forest | CPU | 43.460 | 37.099 | 0.000 |
-| ridge_classifier | CPU | 0.859 | 0.728 | 0.000 |
-| adaboost | CPU | 48.240 | 38.317 | 0.000 |
-| gradient_boosting_sklearn | CPU | 227.124 | 217.304 | 0.000 |
-| extra_trees | CPU | 15.092 | 14.157 | 0.000 |
+En Python compatible (se recomienda 3.11 para igualar la imagen):
 
-| T secuencial s | T paralelo s | Speed-up |
-|---:|---:|---:|
-| 347.173 | 262.354 | 1.3233 |
+```powershell
+python -m pip install -r requirements.txt
+python main.py --input data/input --config config/smoke.yaml
+```
 
-Incluye ajuste del preprocesamiento, entrenamiento y overhead de despacho/transferencia de resultados. Excluye HPO, carga de CSV, preflight GPU, evaluación y escritura de artefactos. Una repetición, secuencial primero; no es comparación CPU contra GPU. Los tiempos por fit excluyen espera GPU. El tiempo global no es suma de tiempos paralelos. Un speed-up menor que 1 indica que el overhead/contención domina. GPU se serializa mediante lock para evitar agotar VRAM; puede solaparse con CPU. La CPU mantiene un hilo por estimador. CatBoost GPU puede variar numéricamente entre ejecuciones.
-<!-- RESULTADOS_REALES -->
-## Resultados reales de la corrida
-Campeón inicial: xgb. Campeón temporal: adaboost.
-Menor decay promedio entre candidatos que cumplen filtros P1 y no alertan en todas las olas; desempate por AUC promedio y AUC test.
-| Modelo | AUC train | AUC test | Decay P1 % | AUC promedio BT | Decay promedio BT % |
-|---|---:|---:|---:|---:|---:|
-| xgb | 0.8707 | 0.8541 | 1.90 | 0.8431045590280964 | 3.1659830475638424 |
-| lgbm | 0.8802 | 0.8536 | 3.02 | 0.8429406711750094 | 4.233240914392587 |
-| catb | 0.8922 | 0.8545 | 4.23 | 0.8429827432292651 | 5.519432253958809 |
-| logistic_regression | 0.8304 | 0.8314 | -0.12 | 0.8133456643727133 | 2.0585049331849663 |
-| random_forest | 0.9979 | 0.8458 | 15.24 | 0.8351790412965604 | 16.30418785859188 |
-| ridge_classifier | 0.8288 | 0.8298 | -0.11 | 0.8118038476988966 | 2.055741481568602 |
-| adaboost | 0.8311 | 0.8293 | 0.22 | 0.8144691597605499 | 2.0036848867176724 |
-| gradient_boosting_sklearn | 0.8746 | 0.8510 | 2.71 | 0.840481023393187 | 3.905094600570751 |
-| extra_trees | 0.8400 | 0.8234 | 1.98 | 0.8002953076960214 | 4.728432967258407 |
+Esto ejecuta el pipeline P3 completo sin Airflow, con las mismas funciones de etapas.
+Sin `MLFLOW_TRACKING_URI` utiliza SQLite local bajo `data/mlflow`; si se desea el servidor Docker,
+configurar `$env:MLFLOW_TRACKING_URI="http://localhost:5000"`.
+`python main.py --legacy --config config/config.yaml` conserva la ruta modular P2 y sus switches;
+**no es la ruta de entrega P3**, porque no ejecuta el tracking/orquestación completos.
+`main_p2.py` conserva la entrada previa; `src/parallelism.py` es un alias compatible de `src/parallel.py`.
 
-### Olas de adaboost
-| Mes / archivo | AUC | Decay % | Alerta drift |
-|---|---:|---:|---|
-| p7_extrac.csv | 0.8015826700659122 | 3.5541776091076027 | False |
-| p8_extrac.csv | 0.8200191468289386 | 1.3359146278801666 | False |
-| p9_extrac.csv | 0.8129767604161136 | 2.183249250425724 | False |
-| p10_extrac.csv | 0.823298061731235 | 0.9413980594571958 | False |
+## Qué se ejecuta
 
-| T secuencial s | T paralelo s | Speed-up |
-|---:|---:|---:|
-| 347.1733845999988 | 262.35374669999874 | 1.3233025598715435 |
+Validar → preparar → HPO por modelo → consolidar HPO → entrenar/benchmark → seleccionar en holdout
+→ evaluar TODOS los artefactos en p7–p10 → registrar/promover → reporte.
+XCom contiene solo identificadores. Los datasets/modelos viven en disco compartido/MLflow.
+Cada modelo HPO y cada entrenamiento final tiene su run, parámetros, AUC/decay/negocio, modelo, ROC,
+backtesting de cuatro olas y cómputo. Los modelos finales no se reentrenan en backtesting.
+Si no hay candidato admisible, el pipeline informa `champion: null`, evalúa los candidatos y no promueve.
 
-Los cuatro meses participan en selección; no son un test independiente del campeón final.
+## Idempotencia (evidencia que deben capturar)
 
-![AUC por ola](data/output/2026-10-09_01-26-52/auc_por_ola.png)
+1. Ejecutar con `run_key` vacío y anotar carpeta `auto-*`, IDs y número de runs en MLflow.
+2. Volver a disparar el DAG con idénticos parámetros, datos, código e imagen.
+3. Todas las etapas completas se reutilizan. Los IDs y número de runs activos e históricos no cambian;
+   se añaden tags de intento Airflow y se conserva el identificador de origen.
+4. Una tarea incompleta reanuda el mismo run. No se borran runs previos.
+5. Cambiar los datos/config/código/imagen produce otra clave automática y conserva la anterior.
+   Si se fuerza una etiqueta manual para una identidad distinta, el programa se detiene: usar otra etiqueta.
+
+`force` no destruye resultados completos: permite intentar de nuevo lo incompleto. Para un nuevo
+experimento intencional, usar otra etiqueta manual o cambiar la configuración. Los locks requieren
+un filesystem compartido (el volumen local del Compose); un despliegue distribuido requeriría locks externos.
+No editar código/CSV durante una corrida; la protección de identidad detiene la ejecución si detecta cambios.
+La clave incluye un hash del código efectivo además de Git, para detectar modificaciones sin commit.
+
+## Resultados y evidencia
+
+En `data/output/runs/<clave>/`:
+- `results_summary.json`: métricas de los nueve modelos finales, tamaño/hash del MISMO artefacto,
+  backtesting, selección, promoción y trazabilidad.
+- `compute_logs.json`: recursos por etapa (incluida generate_report), HPO y entrenamiento/modo.
+- `report.md`: tablas de modelos, 36 filas de backtesting final y recursos por entrenamiento.
+- Subdirectorios por etapa, modelos y datos intermedios. MLflow conserva los artefactos pesados.
+
+Copiar las tablas de la corrida final de `report.md` aquí antes de entregar. Añadir capturas reales
+(DAG completo, comparación MLflow, idempotencia) en `docs/img/`. Conservar una carpeta de corrida con
+sus JSON/tablas/gráficos; `.gitignore` excluye datasets, pickles y bundles MLflow. No publicar credenciales.
+Los logs de Airflow, PostgreSQL y MLflow persisten en volúmenes. `docker compose down` los conserva;
+**no usar `down -v` si quieren conservar experimentos**.
+
+No se incluyen resultados del curso ni capturas fabricadas. Ver [VALIDACION.md](VALIDACION.md) para
+el alcance exacto de las pruebas realizadas y [docs/decisiones_diseno.md](docs/decisiones_diseno.md).
+
+## Pruebas
+
+```powershell
+python tests/test_integracion.py
+python tests/test_contratos.py
+```
+
+La integración crea datos temporales sintéticos, prueba los nueve modelos, ambos modos, backtesting
+sin fit, artefactos, reejecución, registro y protección ante cambios de datos. Requiere dependencias locales
+completas o un entorno de pruebas con servidor MLflow. Ver límites de plataforma en VALIDACION.md.
+
+## Git y entrega
+
+Guardar P2 con tag `v2.0-p2`; una rama por contribución, commits reales de cada integrante, PR/merge a main.
+Tag `v3.0-parcial` solo después de validar. El repo sigue privado, con acceso docente `manassesmauricio-cloud`.
+La entrega es la URL del mismo repo P2, no este ZIP. Este paquete no incluye ni inventa historial Git.
+
+Los notebooks heredados son material de P2; el reporte de P3 se consulta en data/output/runs/<clave>/report.md.

@@ -340,29 +340,7 @@ def obtener_scores(model, X):
     return model.decision_function(X)
 
 
-def GetBestModel(models: dict, config: dict) -> tuple:
-    """Aplica filtros P1 y, con cuatro olas completas, prioriza menor decay medio.
-
-    Descarta degradación severa en todas las olas. Desempata por mayor AUC
-    medio temporal, mayor AUC test y nombre. Sin backtesting conserva P1.
-    """
-    if not any('backtesting' in value for value in models.values()):
-        from src.training import _GetBestModelP1
-        return _GetBestModelP1(models, config)
-    eligible = []
-    for name, info in models.items():
-        perf = info['performance']; bt = info.get('backtesting', {})
-        if (info.get('model') is None or
-            perf.get('auc_test', 0) < config.get('min_auc_test', .55) or
-            perf.get('decay_percent', 100) > config.get('max_decay_percent', 10) or
-            bt.get('valid_waves') != 4 or bt.get('severe_drift', False)):
-            continue
-        eligible.append((name, info))
-    if not eligible:
-        print('[Selección] Ningún candidato satisface P1 y estabilidad temporal; no se fuerza un campeón.')
-        return None, None, None
-    eligible.sort(key=lambda item: (item[1]['backtesting']['avg_decay_pct'],
-        -item[1]['backtesting']['avg_auc_backtest'],
-        -item[1]['performance']['auc_test'], item[0]))
-    name, info = eligible[0]
-    return name, info['model'], info['performance']
+def GetBestModel(models, config):
+    """Entrada de selección compatible con el enunciado; usa la política de negocio común."""
+    from src.training import GetBestModel as select
+    return select(models, config)

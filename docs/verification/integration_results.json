@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "models": 9,
+  "model_runs": 27,
+  "total_runs": 35,
+  "waves_per_model": 4,
+  "workers": 1,
+  "checks": [
+    "end-to-end synthetic CPU",
+    "both benchmark modes",
+    "ROC/model/backtesting artifacts",
+    "resource logs",
+    "cached rerun same run IDs",
+    "registry retry same version",
+    "changed-data protection"
+  ],
+  "not_tested": [
+    "Docker build",
+    "Airflow scheduler",
+    "GPU",
+    "course dataset",
+    "multiworker if workers=1"
+  ]
+}

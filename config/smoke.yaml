@@ -1,0 +1,288 @@
+input_dir: data/input
+output_dir: data/output
+random_seed: 42
+test_size: 0.3
+sample_fraction: 0.01
+max_decay_percent: 10.0
+min_auc_test: 0.55
+cols_excluir:
+- partition
+- tip_doc
+- key_value
+- codunicocli
+- prob_value_contact
+- fch_creacion
+- p_fecinformacion
+target_col: target
+cols_categoricas_ohe:
+- ent_1erlntcrallsfm01
+cols_categoricas_label:
+- grp_campecs06m
+csv_sep: ','
+csv_encoding: utf-8
+temporal:
+  development_files:
+  - p1_extrac.csv
+  - p2_extrac.csv
+  - p3_extrac.csv
+  - p4_extrac.csv
+  - p5_extrac.csv
+  - p6_extrac.csv
+  backtesting_files:
+  - p7_extrac.csv
+  - p8_extrac.csv
+  - p9_extrac.csv
+  - p10_extrac.csv
+  period_col: null
+  file_periods: {}
+hpo:
+  cv_folds: 3
+  n_jobs: 1
+  verbose: 1
+  strategy: optuna
+  optuna:
+    n_trials: 2
+    timeout_seconds: null
+    spaces:
+      xgb:
+        n_estimators:
+          type: int
+          low: 100
+          high: 300
+        max_depth:
+          type: int
+          low: 3
+          high: 8
+        learning_rate:
+          type: float
+          low: 0.02
+          high: 0.2
+          log: true
+        subsample:
+          type: float
+          low: 0.6
+          high: 1.0
+        colsample_bytree:
+          type: float
+          low: 0.5
+          high: 1.0
+      lgbm:
+        n_estimators:
+          type: int
+          low: 100
+          high: 300
+        num_leaves:
+          type: int
+          low: 15
+          high: 63
+        learning_rate:
+          type: float
+          low: 0.02
+          high: 0.2
+          log: true
+      catb:
+        iterations:
+          type: int
+          low: 100
+          high: 300
+        depth:
+          type: int
+          low: 4
+          high: 8
+        learning_rate:
+          type: float
+          low: 0.02
+          high: 0.2
+          log: true
+      logistic_regression:
+        C:
+          type: float
+          low: 0.001
+          high: 100
+          log: true
+      random_forest:
+        n_estimators:
+          type: int
+          low: 100
+          high: 300
+        max_depth:
+          type: int
+          low: 6
+          high: 20
+        min_samples_leaf:
+          type: int
+          low: 1
+          high: 10
+      ridge_classifier:
+        alpha:
+          type: float
+          low: 0.001
+          high: 100
+          log: true
+      adaboost:
+        n_estimators:
+          type: int
+          low: 50
+          high: 200
+        learning_rate:
+          type: float
+          low: 0.01
+          high: 0.5
+          log: true
+      gradient_boosting_sklearn:
+        n_estimators:
+          type: int
+          low: 100
+          high: 250
+        max_depth:
+          type: int
+          low: 2
+          high: 5
+        learning_rate:
+          type: float
+          low: 0.02
+          high: 0.2
+          log: true
+      extra_trees:
+        n_estimators:
+          type: int
+          low: 100
+          high: 300
+        max_depth:
+          type: int
+          low: 6
+          high: 20
+        min_samples_leaf:
+          type: int
+          low: 1
+          high: 10
+  grids:
+    xgb:
+      n_estimators:
+      - 100
+      - 200
+      max_depth:
+      - 3
+      - 5
+      learning_rate:
+      - 0.05
+      - 0.1
+    catb:
+      iterations:
+      - 100
+      - 200
+      depth:
+      - 4
+      - 6
+      learning_rate:
+      - 0.05
+      - 0.1
+    lgbm:
+      n_estimators:
+      - 100
+      - 200
+      num_leaves:
+      - 15
+      - 31
+      learning_rate:
+      - 0.05
+      - 0.1
+    logistic_regression:
+      C:
+      - 0.01
+      - 0.1
+      - 1
+      - 10
+    random_forest:
+      n_estimators:
+      - 100
+      - 200
+      max_depth:
+      - 8
+      - 16
+      min_samples_leaf:
+      - 2
+      - 5
+    ridge_classifier:
+      alpha:
+      - 0.01
+      - 0.1
+      - 1
+      - 10
+    adaboost:
+      n_estimators:
+      - 50
+      - 100
+      learning_rate:
+      - 0.05
+      - 0.1
+    gradient_boosting_sklearn:
+      n_estimators:
+      - 100
+      - 200
+      max_depth:
+      - 2
+      - 4
+      learning_rate:
+      - 0.05
+      - 0.1
+    extra_trees:
+      n_estimators:
+      - 100
+      - 200
+      max_depth:
+      - 8
+      - 16
+      min_samples_leaf:
+      - 2
+      - 5
+modules:
+  hpo: true
+  parallel: true
+  backtesting: true
+parallel:
+  workers: 1
+  hpo_run_dir: null
+  mode: sequential
+backtesting:
+  source_run_dir: null
+  cutoff_file: p6_extrac.csv
+  cutoff_period: null
+  sample_fraction: 0.01
+update_root_readme: false
+decay:
+  type: relative
+business_metric:
+  primary: capture_rate_top_k
+  top_fraction: 0.1
+  tie_tolerance: 0.005
+mlflow:
+  experiment: automl-venta-financiera
+registry:
+  model_name: automl-venta-financiera
+  alias: champion
+  challenger_alias: challenger
+  min_margin: 0.0
+airflow:
+  dag_id: automl_training_pipeline
+  schedule: null
+  retries: 2
+  retry_delay_seconds: 60
+  retry_exponential_backoff: true
+  max_retry_delay_minutes: 15
+  task_timeout_hours: 4
+  pool: automl_compute
+  max_active_runs: 1
+  pool_slots: 1
+compute_logging:
+  interval_seconds: 2.0
+validation:
+  min_rows: 1000
+  min_positive_rate: 0.001
+  max_positive_rate: 0.5
+  max_null_fraction: 0.95
+  max_schema_drift: 0
+  date_column: p_fecinformacion
+  strict_temporal_order: true
+use_gpu: false
+drift_alert_threshold: 10.0

@@ -70,9 +70,7 @@ def crear_directorio_corrida(output_dir: str) -> str:
     """
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     run_dir = os.path.join(output_dir, timestamp)
-    if os.path.exists(run_dir):
-        run_dir = run_dir + '_' + datetime.now().strftime('%f')
-    os.makedirs(run_dir, exist_ok=False)
+    os.makedirs(run_dir, exist_ok=True)
     print(f"[Registry] Directorio de corrida creado: {run_dir}")
     return run_dir
 
