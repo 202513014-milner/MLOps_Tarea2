@@ -1,6 +1,6 @@
 # AutoML — Parcial de orquestación
 
-Continuación de P2 y del avance `automl_p3_mlops_revisado_por_kim.zip`. Mantiene nueve modelos,
+Continuación de P2. Mantiene nueve modelos,
 Optuna/GridSearch, preprocesamiento dentro de CV, Docker/Airflow/MLflow y captura top-k.
 **Integrar en el repositorio de P2 conservando `.git`; no crear otro repositorio.**
 
