@@ -1,0 +1,1 @@
+Añadir capturas reales: DAG final completo, comparación de runs, artefactos por modelo e idempotencia. No hay capturas fabricadas en este paquete.

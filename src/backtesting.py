@@ -10,17 +10,16 @@ from sklearn.metrics import roc_auc_score
 from src.preprocessing import muestreo_estratificado
 from src.evaluation import obtener_scores
 from src.registry import crear_directorio_corrida, leer_json_compatible
+from src.ops_metrics import business_metrics, calcular_decay, decay_kind, top_fraction
 
 
 def periodo_mensual(value):
-    """Periodo mensual: operación reutilizable del pipeline P2."""
     text = str(value).strip().removesuffix('.0')
     if len(text) == 6 and text.isdigit(): text = text[:4] + '-' + text[4:]
     return pd.Period(text, freq='M')
 
 
 def resolver_campeon(config, source_dir=None):
-    """Resolver campeon: operación reutilizable del pipeline P2."""
     explicit = source_dir or config['backtesting'].get('source_run_dir')
     if explicit:
         paths = [Path(explicit) / 'results_summary.json']
@@ -50,14 +49,13 @@ def resolver_campeon(config, source_dir=None):
 
 
 def graficar_auc(results, output_path=None):
-    """Graficar auc: operación reutilizable del pipeline P2."""
     import matplotlib.pyplot as plt
     rows = results['waves']
     x = [row['wave'] for row in rows]
     auc = [row['auc'] if row['auc'] is not None else np.nan for row in rows]
     fig, ax = plt.subplots(figsize=(9, 4.8))
     ax.plot(x, auc, marker='o', linewidth=2, label='AUC mensual del campeón')
-    ax.axhline(results['reference_auc'], color='tab:orange', linestyle='--', label='AUC de entrenamiento')
+    ax.axhline(results['reference_auc'], color='tab:orange', linestyle='--', label='AUC de validación')
     ax.axhline(.5, color='gray', linestyle=':', label='Referencia AUC = 0.5')
     ax.set_xticks(x, [f'T+{r["wave"]}\n{r["period"] or r["file"]}' for r in rows])
     ax.set_ylim(0, 1.03); ax.set_xlabel('Ola / mes futuro'); ax.set_ylabel('AUC ROC')
@@ -69,135 +67,134 @@ def graficar_auc(results, output_path=None):
     return fig
 
 
-def run_backtesting(config, source_dir=None):
-    """Evalúa finalistas fijos p1–p6 en p7–p10 y revalida el campeón.
-
-    Lee y muestrea cada mes una sola vez para todos los candidatos. No ajusta
-    modelos ni usa los meses futuros para HPO. Guarda una corrida consolidada
-    y preserva intacta la corrida de origen. La selección usa cuatro AUC válidos.
-    """
-    import shutil
-    from src.evaluation import GetBestModel
-    source, initial, _, _, manifest = resolver_campeon(config, source_dir)
-    summary = leer_json_compatible(source / 'results_summary.json')
-    development = config['temporal']['development_files']
-    future = config['temporal']['backtesting_files']
-    if development != [f'p{i}_extrac.csv' for i in range(1,7)] or future != [f'p{i}_extrac.csv' for i in range(7,11)]:
-        raise ValueError('Esta entrega fija p1–p6 para desarrollo y p7–p10 para backtesting.')
-    if development != [r['file'] for r in manifest['development']] or future != manifest['reserved_backtesting_files']:
-        raise ValueError('La fuente no corresponde a la partición temporal 6/4 configurada.')
-    fraction = config['backtesting'].get('sample_fraction', config.get('sample_fraction', .1))
-    threshold = float(config.get('drift_alert_threshold', 5.0))
-    if not 0 < fraction <= 1 or not np.isfinite(threshold) or threshold < 0:
-        raise ValueError('Fracción o umbral de alerta inválido.')
+def run_backtesting_champion_legacy(config, source_dir=None):
+    source, name, model_path, metadata, manifest = resolver_campeon(config, source_dir)
+    opts = config['backtesting']; temporal = config['temporal']
+    development = [r['file'] for r in manifest['development']]
+    future = list(temporal['backtesting_files'])
+    if len(future) < 4 or len(set(future)) != len(future) or set(development) & set(future):
+        raise ValueError('Se requieren >=4 archivos futuros únicos y separados del entrenamiento.')
+    if development != temporal['development_files'] or future != manifest['reserved_backtesting_files']:
+        raise ValueError('Los archivos temporales no coinciden con los de la corrida del campeón.')
+    cutoff_file = opts.get('cutoff_file')
+    if cutoff_file != development[-1]:
+        raise ValueError('cutoff_file debe coincidir con el último CSV de desarrollo del campeón. Cambiar el corte requiere una nueva corrida de entrenamiento.')
     features = manifest['feature_columns']; target = config['target_col']
-    models = {}; metadatas = {}
-    for name in summary['models']:
-        metadata = leer_json_compatible(source / f'{name}_metadata.json')
-        reference = float(metadata['performance']['auc_train'])
-        if not 0 < reference <= 1 or not np.isfinite(reference):
-            raise ValueError(f'{name}: AUC train inválido.')
-        with (source / f'{name}_model.pkl').open('rb') as f:
-            model = pickle.load(f)
-        metadatas[name] = metadata
-        models[name] = {'model': model, 'performance': metadata['performance'],
-                       'backtesting': {'waves': [], 'reference_auc_train': reference}}
-    samples = []
+    reference = float(metadata['performance']['auc_test'])
+    if not np.isfinite(reference) or not 0 < reference <= 1:
+        raise ValueError('AUC de validación de referencia inválido.')
+    fraction = opts.get('sample_fraction', config.get('sample_fraction', .1))
+    if not 0 < fraction <= 1: raise ValueError('Fracción de backtesting debe estar en (0,1].')
+    # No fit ni transformadores nuevos: el pickle contiene el pipeline aprendido.
+    with model_path.open('rb') as f: model = pickle.load(f)
+    if not hasattr(model, 'named_steps') or 'preprocessing' not in model.named_steps:
+        raise ValueError('Se requiere el pipeline completo con preprocesamiento P2.')
+    period_col = temporal.get('period_col')
+    cutoff = periodo_mensual(opts['cutoff_period']) if opts.get('cutoff_period') else None
+    if cutoff is None and manifest.get('development_periods'):
+        cutoff = periodo_mensual(manifest['development_periods'][-1])
+    if period_col and cutoff is None:
+        raise ValueError('Configurar cutoff_period (YYYY-MM) para verificar meses futuros.')
+    if cutoff and manifest.get('development_periods') and cutoff != periodo_mensual(manifest['development_periods'][-1]):
+        raise ValueError('cutoff_period no coincide con el periodo de entrenamiento guardado.')
+    labels = temporal.get('file_periods', {}) or {}
+    if cutoff and not period_col:
+        if labels.get(cutoff_file) is None or periodo_mensual(labels[cutoff_file]) != cutoff:
+            raise ValueError('Sin columna mensual, cutoff_period requiere file_periods con los meses reales de desarrollo y futuros.')
+    waves = []
     for index, filename in enumerate(future, 1):
+        start = time.perf_counter()
         df = pd.read_csv(Path(config['input_dir']) / filename,
-                        sep=config.get('csv_sep', ','), encoding=config.get('csv_encoding','utf-8'))
+                         sep=config.get('csv_sep', ','), encoding=config.get('csv_encoding', 'utf-8'))
         if target not in df or df[target].isna().any() or not set(df[target].unique()).issubset({0,1}):
-            raise ValueError(f'{filename}: target debe ser 0/1 sin nulos.')
-        if any(c not in df for c in features):
-            raise ValueError(f'{filename}: faltan predictores de la fuente.')
-        sampled = (muestreo_estratificado(df,target,fraction,config['random_seed']+100+index)
-                   if df[target].nunique()==2 else df.sample(frac=fraction,random_state=config['random_seed']+100+index))
-        samples.append((filename,len(df),sampled))
-    for name, info in models.items():
-        ref = info['backtesting']['reference_auc_train']
-        for index, (filename, original_n, sample) in enumerate(samples,1):
-            start = time.perf_counter(); auc = None
-            if sample[target].nunique()==2:
-                auc = float(roc_auc_score(sample[target],obtener_scores(info['model'],sample[features])))
-            decay = 100*(ref-auc)/ref if auc is not None else None
-            drop_pp = 100*(ref-auc) if auc is not None else None
-            alert = drop_pp > threshold if drop_pp is not None else None
-            wave = {'wave':index,'partition':f'p{index+6}','file':filename,'period':None,
-                    'auc':auc,'decay_pct':decay,'decay_percent':decay,'auc_drop_pp':drop_pp,
-                    'n_obs':len(sample),'rows_evaluated':len(sample),'rows_original':original_n,
-                    'drift_alert':alert,'status':'ok' if auc is not None else 'auc_undefined_single_class_or_empty',
-                    'prediction_seconds':time.perf_counter()-start}
-            info['backtesting']['waves'].append(wave)
-            print(f'[Backtesting] {name} T+{index} | AUC={auc} | decay={decay}% | alerta={alert} | s={wave["prediction_seconds"]:.3f}',flush=True)
-        waves = info['backtesting']['waves']; valid = [w for w in waves if w['auc'] is not None]
-        info['backtesting'].update(development_files=development,backtesting_files=future,
-            valid_waves=len(valid), avg_auc_backtest=float(np.mean([w['auc'] for w in valid])) if len(valid)==4 else None,
-            avg_decay_pct=float(np.mean([w['decay_pct'] for w in valid])) if len(valid)==4 else None,
-            drift_alert=any(w['drift_alert'] is True for w in waves),
-            severe_drift=len(valid)==4 and all(w['drift_alert'] is True for w in waves),
-            drift_alert_threshold_pp=threshold, evaluation_mode='fixed_models_6_development_4_future',
-            sample_fraction=fraction)
-    champion, _, _ = GetBestModel(models,config)
-    best_test = max(models,key=lambda n:models[n]['performance']['auc_test'])
-    reason = ('Ningún candidato cumple filtros P1, cuatro AUC definidos y ausencia de degradación severa.' if champion is None
-              else 'Menor decay promedio entre candidatos que cumplen filtros P1 y no alertan en todas las olas; desempate por AUC promedio y AUC test.')
-    if models[best_test]['backtesting']['severe_drift']:
-        reason += f' El candidato con mayor AUC test ({best_test}) se descartó por alertas en las cuatro olas.'
-    run_dir = Path(crear_directorio_corrida(config['output_dir']))
-    all_bt = {n:v['backtesting'] for n,v in models.items()}
-    results = {'initial_champion':initial,'champion':champion,'selection_reason':reason,
-               'development_files':development,'backtesting_files':future,'models':all_bt,
-               'evaluation_mode':'fixed_models_6_development_4_future','model_refitted':False,
-               'chronology_note':'Orden p1–p10 declarado por el usuario; no se requieren columnas de fecha.',
-               'chronology_verified':False,'timestamp':datetime.now().isoformat(),
-               'selection_note':'Los cuatro meses participan en selección; no son un test independiente del campeón final.'}
-    display_name = champion or initial
-    selected = all_bt[display_name]
-    results.update(waves=selected['waves'],reference_auc=selected['reference_auc_train'],
-                   mean_auc_valid_waves=selected['avg_auc_backtest'],valid_waves=selected['valid_waves'])
-    parallelism = summary.get('parallelism')
-    if parallelism is None and 'speedup' in summary:
-        parallelism = {'backend':'joblib','n_workers':summary.get('workers'),
-                       't_sequential_s':summary['T_sequential_seconds'],'t_parallel_s':summary['T_parallel_seconds'],
-                       'speed_up':summary['speedup'],'imported_legacy_summary':True}
-    for name in models:
-        shutil.copy2(source/f'{name}_model.pkl',run_dir/f'{name}_model.pkl')
-        metadata = metadatas[name]
-        hpo = metadata.get('hpo',{})
-        if hpo:
-            hpo.update(best_params=hpo.get('best_params',hpo.get('best_parameters')),
-                best_cv_score=hpo.get('best_cv_score',hpo.get('auc_cv')),time_s=hpo.get('time_s',hpo.get('elapsed_seconds')))
-        metadata.update(backtesting=all_bt[name],parallelism=parallelism)
-        if name==champion: metadata['selection_reason']=reason
-        (run_dir/f'{name}_metadata.json').write_text(json.dumps(metadata,indent=2,ensure_ascii=False,allow_nan=False),encoding='utf-8')
-    (run_dir/'backtesting_results.json').write_text(json.dumps(results,indent=2,ensure_ascii=False,allow_nan=False),encoding='utf-8')
-    consolidated = {**summary,'stage':'completed_backtesting','campeon':champion,'initial_champion':initial,
-                    'selection_reason':reason,'parallelism':parallelism,'backtesting':all_bt,
-                    'models':{n:{'performance':v['performance'],'hpo':metadatas[n].get('hpo'),'backtesting':all_bt[n]} for n,v in models.items()}}
-    (run_dir/'results_summary.json').write_text(json.dumps(consolidated,indent=2,ensure_ascii=False,allow_nan=False),encoding='utf-8')
-    pd.DataFrame([{'model':n,**w} for n,b in all_bt.items() for w in b['waves']]).to_csv(run_dir/'backtesting_results.csv',index=False,encoding='utf-8-sig')
+            raise ValueError(f'{filename}: target debe ser binario 0/1 y sin nulos.')
+        missing = [col for col in features if col not in df]
+        if missing: raise ValueError(f'{filename}: faltan predictores: {missing}')
+        actual = None
+        if period_col:
+            if period_col not in df or df[period_col].isna().any() or df[period_col].nunique() != 1:
+                raise ValueError(f'{filename}: se requiere exactamente un periodo mensual válido.')
+            actual = periodo_mensual(df[period_col].iloc[0])
+        elif filename in labels: actual = periodo_mensual(labels[filename])
+        if cutoff and (actual is None or actual != cutoff + index):
+            raise ValueError(f'{filename}: debe corresponder a {cutoff + index}, se encontró {actual}.')
+        original_n = len(df)
+        original_rate = float(df[target].mean()) if original_n else None
+        # Muestreo por clase cuando hay ambas; una sola clase no permite calcular AUC.
+        if df[target].nunique() == 2:
+            sampled = muestreo_estratificado(df, target, fraction, config.get('random_seed',42) + 100 + index)
+        else:
+            sampled = df.sample(frac=fraction, random_state=config.get('random_seed',42) + 100 + index)
+        auc = None; status = 'ok'; predict_seconds = 0.0; biz = {}
+        if sampled[target].nunique() < 2:
+            status = 'auc_undefined_single_class_or_empty'
+        else:
+            prediction_start = time.perf_counter()
+            scores = obtener_scores(model, sampled[features])
+            predict_seconds = time.perf_counter() - prediction_start
+            auc = float(roc_auc_score(sampled[target], scores))
+            biz = business_metrics(sampled[target], scores, top_fraction(config))
+        decay = calcular_decay(reference, auc, decay_kind(config))
+        waves.append({'wave': index, 'file': filename, 'period': str(actual) if actual else None,
+                      'rows_original': original_n, 'rows_evaluated': len(sampled),
+                      'target_rate_original': original_rate,
+                      'target_rate_sample': float(sampled[target].mean()) if len(sampled) else None,
+                      'auc': auc, 'decay_percent': decay, 'status': status,
+                      'drift_alert': bool(decay is not None and decay > float(config.get('max_decay_percent', 10.0))),
+                      'capture_rate_top_k': biz.get('capture_rate_top_k'), 'lift_top_k': biz.get('lift_top_k'),
+                      'prediction_seconds': predict_seconds, 'total_seconds': time.perf_counter() - start})
+        print(f'[Backtesting] T+{index} {filename} | AUC={auc} | decay={decay}% | filas={len(sampled)}', flush=True)
+    valid = [r['auc'] for r in waves if r['auc'] is not None]
+    results = {'champion': name, 'source_run_dir': str(source.resolve()),
+               'cutoff_file': cutoff_file, 'cutoff_period': str(cutoff) if cutoff else None,
+               'chronology_verified': bool(cutoff),
+               'chronology_basis': 'CSV monthly column' if period_col else ('manual file_periods mapping' if cutoff else 'declared file order'),
+               'chronology_note': 'Meses verificados' if cutoff else 'Orden mensual declarado por archivos; fechas reales no verificadas. Configurar period_col/cutoff_period o file_periods para verificarlas.',
+               'evaluation_mode': 'fixed_origin_no_retraining', 'reference_auc': reference,
+               'reference': 'AUC holdout de validación del campeón',
+               'decay_formula': '100 * (reference_auc - monthly_auc) / reference_auc; negativo = mejora',
+               'sample_fraction': fraction, 'waves': waves,
+               'mean_auc_valid_waves': float(np.mean(valid)) if valid else None,
+               'drift_alerts': sum(1 for r in waves if r['drift_alert']),
+               'valid_waves': len(valid), 'status': 'complete' if len(valid)==len(waves) else 'partial_auc_undefined',
+               'timestamp': datetime.now().isoformat(), 'model_refitted': False,
+               'source_model_sha256': __import__('hashlib').sha256(model_path.read_bytes()).hexdigest()}
+    run_dir = Path(crear_directorio_corrida(str(Path(config['output_dir']) / 'backtesting')))
+    (run_dir / 'backtesting_results.json').write_text(json.dumps(results, indent=2, ensure_ascii=False, allow_nan=False), encoding='utf-8')
+    pd.DataFrame(waves).to_csv(run_dir / 'backtesting_results.csv', index=False, encoding='utf-8-sig')
+    fig = graficar_auc(results, run_dir / 'auc_por_ola.png')
     import matplotlib.pyplot as plt
-    for name,b in all_bt.items():
-        fig=graficar_auc({'champion':name,'waves':b['waves'],'reference_auc':b['reference_auc_train']},run_dir/f'auc_por_ola_{name}.png');plt.close(fig)
-    shutil.copy2(run_dir/f'auc_por_ola_{display_name}.png',run_dir/'auc_por_ola.png')
-    lines=['## Resultados reales de la corrida',f'Campeón inicial: {initial}. Campeón temporal: {champion}.',reason,
-           '| Modelo | AUC train | AUC test | Decay P1 % | AUC promedio BT | Decay promedio BT % |', '|---|---:|---:|---:|---:|---:|']
-    for name,info in models.items():
-        b=all_bt[name];perf=info['performance']
-        lines.append(f'| {name} | {perf["auc_train"]:.4f} | {perf["auc_test"]:.4f} | {perf["decay_percent"]:.2f} | {b["avg_auc_backtest"]} | {b["avg_decay_pct"]} |')
-    lines += ['',f'### Olas de {display_name}', '| Mes / archivo | AUC | Decay % | Alerta drift |', '|---|---:|---:|---|']
-    for w in selected['waves']:lines.append(f'| {w["file"]} | {w["auc"]} | {w["decay_pct"]} | {w["drift_alert"]} |')
-    if parallelism:
-        lines += ['', '| T secuencial s | T paralelo s | Speed-up |', '|---:|---:|---:|',
-                  f'| {parallelism["t_sequential_s"]} | {parallelism["t_parallel_s"]} | {parallelism["speed_up"]} |']
-    lines += ['',results['selection_note'],'','![AUC por ola](auc_por_ola.png)']
-    report='\n'.join(lines);(run_dir/'README.md').write_text(report,encoding='utf-8')
-    readme=Path(__file__).resolve().parents[1]/'README.md'
-    prior=readme.read_text(encoding='utf-8').split('<!-- RESULTADOS_REALES -->')[0]
-    relative=__import__('os').path.relpath(run_dir/'auc_por_ola.png',readme.parent).replace('\\','/')
-    readme.write_text(prior+'\n<!-- RESULTADOS_REALES -->\n'+report.replace('(auc_por_ola.png)',f'({relative})'),encoding='utf-8')
-    alerts=[f'{n}/{w["partition"]}' for n,b in all_bt.items() for w in b['waves'] if w['drift_alert']]
-    print('[ALERTAS] '+(', '.join(alerts) if alerts else 'Sin caídas superiores al umbral de puntos de AUC.'),flush=True)
-    print(f'[Selección] Campeón temporal: {champion}. {reason}',flush=True)
-    print(f'[Backtesting] Resultados y gráficos: {run_dir}',flush=True)
-    return str(run_dir),results
+    plt.close(fig)
+    lines = ['## Backtesting temporal', f'Campeón: {name}. AUC de referencia: {reference:.4f}.',
+             '| Ola | Archivo | Mes | Filas muestra | AUC | Decay % |', '|---|---|---|---:|---:|---:|']
+    for row in waves:
+        auc_text = f'{row["auc"]:.4f}' if row['auc'] is not None else 'No definido'
+        decay_text = f'{row["decay_percent"]:.2f}' if row['decay_percent'] is not None else 'No definido'
+        lines.append(f'| T+{row["wave"]} | {row["file"]} | {row["period"] or "Sin fecha verificada"} | {row["rows_evaluated"]} | {auc_text} | {decay_text} |')
+    lines += ['', results['chronology_note'], '', 'Campeón fijo, sin reentrenamiento. Decay relativo al AUC de validación; negativo indica mejora. El promedio se calcula solo sobre olas con AUC definido.', '', '![AUC por ola](auc_por_ola.png)']
+    report = '\n'.join(lines)
+    (run_dir / 'README.md').write_text(report, encoding='utf-8')
+    if config.get('update_root_readme', True):
+        root = Path(__file__).resolve().parents[1]
+        readme = root / 'README.md'
+        prior = readme.read_text(encoding='utf-8').split('<!-- BACKTESTING_REAL -->')[0]
+        report_root = report.replace('(auc_por_ola.png)', '(' + __import__('os').path.relpath(run_dir / 'auc_por_ola.png', root).replace('\\','/') + ')')
+        readme.write_text(prior + '\n<!-- BACKTESTING_REAL -->\n' + report_root, encoding='utf-8')
+    print(f'[Backtesting] Resultados y gráfico: {run_dir}')
+    return str(run_dir), results
+
+
+def run_backtesting(config, source_dir=None):
+    """API P2 compatible: evalúa todos los modelos disponibles, conserva campeón previo."""
+    from src.backtesting_all import evaluar_artefactos
+    source,name,_,_,manifest=resolver_campeon(config,source_dir)
+    summary=leer_json_compatible(source/'results_summary.json')
+    entries={n:{'model':n,'kind':'final','model_path':str(source/f'{n}_model.pkl'),
+                'metadata_path':str(source/f'{n}_metadata.json')} for n in summary['models']}
+    dest=Path(crear_directorio_corrida(str(Path(config['output_dir'])/'backtesting')))
+    local={**config,'validation':{'date_column':'p_fecinformacion',**config.get('validation',{})}}
+    reports=evaluar_artefactos(local,entries,manifest,dest)
+    selected=reports[name]
+    result={**selected,'champion':name,'models':reports}
+    (dest/'backtesting_results.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
+    return str(dest),result

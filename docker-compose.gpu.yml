@@ -1,0 +1,12 @@
+# Override opcional para equipos con GPU NVIDIA + NVIDIA Container Toolkit:
+#   docker compose -f docker-compose.yml -f docker-compose.gpu.yml up -d
+# El benchmark detecta la GPU con nvidia-smi y verifica los backends con fits reales (src/parallel.py).
+services:
+  airflow-scheduler:
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
