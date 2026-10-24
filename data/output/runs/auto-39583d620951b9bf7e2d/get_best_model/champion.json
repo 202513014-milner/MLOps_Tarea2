@@ -1,0 +1,38 @@
+{
+  "champion": "catb",
+  "performance": {
+    "auc_train": 0.8711372258523752,
+    "auc_test": 0.8554420805695728,
+    "auc": 0.8554420805695728,
+    "gini": 0.7108841611391457,
+    "ks": 0.5556218408448107,
+    "f1": 0.18532049153105282,
+    "decay_percent": 1.8016846045633335,
+    "training_time_segs": 6.426458887002809,
+    "ronda": 1,
+    "capture_rate_top_k": 0.5257270693512305,
+    "lift_top_k": 5.257367104124692,
+    "precision_top_k": 0.17238217494956903
+  },
+  "primary_metric": "capture_rate_top_k",
+  "primary_value": 0.5257270693512305,
+  "parallel_dir": "/data/output/runs/auto-39583d620951b9bf7e2d/benchmark/parallel/2026-10-24_16-37-28",
+  "selected_mode": "parallel",
+  "consistent_with_benchmark": true,
+  "criteria": {
+    "business_metric": {
+      "primary": "capture_rate_top_k",
+      "top_fraction": 0.1,
+      "tie_tolerance": 0.005
+    },
+    "min_auc_test": 0.55,
+    "max_decay": 10.0,
+    "decay": {
+      "type": "relative"
+    },
+    "none_policy": "sin campeón; evaluar y reportar candidatos; no promover"
+  },
+  "model_path": "/data/output/runs/auto-39583d620951b9bf7e2d/benchmark/parallel/2026-10-24_16-37-28/catb_model.pkl",
+  "metadata_path": "/data/output/runs/auto-39583d620951b9bf7e2d/benchmark/parallel/2026-10-24_16-37-28/catb_metadata.json",
+  "model_run_id": "37c7e7157d9f4c4183027fede5c10505"
+}

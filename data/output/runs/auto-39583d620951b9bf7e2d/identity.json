@@ -1,0 +1,20 @@
+{
+  "identity": "auto-39583d620951b9bf7e2d",
+  "traceability": {
+    "code_hash": "c1acb56b79cabd7d104a7ab00731fe7fa100364eac2b186e6de80a4e26f48e4d",
+    "git_commit": "fe40c292e5d821aab2e208bcbef063d820755284",
+    "git_dirty": "false",
+    "git_branch": "feature/p3-integracion",
+    "docker_image": "automl-mlops:fe40c292e5d8",
+    "docker_image_id": "sha256:18cc99be8921302d61cf548ebed9ab047cd3982f8d75eb66d81052d6e45a83b7",
+    "in_container": "true",
+    "airflow_dag_id": "automl_training_pipeline",
+    "airflow_run_id": "manual__2026-10-24T15:39:48+00:00",
+    "airflow_dag_run_id": "manual__2026-10-24T15:39:48+00:00",
+    "airflow_task_id": "validate_data",
+    "airflow_try_number": "1",
+    "config_hash": "d99fa1b5cfb788e37ba1e7a8beca00a2359fc1e837f418687ef7d1bb2e137c3a",
+    "data_hash": "unknown",
+    "run_key": "auto-39583d620951b9bf7e2d"
+  }
+}

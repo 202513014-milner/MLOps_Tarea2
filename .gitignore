@@ -1,5 +1,7 @@
 # datos y credenciales (nunca al repositorio)
-/data/output/runs/
+# Ignorar las corridas excepto la seleccionada al 10%
+/data/output/runs/*
+!/data/output/runs/auto-39583d620951b9bf7e2d/
 data/input/
 .env
 .env.*

@@ -1,0 +1,59 @@
+{
+  "model": "extra_trees",
+  "performance": {
+    "auc_train": 0.9708207246684624,
+    "auc_test": 0.8256541014529064,
+    "auc": 0.8256541014529064,
+    "gini": 0.6513082029058128,
+    "ks": 0.49854543501876325,
+    "f1": 0.20360325455249903,
+    "decay_percent": 14.952979425231236,
+    "cv_auc_mean": 0.8248265983079296,
+    "cv_auc_std": 0.0015625904571211927,
+    "training_time_segs": 21.625400533001084,
+    "hpo_time_segs": 399.2574999770004,
+    "ronda": 2,
+    "capture_rate_top_k": 0.46812080536912754,
+    "lift_top_k": 4.6812939001620935,
+    "precision_top_k": 0.15349348982211627
+  },
+  "hpo": {
+    "strategy": "Optuna-TPE",
+    "n_trials": 15,
+    "cv_folds": 3,
+    "best_parameters": {
+      "n_estimators": 277,
+      "max_depth": 19,
+      "min_samples_leaf": 10
+    },
+    "auc_cv": 0.8248265983079296,
+    "elapsed_seconds": 399.2574999770004,
+    "cv_note": "AUC de selección HPO; no es estimación independiente ni CV anidada."
+  },
+  "model_path": "/data/output/runs/auto-39583d620951b9bf7e2d/hpo/models/extra_trees/extra_trees_model.pkl",
+  "metadata_path": "/data/output/runs/auto-39583d620951b9bf7e2d/hpo/models/extra_trees/extra_trees_metadata.json",
+  "model_size_mb": 104.6361,
+  "required_files": [
+    "/data/output/runs/auto-39583d620951b9bf7e2d/hpo/models/extra_trees/extra_trees_model.pkl",
+    "/data/output/runs/auto-39583d620951b9bf7e2d/hpo/models/extra_trees/extra_trees_metadata.json"
+  ],
+  "execution_device": "cpu_only",
+  "compute": {
+    "wall_seconds": 409.088,
+    "cpu_seconds": 406.27,
+    "cpu_percent_avg": 99.29,
+    "cpu_percent_max": 101.5,
+    "ram_rss_mb_max": 756.523,
+    "ram_rss_mb_avg": 714.646,
+    "sys_cpu_percent_avg": 3.573,
+    "sys_ram_percent_max": 60.7,
+    "processes_max": 1,
+    "samples": 202,
+    "cpu_cores_logical": 32,
+    "gpu_available": 0.0,
+    "cpu_cores_equiv_avg": 0.9929000000000001,
+    "cpu_cores_equiv_max": 1.015
+  },
+  "mlflow_run_id": "bc9273be8a444d0690d783256a81e07e",
+  "cached": false
+}

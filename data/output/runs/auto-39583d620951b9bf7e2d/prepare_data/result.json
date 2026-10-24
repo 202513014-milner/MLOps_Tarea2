@@ -1,0 +1,28 @@
+{
+  "rows_train": 127229,
+  "rows_validation": 54531,
+  "n_features": 61,
+  "dataset_path": "/data/output/runs/auto-39583d620951b9bf7e2d/prepare_data/dataset.joblib",
+  "required_files": [
+    "/data/output/runs/auto-39583d620951b9bf7e2d/prepare_data/dataset.joblib",
+    "/data/output/runs/auto-39583d620951b9bf7e2d/prepare_data/manifest.json"
+  ],
+  "compute": {
+    "wall_seconds": 16.289,
+    "cpu_seconds": 7.3,
+    "cpu_percent_avg": 45.722,
+    "cpu_percent_max": 53.7,
+    "ram_rss_mb_max": 977.832,
+    "ram_rss_mb_avg": 854.572,
+    "sys_cpu_percent_avg": 2.211,
+    "sys_ram_percent_max": 53.5,
+    "processes_max": 1,
+    "samples": 9,
+    "cpu_cores_logical": 32,
+    "gpu_available": 0.0,
+    "cpu_cores_equiv_avg": 0.45722,
+    "cpu_cores_equiv_max": 0.537
+  },
+  "mlflow_run_id": "3b2e3c0adbbc4739bd89106bad3f15b6",
+  "cached": false
+}
