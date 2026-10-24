@@ -138,4 +138,4 @@ CPU/RAM miden el proceso y sus hijos. Cada estimador usó 1 hilo.
 - **El límite de 600 s cortó la búsqueda en 4 modelos:** `gradient_boosting_sklearn` completó solo 2 trials, `adaboost` 7, `random_forest` 8 y `extra_trees` 11 (los demás completaron 15). Sus hiperparámetros salen de una búsqueda más corta, y el número de trials depende de la máquina. El campeón (`catb`) y los otros dos primeros (`lgbm`, `xgb`) sí completaron 15.
 - Sin speed-up medido (ver sección 5).
 - Todos los modelos finales corrieron en CPU; no se probó GPU.
-- Comparación con la corrida pequeña (`auto-7e3324cc…`, 1 % y 2 trials): solo sirve para idempotencia (ver `docs/evidencia_idempotencia.md`), no para métricas.
+- La idempotencia se comprobó relanzando esta misma corrida (ver `docs/evidencia_idempotencia.md`).

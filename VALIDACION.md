@@ -47,7 +47,7 @@ Remove-Item Env:TEST_WORKERS
 ## Gate de entrega pendiente en la laptop
 
 1. Build/up con Docker y servicios healthy; revisar logs e importación del DAG.
-2. Corrida config/smoke.yaml completa y reejecución con idénticos parámetros.
+2. Corrida completa con config/config.yaml y reejecución con idénticos parámetros (hecho: ver docs/evidencia_idempotencia.md).
 3. Probar 2 workers y, si se desea, GPU con backend realmente usado.
 4. Corrida con CSV reales y parámetros finales; copiar tablas y capturas al repositorio.
 5. Confirmar acceso docente, ramas/merges/tags y URL del repositorio P2.
