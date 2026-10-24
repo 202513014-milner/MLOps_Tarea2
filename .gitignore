@@ -1,4 +1,5 @@
 # datos y credenciales (nunca al repositorio)
+/data/output/runs/
 data/input/
 .env
 .env.*
