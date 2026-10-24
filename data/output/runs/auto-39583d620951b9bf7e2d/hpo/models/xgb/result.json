@@ -1,0 +1,61 @@
+{
+  "model": "xgb",
+  "performance": {
+    "auc_train": 0.8683886467492643,
+    "auc_test": 0.854377714425541,
+    "auc": 0.854377714425541,
+    "gini": 0.708755428851082,
+    "ks": 0.5555725642907925,
+    "f1": 0.1832340815391663,
+    "decay_percent": 1.613440292681391,
+    "cv_auc_mean": 0.8510919939429079,
+    "cv_auc_std": 0.0002362304274610943,
+    "training_time_segs": 2.506843884000773,
+    "hpo_time_segs": 92.45432821400027,
+    "ronda": 2,
+    "capture_rate_top_k": 0.517337807606264,
+    "lift_top_k": 5.1734729482078095,
+    "precision_top_k": 0.16963139556207593
+  },
+  "hpo": {
+    "strategy": "Optuna-TPE",
+    "n_trials": 15,
+    "cv_folds": 3,
+    "best_parameters": {
+      "n_estimators": 222,
+      "max_depth": 3,
+      "learning_rate": 0.039189944117358336,
+      "subsample": 0.7465447373174767,
+      "colsample_bytree": 0.728034992108518
+    },
+    "auc_cv": 0.8510919939429079,
+    "elapsed_seconds": 92.45432821400027,
+    "cv_note": "AUC de selección HPO; no es estimación independiente ni CV anidada."
+  },
+  "model_path": "/data/output/runs/auto-39583d620951b9bf7e2d/hpo/models/xgb/xgb_model.pkl",
+  "metadata_path": "/data/output/runs/auto-39583d620951b9bf7e2d/hpo/models/xgb/xgb_metadata.json",
+  "model_size_mb": 0.257,
+  "required_files": [
+    "/data/output/runs/auto-39583d620951b9bf7e2d/hpo/models/xgb/xgb_model.pkl",
+    "/data/output/runs/auto-39583d620951b9bf7e2d/hpo/models/xgb/xgb_metadata.json"
+  ],
+  "execution_device": "cpu_only",
+  "compute": {
+    "wall_seconds": 94.554,
+    "cpu_seconds": 91.92,
+    "cpu_percent_avg": 95.811,
+    "cpu_percent_max": 100.9,
+    "ram_rss_mb_max": 670.793,
+    "ram_rss_mb_avg": 654.834,
+    "sys_cpu_percent_avg": 3.468,
+    "sys_ram_percent_max": 50.5,
+    "processes_max": 1,
+    "samples": 47,
+    "cpu_cores_logical": 32,
+    "gpu_available": 0.0,
+    "cpu_cores_equiv_avg": 0.95811,
+    "cpu_cores_equiv_max": 1.0090000000000001
+  },
+  "mlflow_run_id": "ae2723f433204fda9e48bb4d2d7746fa",
+  "cached": false
+}

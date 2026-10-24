@@ -1,0 +1,59 @@
+{
+  "model": "random_forest",
+  "performance": {
+    "auc_train": 0.9945410851595433,
+    "auc_test": 0.8464154154112121,
+    "auc": 0.8464154154112121,
+    "gini": 0.6928308308224242,
+    "ks": 0.5492034503894851,
+    "f1": 0.24864864864864866,
+    "decay_percent": 14.893871350178461,
+    "cv_auc_mean": 0.8428944904787029,
+    "cv_auc_std": 0.0008483279144333217,
+    "training_time_segs": 28.84801094999966,
+    "hpo_time_segs": 643.6060380010003,
+    "ronda": 2,
+    "capture_rate_top_k": 0.5106263982102909,
+    "lift_top_k": 5.106357623474302,
+    "precision_top_k": 0.16743077205208143
+  },
+  "hpo": {
+    "strategy": "Optuna-TPE",
+    "n_trials": 13,
+    "cv_folds": 3,
+    "best_parameters": {
+      "n_estimators": 196,
+      "max_depth": 19,
+      "min_samples_leaf": 10
+    },
+    "auc_cv": 0.8428944904787029,
+    "elapsed_seconds": 643.6060380010003,
+    "cv_note": "AUC de selección HPO; no es estimación independiente ni CV anidada."
+  },
+  "model_path": "/data/output/runs/auto-39583d620951b9bf7e2d/hpo/models/random_forest/random_forest_model.pkl",
+  "metadata_path": "/data/output/runs/auto-39583d620951b9bf7e2d/hpo/models/random_forest/random_forest_metadata.json",
+  "model_size_mb": 54.3298,
+  "required_files": [
+    "/data/output/runs/auto-39583d620951b9bf7e2d/hpo/models/random_forest/random_forest_model.pkl",
+    "/data/output/runs/auto-39583d620951b9bf7e2d/hpo/models/random_forest/random_forest_metadata.json"
+  ],
+  "execution_device": "cpu_only",
+  "compute": {
+    "wall_seconds": 650.197,
+    "cpu_seconds": 647.09,
+    "cpu_percent_avg": 99.43,
+    "cpu_percent_max": 101.2,
+    "ram_rss_mb_max": 747.996,
+    "ram_rss_mb_avg": 707.747,
+    "sys_cpu_percent_avg": 3.528,
+    "sys_ram_percent_max": 60.5,
+    "processes_max": 1,
+    "samples": 320,
+    "cpu_cores_logical": 32,
+    "gpu_available": 0.0,
+    "cpu_cores_equiv_avg": 0.9943000000000001,
+    "cpu_cores_equiv_max": 1.012
+  },
+  "mlflow_run_id": "90341834c6cf40139e4dd885b1a53293",
+  "cached": false
+}

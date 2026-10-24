@@ -1,0 +1,59 @@
+{
+  "model": "gradient_boosting_sklearn",
+  "performance": {
+    "auc_train": 0.863969814978468,
+    "auc_test": 0.8517767723536878,
+    "auc": 0.8517767723536878,
+    "gini": 0.7035535447073755,
+    "ks": 0.5541884307431235,
+    "f1": 0.01827956989247312,
+    "decay_percent": 1.4112810903103308,
+    "cv_auc_mean": 0.8456601867081569,
+    "cv_auc_std": 0.0007715819283738613,
+    "training_time_segs": 58.24441109500185,
+    "hpo_time_segs": 714.0252125820025,
+    "ronda": 2,
+    "capture_rate_top_k": 0.5285234899328859,
+    "lift_top_k": 5.285331822763653,
+    "precision_top_k": 0.17329910141206675
+  },
+  "hpo": {
+    "strategy": "Optuna-TPE",
+    "n_trials": 5,
+    "cv_folds": 3,
+    "best_parameters": {
+      "n_estimators": 206,
+      "max_depth": 2,
+      "learning_rate": 0.18661212048851336
+    },
+    "auc_cv": 0.8456601867081569,
+    "elapsed_seconds": 714.0252125820025,
+    "cv_note": "AUC de selección HPO; no es estimación independiente ni CV anidada."
+  },
+  "model_path": "/data/output/runs/auto-39583d620951b9bf7e2d/hpo/models/gradient_boosting_sklearn/gradient_boosting_sklearn_model.pkl",
+  "metadata_path": "/data/output/runs/auto-39583d620951b9bf7e2d/hpo/models/gradient_boosting_sklearn/gradient_boosting_sklearn_metadata.json",
+  "model_size_mb": 0.177,
+  "required_files": [
+    "/data/output/runs/auto-39583d620951b9bf7e2d/hpo/models/gradient_boosting_sklearn/gradient_boosting_sklearn_model.pkl",
+    "/data/output/runs/auto-39583d620951b9bf7e2d/hpo/models/gradient_boosting_sklearn/gradient_boosting_sklearn_metadata.json"
+  ],
+  "execution_device": "cpu_only",
+  "compute": {
+    "wall_seconds": 716.147,
+    "cpu_seconds": 714.55,
+    "cpu_percent_avg": 99.772,
+    "cpu_percent_max": 101.2,
+    "ram_rss_mb_max": 666.316,
+    "ram_rss_mb_avg": 632.67,
+    "sys_cpu_percent_avg": 3.526,
+    "sys_ram_percent_max": 59.3,
+    "processes_max": 1,
+    "samples": 353,
+    "cpu_cores_logical": 32,
+    "gpu_available": 0.0,
+    "cpu_cores_equiv_avg": 0.99772,
+    "cpu_cores_equiv_max": 1.012
+  },
+  "mlflow_run_id": "a1b1da4f65a043fc8cecaf4ef2a2035c",
+  "cached": false
+}

@@ -1,0 +1,9 @@
+{
+  "champion": "catb",
+  "promoted": false,
+  "version": "2",
+  "alias": "challenger",
+  "reason": "Evaluaciones no comparables: requiere reevaluar campeón vigente en el mismo holdout",
+  "registered_model": "automl-venta-financiera",
+  "model_run_id": "37c7e7157d9f4c4183027fede5c10505"
+}
