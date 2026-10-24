@@ -96,7 +96,7 @@ Cada modelo HPO y cada entrenamiento final tiene su run, parámetros, AUC/decay/
 backtesting de cuatro olas y cómputo. Los modelos finales no se reentrenan en backtesting.
 Si no hay candidato admisible, el pipeline informa `champion: null`, evalúa los candidatos y no promueve.
 
-## Idempotencia (evidencia que deben capturar)
+## Idempotencia (mecanismo y procedimiento)
 
 1. Ejecutar con `run_key` vacío y anotar carpeta `auto-*`, IDs y número de runs en MLflow.
 2. Volver a disparar el DAG con idénticos parámetros, datos, código e imagen.
@@ -161,19 +161,28 @@ Observaciones: (1) el límite de 600 s por búsqueda cortó el HPO de `gradient_
 Detalle completo (HPO por modelo, 36 filas de backtesting, recursos, trazabilidad): [docs/resultados_corrida_final.md](docs/resultados_corrida_final.md).
 
 ![DAG en Airflow](docs/img/airflow_graph.png)
-![Ejecución del DAG](docs/img/airflow_grid.png)
-![Runs en MLflow](docs/img/mlflow_comparacion.png)
+![Ejecución del DAG (17 tareas en éxito)](docs/img/airflow_idempotencia.png)
+![Runs de entrenamiento en MLflow con sus tags](docs/img/mlflow_tags.png)
 ![Tags de trazabilidad del campeón](docs/img/mlflow_run_tags.png)
 
-### Idempotencia (versión rápida)
+### Idempotencia
 
-Se relanzó el DAG con los mismos parámetros sobre una corrida reducida (1 % de muestra, 2 trials, `config.yaml` con
-parámetros cambiados desde Airflow; no `smoke.yaml`). Reutilizó la clave `auto-7e3324ccc84a7112fbc4`, no creó runs nuevos
-(26 por corrida, 52 en total) y añadió el tag `airflow_attempt.*` a los 17 runs de etapa. No se relanzó la corrida del 10 %.
+La corrida final (`config/config.yaml`, 10 % de muestra, 15 trials) se ejecutó **dos veces** desde Airflow con los
+mismos parámetros efectivos (sin sobrescrituras), datos, código e imagen. Mecanismo: clave de corrida determinista
+`auto-<huella>`, `_SUCCESS.json` por etapa, `FileLock` y tag `idempotency_key` en MLflow (D7).
+
+| # | Ejecución (`airflow_dag_run_id`) | Inicio (UTC) | Duración | Resultado |
+|---|---|---|---|---|
+| 1 | `manual__2026-10-24T13:52:05+00:00` | 13:52:47 | 1:39:40 | Crea `auto-bde95c04df4aa4894f91` y sus runs en MLflow |
+| 2 | `manual__2026-10-24T17:13:59+00:00` | 17:14:03 | 3:14 | Reutiliza las etapas; misma clave, sin carpeta nueva |
+
+La repetición no generó ninguna clave nueva ni carpeta nueva en `data/output/runs/`. En MLflow, el filtro
+`tags.idempotency_key LIKE 'auto-bde95c04df4aa4894f91%'` devuelve **26 runs** antes y después (sin duplicados).
+Por diseño, al reutilizar una etapa se añade a su run un tag `airflow_attempt.*` (`_record_attempt`, `src/stages.py`); este tag no se capturó.
 Detalle y limitaciones: [docs/evidencia_idempotencia.md](docs/evidencia_idempotencia.md).
 
-![Airflow: 3 ejecuciones en éxito](docs/img/airflow_idempotencia.png)
-![MLflow: tag del relanzamiento](docs/img/mlflow_idempotencia.png)
+![Airflow: ejecuciones de la corrida final](docs/img/airflow_idempotencia.png)
+![MLflow: 26 runs tras la repetición, sin duplicados](docs/img/mlflow_idempotencia.png)
 
 ## Pruebas
 
