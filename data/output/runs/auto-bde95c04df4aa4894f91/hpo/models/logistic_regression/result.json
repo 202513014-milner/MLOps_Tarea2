@@ -1,0 +1,57 @@
+{
+  "model": "logistic_regression",
+  "performance": {
+    "auc_train": 0.8305333217738154,
+    "auc_test": 0.8315275231239269,
+    "auc": 0.8315275231239269,
+    "gini": 0.6630550462478537,
+    "ks": 0.5113231095140713,
+    "f1": 0.1671082629860127,
+    "decay_percent": -0.11970637710092619,
+    "cv_auc_mean": 0.8276691318873185,
+    "cv_auc_std": 0.0020608086054497423,
+    "training_time_segs": 3.6469096629998603,
+    "hpo_time_segs": 140.07959422300019,
+    "ronda": 2,
+    "capture_rate_top_k": 0.4759507829977629,
+    "lift_top_k": 4.759595112351184,
+    "precision_top_k": 0.15606088391710984
+  },
+  "hpo": {
+    "strategy": "Optuna-TPE",
+    "n_trials": 15,
+    "cv_folds": 3,
+    "best_parameters": {
+      "C": 21.42302175774105
+    },
+    "auc_cv": 0.8276691318873185,
+    "elapsed_seconds": 140.07959422300019,
+    "cv_note": "AUC de selección HPO; no es estimación independiente ni CV anidada."
+  },
+  "model_path": "/data/output/runs/auto-bde95c04df4aa4894f91/hpo/models/logistic_regression/logistic_regression_model.pkl",
+  "metadata_path": "/data/output/runs/auto-bde95c04df4aa4894f91/hpo/models/logistic_regression/logistic_regression_metadata.json",
+  "model_size_mb": 0.0068,
+  "required_files": [
+    "/data/output/runs/auto-bde95c04df4aa4894f91/hpo/models/logistic_regression/logistic_regression_model.pkl",
+    "/data/output/runs/auto-bde95c04df4aa4894f91/hpo/models/logistic_regression/logistic_regression_metadata.json"
+  ],
+  "execution_device": "cpu_only",
+  "compute": {
+    "wall_seconds": 147.073,
+    "cpu_seconds": 135.46,
+    "cpu_percent_avg": 92.19,
+    "cpu_percent_max": 101.2,
+    "ram_rss_mb_max": 696.383,
+    "ram_rss_mb_avg": 595.441,
+    "sys_cpu_percent_avg": 8.568,
+    "sys_ram_percent_max": 38.0,
+    "processes_max": 1,
+    "samples": 68,
+    "cpu_cores_logical": 16,
+    "gpu_available": 0.0,
+    "cpu_cores_equiv_avg": 0.9218999999999999,
+    "cpu_cores_equiv_max": 1.012
+  },
+  "mlflow_run_id": "63af273d21f24876bca66f8390b6ead6",
+  "cached": false
+}

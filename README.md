@@ -121,14 +121,59 @@ En `data/output/runs/<clave>/`:
 - `report.md`: tablas de modelos, 36 filas de backtesting final y recursos por entrenamiento.
 - Subdirectorios por etapa, modelos y datos intermedios. MLflow conserva los artefactos pesados.
 
-Copiar las tablas de la corrida final de `report.md` aquí antes de entregar. Añadir capturas reales
-(DAG completo, comparación MLflow, idempotencia) en `docs/img/`. Conservar una carpeta de corrida con
+Las tablas completas de cada corrida están en `data/output/runs/<clave>/report.md`. Un resumen de la corrida
+final y la evidencia de idempotencia están abajo y en `docs/`. Conservar una carpeta de corrida con
 sus JSON/tablas/gráficos; `.gitignore` excluye datasets, pickles y bundles MLflow. No publicar credenciales.
 Los logs de Airflow, PostgreSQL y MLflow persisten en volúmenes. `docker compose down` los conserva;
 **no usar `down -v` si quieren conservar experimentos**.
 
 No se incluyen resultados del curso ni capturas fabricadas. Ver [VALIDACION.md](VALIDACION.md) para
 el alcance exacto de las pruebas realizadas y [docs/decisiones_diseno.md](docs/decisiones_diseno.md).
+
+### Corrida final (10 % de muestra, 15 trials) — `auto-bde95c04df4aa4894f91`
+
+Ejecutada con Airflow (`manual__2026-10-24T13:52:05`, 17/17 tareas en éxito, ~1 h 40 min), `config/config.yaml`, CPU,
+modo paralelo con 2 workers. Datos: meses p1–p6 para desarrollo (127 229 filas de train y 54 531 de validación tras
+muestrear el 10 %) y p7–p10 reservados para backtesting.
+
+**Campeón: `catb`** (versión 1 en MLflow, alias `champion`). Captura top-10 % = 0.5257,
+AUC validación = 0.8554, decay = 1.80 %. Backtesting sin reentrenar: 4/4 olas válidas y 0 alertas de drift en los 18 artefactos evaluados.
+
+| Modelo | AUC validación | Decay % | Captura top-10 % | AUC medio backtesting (p7–p10) |
+|---|---:|---:|---:|---:|
+| xgb | 0.8544 | 1.61 | 0.5173 | 0.8435 |
+| lgbm | 0.8554 | 4.02 | 0.5213 | 0.8457 |
+| catb ★ | 0.8554 | 1.80 | 0.5257 | 0.8434 |
+| logistic_regression | 0.8315 | -0.12 | 0.4760 | 0.8134 |
+| random_forest | 0.8462 | 15.13 | 0.5034 | 0.8338 |
+| ridge_classifier | 0.8298 | -0.11 | 0.4776 | 0.8119 |
+| adaboost | 0.8394 | 0.11 | 0.4961 | 0.8255 |
+| gradient_boosting_sklearn | 0.8495 | 5.70 | 0.5067 | 0.8377 |
+| extra_trees | 0.8239 | 16.21 | 0.4642 | 0.8090 |
+
+`random_forest` y `extra_trees` quedan fuera de la selección por decay > 10 %. `catb` y `lgbm` son prácticamente equivalentes
+(captura a menos de 0.005 y AUC casi idéntico); `catb` gana por desempate de AUC.
+
+Observaciones: (1) el límite de 600 s por búsqueda cortó el HPO de `gradient_boosting_sklearn` (2 trials), `adaboost` (7),
+`random_forest` (8) y `extra_trees` (11); (2) la corrida fue solo en modo paralelo, por lo que **no hay speed-up medido**
+(T_secuencial y speed-up son `null`); (3) se ejecutó con cambios sin commitear (`git_dirty = true`; el `code_hash` identifica el código efectivo).
+
+Detalle completo (HPO por modelo, 36 filas de backtesting, recursos, trazabilidad): [docs/resultados_corrida_final.md](docs/resultados_corrida_final.md).
+
+![DAG en Airflow](docs/img/airflow_graph.png)
+![Ejecución del DAG](docs/img/airflow_grid.png)
+![Runs en MLflow](docs/img/mlflow_comparacion.png)
+![Tags de trazabilidad del campeón](docs/img/mlflow_run_tags.png)
+
+### Idempotencia (versión rápida)
+
+Se relanzó el DAG con los mismos parámetros sobre una corrida reducida (1 % de muestra, 2 trials, `config.yaml` con
+parámetros cambiados desde Airflow; no `smoke.yaml`). Reutilizó la clave `auto-7e3324ccc84a7112fbc4`, no creó runs nuevos
+(26 por corrida, 52 en total) y añadió el tag `airflow_attempt.*` a los 17 runs de etapa. No se relanzó la corrida del 10 %.
+Detalle y limitaciones: [docs/evidencia_idempotencia.md](docs/evidencia_idempotencia.md).
+
+![Airflow: 3 ejecuciones en éxito](docs/img/airflow_idempotencia.png)
+![MLflow: tag del relanzamiento](docs/img/mlflow_idempotencia.png)
 
 ## Pruebas
 

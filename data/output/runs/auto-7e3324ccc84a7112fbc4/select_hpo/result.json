@@ -1,0 +1,23 @@
+{
+  "campeon_hpo": "catb",
+  "summary_path": "/data/output/runs/auto-7e3324ccc84a7112fbc4/select_hpo/results_summary.json",
+  "compute": {
+    "wall_seconds": 0.538,
+    "cpu_seconds": 0.06,
+    "cpu_percent_avg": 10.6,
+    "cpu_percent_max": 10.6,
+    "ram_rss_mb_max": 383.441,
+    "ram_rss_mb_avg": 383.441,
+    "sys_cpu_percent_avg": 4.1,
+    "sys_ram_percent_max": 35.1,
+    "processes_max": 1,
+    "samples": 1,
+    "cpu_cores_logical": 16,
+    "gpu_available": 0.0,
+    "cpu_cores_equiv_avg": 0.106,
+    "cpu_cores_equiv_max": 0.106
+  },
+  "mlflow_run_id": "d4d6602aba41498ba0939a810400772e",
+  "cached": false,
+  "required_files": []
+}

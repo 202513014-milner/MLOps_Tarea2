@@ -1,0 +1,158 @@
+{
+  "ok": true,
+  "errors": [],
+  "warnings": [],
+  "rules": {
+    "min_rows": 1000,
+    "min_positive_rate": 0.001,
+    "max_positive_rate": 0.5,
+    "max_null_fraction": 0.95,
+    "chunksize": 200000,
+    "max_schema_drift": 0,
+    "date_column": "p_fecinformacion",
+    "strict_temporal_order": true
+  },
+  "files": [
+    {
+      "file": "p1_extrac.csv",
+      "rows": 328488,
+      "positives": 11232,
+      "positive_rate": 0.034193029882370135,
+      "target_nulls": 0,
+      "target_classes": [
+        0,
+        1
+      ],
+      "date_min": "2022-03-01",
+      "date_max": "2022-03-01",
+      "invalid_dates": 0
+    },
+    {
+      "file": "p2_extrac.csv",
+      "rows": 329324,
+      "positives": 10272,
+      "positive_rate": 0.03119116736101833,
+      "target_nulls": 0,
+      "target_classes": [
+        0,
+        1
+      ],
+      "date_min": "2022-04-01",
+      "date_max": "2022-04-01",
+      "invalid_dates": 0
+    },
+    {
+      "file": "p3_extrac.csv",
+      "rows": 322356,
+      "positives": 11336,
+      "positive_rate": 0.035166089664842595,
+      "target_nulls": 0,
+      "target_classes": [
+        0,
+        1
+      ],
+      "date_min": "2022-05-01",
+      "date_max": "2022-05-01",
+      "invalid_dates": 0
+    },
+    {
+      "file": "p4_extrac.csv",
+      "rows": 304813,
+      "positives": 8983,
+      "positive_rate": 0.029470527831818197,
+      "target_nulls": 0,
+      "target_classes": [
+        0,
+        1
+      ],
+      "date_min": "2022-06-01",
+      "date_max": "2022-06-01",
+      "invalid_dates": 0
+    },
+    {
+      "file": "p5_extrac.csv",
+      "rows": 295732,
+      "positives": 8709,
+      "positive_rate": 0.029448960545358636,
+      "target_nulls": 0,
+      "target_classes": [
+        0,
+        1
+      ],
+      "date_min": "2022-07-01",
+      "date_max": "2022-07-01",
+      "invalid_dates": 0
+    },
+    {
+      "file": "p6_extrac.csv",
+      "rows": 236914,
+      "positives": 9090,
+      "positive_rate": 0.038368353073267095,
+      "target_nulls": 0,
+      "target_classes": [
+        0,
+        1
+      ],
+      "date_min": "2022-08-01",
+      "date_max": "2022-08-01",
+      "invalid_dates": 0
+    },
+    {
+      "file": "p7_extrac.csv",
+      "rows": 244666,
+      "positives": 8164,
+      "positive_rate": 0.033367938332257034,
+      "target_nulls": 0,
+      "target_classes": [
+        0,
+        1
+      ],
+      "date_min": "2022-09-01",
+      "date_max": "2022-09-01",
+      "invalid_dates": 0
+    },
+    {
+      "file": "p8_extrac.csv",
+      "rows": 240726,
+      "positives": 11553,
+      "positive_rate": 0.047992323222252685,
+      "target_nulls": 0,
+      "target_classes": [
+        0,
+        1
+      ],
+      "date_min": "2022-10-01",
+      "date_max": "2022-10-01",
+      "invalid_dates": 0
+    },
+    {
+      "file": "p9_extrac.csv",
+      "rows": 263753,
+      "positives": 8825,
+      "positive_rate": 0.033459335059696005,
+      "target_nulls": 0,
+      "target_classes": [
+        0,
+        1
+      ],
+      "date_min": "2022-11-01",
+      "date_max": "2022-11-01",
+      "invalid_dates": 0
+    },
+    {
+      "file": "p10_extrac.csv",
+      "rows": 317378,
+      "positives": 8034,
+      "positive_rate": 0.025313663833031904,
+      "target_nulls": 0,
+      "target_classes": [
+        0,
+        1
+      ],
+      "date_min": "2022-12-01",
+      "date_max": "2022-12-01",
+      "invalid_dates": 0
+    }
+  ],
+  "n_columns": 69
+}

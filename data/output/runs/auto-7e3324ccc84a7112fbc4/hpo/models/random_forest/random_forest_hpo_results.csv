@@ -1,0 +1,3 @@
+number,value,datetime_start,datetime_complete,duration,params_max_depth,params_min_samples_leaf,params_n_estimators,user_attrs_auc_std,state
+0,0.8332753077784707,2026-10-24 16:08:28.350188,2026-10-24 16:08:35.251273,0 days 00:00:06.901085,20,8,175,0.009418554391005148,COMPLETE
+1,0.8252867540927203,2026-10-24 16:08:35.402736,2026-10-24 16:08:43.011825,0 days 00:00:07.609089,8,2,220,0.011351612697411612,COMPLETE

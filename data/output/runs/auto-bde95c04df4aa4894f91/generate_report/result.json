@@ -1,0 +1,27 @@
+{
+  "report_dir": "/data/output/runs/auto-bde95c04df4aa4894f91",
+  "champion": "catb",
+  "required_files": [
+    "/data/output/runs/auto-bde95c04df4aa4894f91/results_summary.json",
+    "/data/output/runs/auto-bde95c04df4aa4894f91/compute_logs.json",
+    "/data/output/runs/auto-bde95c04df4aa4894f91/report.md"
+  ],
+  "compute": {
+    "wall_seconds": 5.931,
+    "cpu_seconds": 0.57,
+    "cpu_percent_avg": 9.667,
+    "cpu_percent_max": 10.4,
+    "ram_rss_mb_max": 271.996,
+    "ram_rss_mb_avg": 271.818,
+    "sys_cpu_percent_avg": 3.9,
+    "sys_ram_percent_max": 33.6,
+    "processes_max": 1,
+    "samples": 3,
+    "cpu_cores_logical": 16,
+    "gpu_available": 0.0,
+    "cpu_cores_equiv_avg": 0.09666999999999999,
+    "cpu_cores_equiv_max": 0.10400000000000001
+  },
+  "mlflow_run_id": "063998db35bd46d2a27b6075ec4aef00",
+  "cached": false
+}

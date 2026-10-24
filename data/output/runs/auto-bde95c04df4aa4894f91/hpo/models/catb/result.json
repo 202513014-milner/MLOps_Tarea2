@@ -1,0 +1,59 @@
+{
+  "model": "catb",
+  "performance": {
+    "auc_train": 0.8711372258523752,
+    "auc_test": 0.8554420805695728,
+    "auc": 0.8554420805695728,
+    "gini": 0.7108841611391457,
+    "ks": 0.5556218408448107,
+    "f1": 0.18532049153105282,
+    "decay_percent": 1.8016846045633335,
+    "cv_auc_mean": 0.8515186172843704,
+    "cv_auc_std": 0.0012565594883546644,
+    "training_time_segs": 11.55950002499958,
+    "hpo_time_segs": 383.55721686699985,
+    "ronda": 2,
+    "capture_rate_top_k": 0.5257270693512305,
+    "lift_top_k": 5.257367104124692,
+    "precision_top_k": 0.17238217494956903
+  },
+  "hpo": {
+    "strategy": "Optuna-TPE",
+    "n_trials": 15,
+    "cv_folds": 3,
+    "best_parameters": {
+      "iterations": 293,
+      "depth": 4,
+      "learning_rate": 0.056231914980670594
+    },
+    "auc_cv": 0.8515186172843704,
+    "elapsed_seconds": 383.55721686699985,
+    "cv_note": "AUC de selección HPO; no es estimación independiente ni CV anidada."
+  },
+  "model_path": "/data/output/runs/auto-bde95c04df4aa4894f91/hpo/models/catb/catb_model.pkl",
+  "metadata_path": "/data/output/runs/auto-bde95c04df4aa4894f91/hpo/models/catb/catb_metadata.json",
+  "model_size_mb": 0.1094,
+  "required_files": [
+    "/data/output/runs/auto-bde95c04df4aa4894f91/hpo/models/catb/catb_model.pkl",
+    "/data/output/runs/auto-bde95c04df4aa4894f91/hpo/models/catb/catb_metadata.json"
+  ],
+  "execution_device": "cpu_only",
+  "compute": {
+    "wall_seconds": 391.828,
+    "cpu_seconds": 392.03,
+    "cpu_percent_avg": 99.684,
+    "cpu_percent_max": 128.3,
+    "ram_rss_mb_max": 770.574,
+    "ram_rss_mb_avg": 698.984,
+    "sys_cpu_percent_avg": 8.353,
+    "sys_ram_percent_max": 38.8,
+    "processes_max": 1,
+    "samples": 189,
+    "cpu_cores_logical": 16,
+    "gpu_available": 0.0,
+    "cpu_cores_equiv_avg": 0.99684,
+    "cpu_cores_equiv_max": 1.2830000000000001
+  },
+  "mlflow_run_id": "13b3cd677c1445848f87930363a65e92",
+  "cached": false
+}

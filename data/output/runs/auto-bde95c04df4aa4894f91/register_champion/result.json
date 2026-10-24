@@ -1,0 +1,28 @@
+{
+  "champion": "catb",
+  "promoted": true,
+  "version": "1",
+  "alias": "champion",
+  "reason": "Primer campeón",
+  "registered_model": "automl-venta-financiera",
+  "model_run_id": "d4f4d9eb5de84c309a281927a8b63bad",
+  "compute": {
+    "wall_seconds": 12.177,
+    "cpu_seconds": 4.48,
+    "cpu_percent_avg": 51.283,
+    "cpu_percent_max": 88.0,
+    "ram_rss_mb_max": 546.648,
+    "ram_rss_mb_avg": 421.094,
+    "sys_cpu_percent_avg": 5.55,
+    "sys_ram_percent_max": 36.1,
+    "processes_max": 2,
+    "samples": 6,
+    "cpu_cores_logical": 16,
+    "gpu_available": 0.0,
+    "cpu_cores_equiv_avg": 0.51283,
+    "cpu_cores_equiv_max": 0.88
+  },
+  "mlflow_run_id": "f00b95e9213b491e844e572d45a77d88",
+  "cached": false,
+  "required_files": []
+}

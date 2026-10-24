@@ -1,0 +1,20 @@
+{
+  "identity": "auto-bde95c04df4aa4894f91",
+  "traceability": {
+    "code_hash": "504eb3c15deac3630a63781b208b6b55cca9458b42cf2a28b9c6ef881a210bf9",
+    "git_commit": "1800f948f8d5cee6d0852541f83cb60704eebf07",
+    "git_dirty": "true",
+    "git_branch": "main",
+    "docker_image": "automl-mlops:1800f948f8d5",
+    "docker_image_id": "sha256:e9520382f679039dd41cb60ece2efa4b0eec24b0d53956ba09e8dc7beb89788d",
+    "in_container": "true",
+    "airflow_dag_id": "automl_training_pipeline",
+    "airflow_run_id": "manual__2026-10-24T13:52:05+00:00",
+    "airflow_dag_run_id": "manual__2026-10-24T13:52:05+00:00",
+    "airflow_task_id": "validate_data",
+    "airflow_try_number": "1",
+    "config_hash": "d99fa1b5cfb788e37ba1e7a8beca00a2359fc1e837f418687ef7d1bb2e137c3a",
+    "data_hash": "unknown",
+    "run_key": "auto-bde95c04df4aa4894f91"
+  }
+}
