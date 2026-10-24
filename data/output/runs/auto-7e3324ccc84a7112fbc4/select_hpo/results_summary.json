@@ -1,0 +1,786 @@
+{
+  "campeon": "catb",
+  "config": {
+    "input_dir": "/data/input",
+    "output_dir": "/data/output",
+    "random_seed": 42,
+    "test_size": 0.3,
+    "sample_fraction": 0.01,
+    "max_decay_percent": 10.0,
+    "min_auc_test": 0.55,
+    "cols_excluir": [
+      "partition",
+      "tip_doc",
+      "key_value",
+      "codunicocli",
+      "prob_value_contact",
+      "fch_creacion",
+      "p_fecinformacion"
+    ],
+    "target_col": "target",
+    "cols_categoricas_ohe": [
+      "ent_1erlntcrallsfm01"
+    ],
+    "cols_categoricas_label": [
+      "grp_campecs06m"
+    ],
+    "csv_sep": ",",
+    "csv_encoding": "utf-8",
+    "temporal": {
+      "development_files": [
+        "p1_extrac.csv",
+        "p2_extrac.csv",
+        "p3_extrac.csv",
+        "p4_extrac.csv",
+        "p5_extrac.csv",
+        "p6_extrac.csv"
+      ],
+      "backtesting_files": [
+        "p7_extrac.csv",
+        "p8_extrac.csv",
+        "p9_extrac.csv",
+        "p10_extrac.csv"
+      ],
+      "period_col": null,
+      "file_periods": {}
+    },
+    "hpo": {
+      "cv_folds": 3,
+      "n_jobs": 1,
+      "verbose": 1,
+      "strategy": "optuna",
+      "optuna": {
+        "n_trials": 2,
+        "timeout_seconds": 600,
+        "spaces": {
+          "xgb": {
+            "n_estimators": {
+              "type": "int",
+              "low": 100,
+              "high": 300
+            },
+            "max_depth": {
+              "type": "int",
+              "low": 3,
+              "high": 8
+            },
+            "learning_rate": {
+              "type": "float",
+              "low": 0.02,
+              "high": 0.2,
+              "log": true
+            },
+            "subsample": {
+              "type": "float",
+              "low": 0.6,
+              "high": 1.0
+            },
+            "colsample_bytree": {
+              "type": "float",
+              "low": 0.5,
+              "high": 1.0
+            }
+          },
+          "lgbm": {
+            "n_estimators": {
+              "type": "int",
+              "low": 100,
+              "high": 300
+            },
+            "num_leaves": {
+              "type": "int",
+              "low": 15,
+              "high": 63
+            },
+            "learning_rate": {
+              "type": "float",
+              "low": 0.02,
+              "high": 0.2,
+              "log": true
+            }
+          },
+          "catb": {
+            "iterations": {
+              "type": "int",
+              "low": 100,
+              "high": 300
+            },
+            "depth": {
+              "type": "int",
+              "low": 4,
+              "high": 8
+            },
+            "learning_rate": {
+              "type": "float",
+              "low": 0.02,
+              "high": 0.2,
+              "log": true
+            }
+          },
+          "logistic_regression": {
+            "C": {
+              "type": "float",
+              "low": 0.001,
+              "high": 100,
+              "log": true
+            }
+          },
+          "random_forest": {
+            "n_estimators": {
+              "type": "int",
+              "low": 100,
+              "high": 300
+            },
+            "max_depth": {
+              "type": "int",
+              "low": 6,
+              "high": 20
+            },
+            "min_samples_leaf": {
+              "type": "int",
+              "low": 1,
+              "high": 10
+            }
+          },
+          "ridge_classifier": {
+            "alpha": {
+              "type": "float",
+              "low": 0.001,
+              "high": 100,
+              "log": true
+            }
+          },
+          "adaboost": {
+            "n_estimators": {
+              "type": "int",
+              "low": 50,
+              "high": 200
+            },
+            "learning_rate": {
+              "type": "float",
+              "low": 0.01,
+              "high": 0.5,
+              "log": true
+            }
+          },
+          "gradient_boosting_sklearn": {
+            "n_estimators": {
+              "type": "int",
+              "low": 100,
+              "high": 250
+            },
+            "max_depth": {
+              "type": "int",
+              "low": 2,
+              "high": 5
+            },
+            "learning_rate": {
+              "type": "float",
+              "low": 0.02,
+              "high": 0.2,
+              "log": true
+            }
+          },
+          "extra_trees": {
+            "n_estimators": {
+              "type": "int",
+              "low": 100,
+              "high": 300
+            },
+            "max_depth": {
+              "type": "int",
+              "low": 6,
+              "high": 20
+            },
+            "min_samples_leaf": {
+              "type": "int",
+              "low": 1,
+              "high": 10
+            }
+          }
+        }
+      },
+      "grids": {
+        "xgb": {
+          "n_estimators": [
+            100,
+            200
+          ],
+          "max_depth": [
+            3,
+            5
+          ],
+          "learning_rate": [
+            0.05,
+            0.1
+          ]
+        },
+        "catb": {
+          "iterations": [
+            100,
+            200
+          ],
+          "depth": [
+            4,
+            6
+          ],
+          "learning_rate": [
+            0.05,
+            0.1
+          ]
+        },
+        "lgbm": {
+          "n_estimators": [
+            100,
+            200
+          ],
+          "num_leaves": [
+            15,
+            31
+          ],
+          "learning_rate": [
+            0.05,
+            0.1
+          ]
+        },
+        "logistic_regression": {
+          "C": [
+            0.01,
+            0.1,
+            1,
+            10
+          ]
+        },
+        "random_forest": {
+          "n_estimators": [
+            100,
+            200
+          ],
+          "max_depth": [
+            8,
+            16
+          ],
+          "min_samples_leaf": [
+            2,
+            5
+          ]
+        },
+        "ridge_classifier": {
+          "alpha": [
+            0.01,
+            0.1,
+            1,
+            10
+          ]
+        },
+        "adaboost": {
+          "n_estimators": [
+            50,
+            100
+          ],
+          "learning_rate": [
+            0.05,
+            0.1
+          ]
+        },
+        "gradient_boosting_sklearn": {
+          "n_estimators": [
+            100,
+            200
+          ],
+          "max_depth": [
+            2,
+            4
+          ],
+          "learning_rate": [
+            0.05,
+            0.1
+          ]
+        },
+        "extra_trees": {
+          "n_estimators": [
+            100,
+            200
+          ],
+          "max_depth": [
+            8,
+            16
+          ],
+          "min_samples_leaf": [
+            2,
+            5
+          ]
+        }
+      }
+    },
+    "modules": {
+      "hpo": true,
+      "parallel": true,
+      "backtesting": true
+    },
+    "parallel": {
+      "workers": 2,
+      "hpo_run_dir": null,
+      "mode": "parallel"
+    },
+    "backtesting": {
+      "source_run_dir": null,
+      "cutoff_file": "p6_extrac.csv",
+      "cutoff_period": null,
+      "sample_fraction": 0.01
+    },
+    "update_root_readme": false,
+    "decay": {
+      "type": "relative"
+    },
+    "business_metric": {
+      "primary": "capture_rate_top_k",
+      "top_fraction": 0.1,
+      "tie_tolerance": 0.005
+    },
+    "mlflow": {
+      "experiment": "automl-venta-financiera"
+    },
+    "registry": {
+      "model_name": "automl-venta-financiera",
+      "alias": "champion",
+      "challenger_alias": "challenger",
+      "min_margin": 0.0
+    },
+    "airflow": {
+      "dag_id": "automl_training_pipeline",
+      "schedule": null,
+      "retries": 2,
+      "retry_delay_seconds": 60,
+      "retry_exponential_backoff": true,
+      "max_retry_delay_minutes": 15,
+      "task_timeout_hours": 4,
+      "pool": "automl_compute",
+      "max_active_runs": 1,
+      "pool_slots": 1
+    },
+    "compute_logging": {
+      "interval_seconds": 2.0
+    },
+    "validation": {
+      "min_rows": 1000,
+      "min_positive_rate": 0.001,
+      "max_positive_rate": 0.5,
+      "max_null_fraction": 0.95,
+      "max_schema_drift": 0,
+      "date_column": "p_fecinformacion",
+      "strict_temporal_order": true
+    },
+    "use_gpu": false,
+    "drift_alert_threshold": 10.0
+  },
+  "data_split": {
+    "development": [
+      {
+        "file": "p1_extrac.csv",
+        "rows_original": 328488,
+        "rows_sample": 3284,
+        "positive_rate_original": 0.034193029882370135,
+        "positive_rate_sample": 0.0341047503045067
+      },
+      {
+        "file": "p2_extrac.csv",
+        "rows_original": 329324,
+        "rows_sample": 3293,
+        "positive_rate_original": 0.03119116736101833,
+        "positive_rate_sample": 0.03127846948071667
+      },
+      {
+        "file": "p3_extrac.csv",
+        "rows_original": 322356,
+        "rows_sample": 3223,
+        "positive_rate_original": 0.035166089664842595,
+        "positive_rate_sample": 0.03506050263729445
+      },
+      {
+        "file": "p4_extrac.csv",
+        "rows_original": 304813,
+        "rows_sample": 3048,
+        "positive_rate_original": 0.029470527831818197,
+        "positive_rate_sample": 0.02952755905511811
+      },
+      {
+        "file": "p5_extrac.csv",
+        "rows_original": 295732,
+        "rows_sample": 2957,
+        "positive_rate_original": 0.029448960545358636,
+        "positive_rate_sample": 0.029421711193777476
+      },
+      {
+        "file": "p6_extrac.csv",
+        "rows_original": 236914,
+        "rows_sample": 2369,
+        "positive_rate_original": 0.038368353073267095,
+        "positive_rate_sample": 0.038412832418742084
+      }
+    ],
+    "development_periods": [],
+    "reserved_backtesting_files": [
+      "p7_extrac.csv",
+      "p8_extrac.csv",
+      "p9_extrac.csv",
+      "p10_extrac.csv"
+    ],
+    "future_files_loaded": false,
+    "sample_fraction": 0.01,
+    "feature_columns": [
+      "monto",
+      "grp_campecs06m",
+      "tea",
+      "ingreso_neto",
+      "mnt_ptm",
+      "ent_1erlntcrallsfm01",
+      "sldvig_tcrsrcf",
+      "ant_ultprdallsf",
+      "nro_configuracion_6m",
+      "nro_transfer_6m",
+      "nro_producto_6m",
+      "cre_sldtotfinprm03",
+      "ctd_campecsm01",
+      "max_campecs06m",
+      "ctd_camptotm01",
+      "ctd_camptot06m",
+      "ctd_camptototrcnl06m",
+      "ctd_sms_received",
+      "prm_cnt_fee_amt_u7d",
+      "telefonos_6meses",
+      "prom_score_acepta_12meses",
+      "dif_no_gestionado_4meses",
+      "dif_contacto_efectivo_10meses",
+      "ctd_app_productos_m1",
+      "monto_consumos_ecommerce_tc",
+      "avg_sald_pas_3m",
+      "act_avg6m_max12m",
+      "act_1m_avg3m",
+      "pas_avg6m_max12m",
+      "pas_1m_avg6m",
+      "pas_1m_avg3m",
+      "prop_atm_4m",
+      "cnl_atm_p4m_p12m",
+      "cnl_age_p4m_p12m",
+      "max_nact_12m",
+      "nprod_1m",
+      "senthtml_1m",
+      "openhtml_1m",
+      "avg_openhtml_6m",
+      "bpitrx_1m",
+      "apppag_1m",
+      "cre_lin_tc_rccibk_m07",
+      "lin_tcrrstsf03m",
+      "max_usotcribksf06m",
+      "max_usotcrrstsf03m",
+      "prom_pct_saldopprcc6m",
+      "prm_lintcribksf03m",
+      "prom_sow_lintcribksf3m",
+      "prom_uso_tc_rccsf3m",
+      "dsv_svppallsf06m",
+      "prm_svprmlibdis06m",
+      "prm_svprmecs06m",
+      "flg_saltotppe12m",
+      "num_incrsaldispefe06m",
+      "seg_un",
+      "beta_pctusotcr12m",
+      "rat_disefepnm01",
+      "pct_usotcrm01",
+      "beta_saltotppe12m",
+      "ctd_entrdm01",
+      "prm_saltotrdpj03m"
+    ],
+    "rows_train": 12719,
+    "rows_validation": 5455,
+    "chronology": "Orden explícito declarado en config; confirmar meses reales del curso."
+  },
+  "stage": "HPO (DAG)",
+  "models": {
+    "xgb": {
+      "performance": {
+        "auc_train": 1.0,
+        "auc_test": 0.8137968496533262,
+        "auc": 0.8137968496533262,
+        "gini": 0.6275936993066524,
+        "ks": 0.4847671123798713,
+        "f1": 0.09216589861751152,
+        "decay_percent": 18.620315034667378,
+        "cv_auc_mean": 0.8021787632074296,
+        "cv_auc_std": 0.015036925850152462,
+        "training_time_segs": 1.456918437999775,
+        "hpo_time_segs": 6.528910446999362,
+        "ronda": 2,
+        "capture_rate_top_k": 0.4301675977653631,
+        "lift_top_k": 4.297736713937831,
+        "precision_top_k": 0.14102564102564102
+      },
+      "hpo": {
+        "strategy": "Optuna-TPE",
+        "n_trials": 2,
+        "cv_folds": 3,
+        "best_parameters": {
+          "n_estimators": 175,
+          "max_depth": 8,
+          "learning_rate": 0.10790061933340454,
+          "subsample": 0.8394633936788146,
+          "colsample_bytree": 0.5780093202212182
+        },
+        "auc_cv": 0.8021787632074296,
+        "elapsed_seconds": 6.528910446999362,
+        "cv_note": "AUC de selección HPO; no es estimación independiente ni CV anidada."
+      }
+    },
+    "lgbm": {
+      "performance": {
+        "auc_train": 0.998676591160822,
+        "auc_test": 0.8290075010271027,
+        "auc": 0.8290075010271027,
+        "gini": 0.6580150020542055,
+        "ks": 0.5144906205395149,
+        "f1": 0.2376237623762376,
+        "decay_percent": 16.989392926142646,
+        "cv_auc_mean": 0.8098684465990824,
+        "cv_auc_std": 0.011001172942504071,
+        "training_time_segs": 1.0576620840001851,
+        "hpo_time_segs": 8.917831634998947,
+        "ronda": 2,
+        "capture_rate_top_k": 0.4748603351955307,
+        "lift_top_k": 4.744254814087216,
+        "precision_top_k": 0.15567765567765568
+      },
+      "hpo": {
+        "strategy": "Optuna-TPE",
+        "n_trials": 2,
+        "cv_folds": 3,
+        "best_parameters": {
+          "n_estimators": 220,
+          "num_leaves": 22,
+          "learning_rate": 0.02864339657822303
+        },
+        "auc_cv": 0.8098684465990824,
+        "elapsed_seconds": 8.917831634998947,
+        "cv_note": "AUC de selección HPO; no es estimación independiente ni CV anidada."
+      }
+    },
+    "catb": {
+      "performance": {
+        "auc_train": 0.8973653462208286,
+        "auc_test": 0.8467922626333645,
+        "auc": 0.8467922626333645,
+        "gini": 0.693584525266729,
+        "ks": 0.5696746307724236,
+        "f1": 0.17517241379310344,
+        "decay_percent": 5.635729505317764,
+        "cv_auc_mean": 0.8313180658570545,
+        "cv_auc_std": 0.012018190651972502,
+        "training_time_segs": 1.39666264600055,
+        "hpo_time_segs": 16.492103673999736,
+        "ronda": 2,
+        "capture_rate_top_k": 0.4860335195530726,
+        "lift_top_k": 4.855884339124562,
+        "precision_top_k": 0.15934065934065933
+      },
+      "hpo": {
+        "strategy": "Optuna-TPE",
+        "n_trials": 2,
+        "cv_folds": 3,
+        "best_parameters": {
+          "iterations": 220,
+          "depth": 4,
+          "learning_rate": 0.02864339657822303
+        },
+        "auc_cv": 0.8313180658570545,
+        "elapsed_seconds": 16.492103673999736,
+        "cv_note": "AUC de selección HPO; no es estimación independiente ni CV anidada."
+      }
+    },
+    "logistic_regression": {
+      "performance": {
+        "auc_train": 0.8429504161262115,
+        "auc_test": 0.8147688912795793,
+        "auc": 0.8147688912795793,
+        "gini": 0.6295377825591586,
+        "ks": 0.5218169342781268,
+        "f1": 0.1656516443361754,
+        "decay_percent": 3.3432007752176807,
+        "cv_auc_mean": 0.815124060617333,
+        "cv_auc_std": 0.017088419750026944,
+        "training_time_segs": 0.14248232699901564,
+        "hpo_time_segs": 1.752473178999935,
+        "ronda": 2,
+        "capture_rate_top_k": 0.41899441340782123,
+        "lift_top_k": 4.186107188900485,
+        "precision_top_k": 0.13736263736263737
+      },
+      "hpo": {
+        "strategy": "Optuna-TPE",
+        "n_trials": 2,
+        "cv_folds": 3,
+        "best_parameters": {
+          "C": 0.0745934328572655
+        },
+        "auc_cv": 0.815124060617333,
+        "elapsed_seconds": 1.752473178999935,
+        "cv_note": "AUC de selección HPO; no es estimación independiente ni CV anidada."
+      }
+    },
+    "random_forest": {
+      "performance": {
+        "auc_train": 0.9995966809709443,
+        "auc_test": 0.8483482704435813,
+        "auc": 0.8483482704435813,
+        "gini": 0.6966965408871626,
+        "ks": 0.5679497333768175,
+        "f1": 0.183206106870229,
+        "decay_percent": 15.130943650238015,
+        "cv_auc_mean": 0.8332753077784707,
+        "cv_auc_std": 0.009418554391005148,
+        "training_time_segs": 3.3230313709991606,
+        "hpo_time_segs": 18.33750737599985,
+        "ronda": 2,
+        "capture_rate_top_k": 0.49162011173184356,
+        "lift_top_k": 4.911699101643236,
+        "precision_top_k": 0.16117216117216118
+      },
+      "hpo": {
+        "strategy": "Optuna-TPE",
+        "n_trials": 2,
+        "cv_folds": 3,
+        "best_parameters": {
+          "n_estimators": 175,
+          "max_depth": 20,
+          "min_samples_leaf": 8
+        },
+        "auc_cv": 0.8332753077784707,
+        "elapsed_seconds": 18.33750737599985,
+        "cv_note": "AUC de selección HPO; no es estimación independiente ni CV anidada."
+      }
+    },
+    "ridge_classifier": {
+      "performance": {
+        "auc_train": 0.8428340403599734,
+        "auc_test": 0.8160352984527808,
+        "auc": 0.8160352984527808,
+        "gini": 0.6320705969055616,
+        "ks": 0.5212716168080609,
+        "f1": 0.16494845360824742,
+        "decay_percent": 3.1795989036877246,
+        "cv_auc_mean": 0.8195104937692396,
+        "cv_auc_std": 0.016062694897938504,
+        "training_time_segs": 0.07517267799994443,
+        "hpo_time_segs": 1.3870436580000387,
+        "ronda": 2,
+        "capture_rate_top_k": 0.41899441340782123,
+        "lift_top_k": 4.186107188900485,
+        "precision_top_k": 0.13736263736263737
+      },
+      "hpo": {
+        "strategy": "Optuna-TPE",
+        "n_trials": 2,
+        "cv_folds": 3,
+        "best_parameters": {
+          "alpha": 56.69849511478853
+        },
+        "auc_cv": 0.8195104937692396,
+        "elapsed_seconds": 1.3870436580000387,
+        "cv_note": "AUC de selección HPO; no es estimación independiente ni CV anidada."
+      }
+    },
+    "adaboost": {
+      "performance": {
+        "auc_train": 0.8511424318519498,
+        "auc_test": 0.8359663872664664,
+        "auc": 0.8359663872664664,
+        "gini": 0.6719327745329329,
+        "ks": 0.5435851605880534,
+        "f1": 0.0,
+        "decay_percent": 1.783020563604465,
+        "cv_auc_mean": 0.8237504283154381,
+        "cv_auc_std": 0.01288978776466602,
+        "training_time_segs": 3.6461185260013735,
+        "hpo_time_segs": 26.584117303000312,
+        "ronda": 2,
+        "capture_rate_top_k": 0.45251396648044695,
+        "lift_top_k": 4.520995764012524,
+        "precision_top_k": 0.14835164835164835
+      },
+      "hpo": {
+        "strategy": "Optuna-TPE",
+        "n_trials": 2,
+        "cv_folds": 3,
+        "best_parameters": {
+          "n_estimators": 106,
+          "learning_rate": 0.4123206532618726
+        },
+        "auc_cv": 0.8237504283154381,
+        "elapsed_seconds": 26.584117303000312,
+        "cv_note": "AUC de selección HPO; no es estimación independiente ni CV anidada."
+      }
+    },
+    "gradient_boosting_sklearn": {
+      "performance": {
+        "auc_train": 0.8649102503073138,
+        "auc_test": 0.8307789886531611,
+        "auc": 0.8307789886531611,
+        "gini": 0.6615579773063223,
+        "ks": 0.5358183573978932,
+        "f1": 0.0,
+        "decay_percent": 3.9462200432964485,
+        "cv_auc_mean": 0.8234387349078398,
+        "cv_auc_std": 0.008239240577452482,
+        "training_time_segs": 8.244318287999704,
+        "hpo_time_segs": 59.362084012000196,
+        "ronda": 2,
+        "capture_rate_top_k": 0.45251396648044695,
+        "lift_top_k": 4.520995764012524,
+        "precision_top_k": 0.14835164835164835
+      },
+      "hpo": {
+        "strategy": "Optuna-TPE",
+        "n_trials": 2,
+        "cv_folds": 3,
+        "best_parameters": {
+          "n_estimators": 190,
+          "max_depth": 2,
+          "learning_rate": 0.02864339657822303
+        },
+        "auc_cv": 0.8234387349078398,
+        "elapsed_seconds": 59.362084012000196,
+        "cv_note": "AUC de selección HPO; no es estimación independiente ni CV anidada."
+      }
+    },
+    "extra_trees": {
+      "performance": {
+        "auc_train": 0.9977050387003028,
+        "auc_test": 0.8210426893575207,
+        "auc": 0.8210426893575207,
+        "gini": 0.6420853787150413,
+        "ks": 0.5196557829064681,
+        "f1": 0.2343987823439878,
+        "decay_percent": 17.70687151915338,
+        "cv_auc_mean": 0.8248418719660559,
+        "cv_auc_std": 0.01699220600470885,
+        "training_time_segs": 1.6770351020004455,
+        "hpo_time_segs": 9.789552209000249,
+        "ronda": 2,
+        "capture_rate_top_k": 0.46368715083798884,
+        "lift_top_k": 4.632625289049869,
+        "precision_top_k": 0.152014652014652
+      },
+      "hpo": {
+        "strategy": "Optuna-TPE",
+        "n_trials": 2,
+        "cv_folds": 3,
+        "best_parameters": {
+          "n_estimators": 175,
+          "max_depth": 20,
+          "min_samples_leaf": 8
+        },
+        "auc_cv": 0.8248418719660559,
+        "elapsed_seconds": 9.789552209000249,
+        "cv_note": "AUC de selección HPO; no es estimación independiente ni CV anidada."
+      }
+    }
+  }
+}

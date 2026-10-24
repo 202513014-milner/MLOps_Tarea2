@@ -1,0 +1,28 @@
+{
+  "champion": "catb",
+  "promoted": false,
+  "version": "2",
+  "alias": "challenger",
+  "reason": "Evaluaciones no comparables: requiere reevaluar campeón vigente en el mismo holdout",
+  "registered_model": "automl-venta-financiera",
+  "model_run_id": "cafc5456a1204e88b23d3cae8c3a5c8d",
+  "compute": {
+    "wall_seconds": 8.805,
+    "cpu_seconds": 2.97,
+    "cpu_percent_avg": 50.64,
+    "cpu_percent_max": 94.7,
+    "ram_rss_mb_max": 592.91,
+    "ram_rss_mb_avg": 441.42,
+    "sys_cpu_percent_avg": 5.98,
+    "sys_ram_percent_max": 36.1,
+    "processes_max": 2,
+    "samples": 5,
+    "cpu_cores_logical": 16,
+    "gpu_available": 0.0,
+    "cpu_cores_equiv_avg": 0.5064,
+    "cpu_cores_equiv_max": 0.9470000000000001
+  },
+  "mlflow_run_id": "216dca95196d4f559070f29f545968d9",
+  "cached": false,
+  "required_files": []
+}

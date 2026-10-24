@@ -1,0 +1,38 @@
+{
+  "parallel_dir": "/data/output/runs/auto-7e3324ccc84a7112fbc4/benchmark/parallel/2026-10-24_16-15-17",
+  "campeon_paralelo": "catb",
+  "speedup": null,
+  "T_sequential_seconds": null,
+  "T_parallel_seconds": 19.059799605998705,
+  "execution_device": "cpu_only",
+  "required_files": [
+    "/data/output/runs/auto-7e3324ccc84a7112fbc4/benchmark/parallel/2026-10-24_16-15-17/results_summary.json",
+    "/data/output/runs/auto-7e3324ccc84a7112fbc4/benchmark/parallel/2026-10-24_16-15-17/xgb_model.pkl",
+    "/data/output/runs/auto-7e3324ccc84a7112fbc4/benchmark/parallel/2026-10-24_16-15-17/lgbm_model.pkl",
+    "/data/output/runs/auto-7e3324ccc84a7112fbc4/benchmark/parallel/2026-10-24_16-15-17/catb_model.pkl",
+    "/data/output/runs/auto-7e3324ccc84a7112fbc4/benchmark/parallel/2026-10-24_16-15-17/logistic_regression_model.pkl",
+    "/data/output/runs/auto-7e3324ccc84a7112fbc4/benchmark/parallel/2026-10-24_16-15-17/random_forest_model.pkl",
+    "/data/output/runs/auto-7e3324ccc84a7112fbc4/benchmark/parallel/2026-10-24_16-15-17/ridge_classifier_model.pkl",
+    "/data/output/runs/auto-7e3324ccc84a7112fbc4/benchmark/parallel/2026-10-24_16-15-17/adaboost_model.pkl",
+    "/data/output/runs/auto-7e3324ccc84a7112fbc4/benchmark/parallel/2026-10-24_16-15-17/gradient_boosting_sklearn_model.pkl",
+    "/data/output/runs/auto-7e3324ccc84a7112fbc4/benchmark/parallel/2026-10-24_16-15-17/extra_trees_model.pkl"
+  ],
+  "compute": {
+    "wall_seconds": 41.075,
+    "cpu_seconds": 25.64,
+    "cpu_percent_avg": 62.39,
+    "cpu_percent_max": 100.6,
+    "ram_rss_mb_max": 496.398,
+    "ram_rss_mb_avg": 477.404,
+    "sys_cpu_percent_avg": 6.15,
+    "sys_ram_percent_max": 35.8,
+    "processes_max": 1,
+    "samples": 20,
+    "cpu_cores_logical": 16,
+    "gpu_available": 0.0,
+    "cpu_cores_equiv_avg": 0.6239,
+    "cpu_cores_equiv_max": 1.006
+  },
+  "mlflow_run_id": "defd14a7814d4292858d05872603f06b",
+  "cached": false
+}

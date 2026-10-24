@@ -1,0 +1,58 @@
+{
+  "model": "adaboost",
+  "performance": {
+    "auc_train": 0.8403780583424807,
+    "auc_test": 0.8394201435851131,
+    "auc": 0.8394201435851131,
+    "gini": 0.6788402871702262,
+    "ks": 0.5373055325767966,
+    "f1": 0.0,
+    "decay_percent": 0.11398616942200514,
+    "cv_auc_mean": 0.836800664616724,
+    "cv_auc_std": 0.0005850049500321251,
+    "training_time_segs": 62.593199770999945,
+    "hpo_time_segs": 669.9340807640001,
+    "ronda": 2,
+    "capture_rate_top_k": 0.4960850111856823,
+    "lift_top_k": 4.9609410865517045,
+    "precision_top_k": 0.16266275444709336
+  },
+  "hpo": {
+    "strategy": "Optuna-TPE",
+    "n_trials": 7,
+    "cv_folds": 3,
+    "best_parameters": {
+      "n_estimators": 140,
+      "learning_rate": 0.1595857358814127
+    },
+    "auc_cv": 0.836800664616724,
+    "elapsed_seconds": 669.9340807640001,
+    "cv_note": "AUC de selección HPO; no es estimación independiente ni CV anidada."
+  },
+  "model_path": "/data/output/runs/auto-bde95c04df4aa4894f91/hpo/models/adaboost/adaboost_model.pkl",
+  "metadata_path": "/data/output/runs/auto-bde95c04df4aa4894f91/hpo/models/adaboost/adaboost_metadata.json",
+  "model_size_mb": 0.0927,
+  "required_files": [
+    "/data/output/runs/auto-bde95c04df4aa4894f91/hpo/models/adaboost/adaboost_model.pkl",
+    "/data/output/runs/auto-bde95c04df4aa4894f91/hpo/models/adaboost/adaboost_metadata.json"
+  ],
+  "execution_device": "cpu_only",
+  "compute": {
+    "wall_seconds": 680.833,
+    "cpu_seconds": 677.19,
+    "cpu_percent_avg": 99.296,
+    "cpu_percent_max": 101.5,
+    "ram_rss_mb_max": 643.02,
+    "ram_rss_mb_avg": 623.946,
+    "sys_cpu_percent_avg": 8.38,
+    "sys_ram_percent_max": 37.5,
+    "processes_max": 1,
+    "samples": 326,
+    "cpu_cores_logical": 16,
+    "gpu_available": 0.0,
+    "cpu_cores_equiv_avg": 0.9929600000000001,
+    "cpu_cores_equiv_max": 1.015
+  },
+  "mlflow_run_id": "be8df860a06346d2a2728d2101f52bbf",
+  "cached": false
+}
