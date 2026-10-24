@@ -21,10 +21,22 @@ def main():
         raise ValueError('Los switches deben ser true/false, sin comillas.')
     if not any(stages.get(k) for k in ['hpo','parallel','backtesting']):
         print('Todos los módulos desactivados. No se cargan datos.'); return
+
     from src.preprocessing import cargar_desarrollo_temporal
+    from src.data_quality import validar_esquema_temporal
+
     start = time.perf_counter()
+
     if stages.get('hpo') or stages.get('parallel'):
+        print("\n[Data Quality] Validando esquemas de desarrollo...")
+        reporte_calidad = validar_esquema_temporal(config)
+        print(
+            f"[Data Quality] Validación superada: "
+            f"{len(reporte_calidad)} archivos revisados."
+        )
+
         X_train, X_val, y_train, y_val, manifest = cargar_desarrollo_temporal(config)
+
     source = None
     if stages.get('hpo'):
         from src.hpo import run_hpo_training
