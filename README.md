@@ -83,9 +83,20 @@ python main.py --input data/input --config config/smoke.yaml
 Esto ejecuta el pipeline P3 completo sin Airflow, con las mismas funciones de etapas.
 Sin `MLFLOW_TRACKING_URI` utiliza SQLite local bajo `data/mlflow`; si se desea el servidor Docker,
 configurar `$env:MLFLOW_TRACKING_URI="http://localhost:5000"`.
-`python main.py --legacy --config config/config.yaml` conserva la ruta modular P2 y sus switches;
-**no es la ruta de entrega P3**, porque no ejecuta el tracking/orquestación completos.
-`main_p2.py` conserva la entrada previa; `src/parallelism.py` es un alias compatible de `src/parallel.py`.
+La ejecución local utiliza `main.py` como punto de entrada y
+`src/stages.py` como implementación centralizada de las etapas,
+compartida con el DAG de entrenamiento de Airflow.
+
+Se eliminó la ruta de ejecución heredada de la Práctica 2 (--legacy y main_p2.py) para evitar duplicaciones y mantener una única implementación centralizada del pipeline de entrenamiento.
+
+Se mantienen las funcionalidades de HPO, paralelismo y
+backtesting en sus respectivos módulos de `src/`.
+
+Para consultar las etapas individuales disponibles:
+
+```powershell
+docker compose exec airflow-webserver python -m src.stages --help
+```
 
 ## Qué se ejecuta
 

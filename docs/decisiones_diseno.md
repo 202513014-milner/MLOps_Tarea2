@@ -38,7 +38,7 @@ Reporte incluye su propia fase de armado; excluye su subida final de logs y escr
 
 Nueve modelos, semilla, división 6/4, muestreo estratificado, pipelines de preprocesamiento, Optuna,
 validación de fechas, ROC, Docker y alias. El entrenamiento normal no compara secuencial/paralelo salvo
-modo benchmark. La ruta local principal ahora usa las mismas etapas de P3; la antigua está en main_p2.py.
+modo benchmark. La ejecución local mediante main.py y el DAG de Airflow comparten las etapas centralizadas en src/stages.py. Se retiraron main_p2.py y la opción --legacy para eliminar rutas redundantes, sin modificar los algoritmos de entrenamiento ni el registro de modelos.
 
 ## Evidencia pendiente de adjuntar
 
