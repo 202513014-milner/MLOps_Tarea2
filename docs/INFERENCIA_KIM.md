@@ -1,6 +1,6 @@
 # Inferencia mensual P3 (parte de Kim)
 
-Rama `feature/p3-kim`, creada desde `refactor/limpieza-p3`. Incluye **solo** la inferencia mensual de p7 a p10,
+Rama `p3-inferencia`, creada desde `refactor/limpieza-p3`. Incluye **solo** la inferencia mensual de p7 a p10,
 el cálculo del TLV, la asignación de grupos de ejecución y el DAG de inferencia. El monitoreo (Milner) y las
 validaciones de resultados (Rosabel) van en sus propias ramas.
 
