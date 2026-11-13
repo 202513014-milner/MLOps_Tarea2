@@ -41,7 +41,6 @@ class TestInferenciaP3(unittest.TestCase):
         })
         with self.assertRaises(InferenceValidationError):
             validar_probabilidades(df)
-    
     def test_tlv_correcto(self):
         df = pd.DataFrame({
             "probabilidad": [0.8, 0.6, 0.4, 0.7, 0.5],
