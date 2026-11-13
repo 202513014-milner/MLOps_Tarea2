@@ -22,3 +22,6 @@ data/output/runs/*/prepare_data/dataset.joblib
 *.lock
 # MLflow model bundles are stored by the tracking server, not Git.
 **/mlflow_model/
+
+# Resultados generados; evidencias seleccionadas en docs/
+data/output/
