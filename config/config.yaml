@@ -286,3 +286,23 @@ validation:
   strict_temporal_order: true
 use_gpu: false
 drift_alert_threshold: 10.0
+
+# ---------------- Práctica 3: inferencia mensual y posprocesamiento (TLV y grupos de ejecución) ----------------
+inference:
+  dag_id: automl_inference_pipeline
+  months: [p7, p8, p9, p10]        # meses nuevos, en este orden
+  default_month: p7
+  input_pattern: "{mes}_extrac.csv"   # archivo del mes dentro de input_dir
+  output_subdir: inference         # salidas en <output_dir>/<output_subdir>/<mes>/<corrida>/
+  id_col: codunicocli
+  date_col: p_fecinformacion
+  expected_algorithm: CatBoost     # el alias champion debe apuntar al ganador del parcial
+  retries: 1
+  retry_delay_seconds: 30
+postprocessing:                    # variables de negocio: solo aquí (ver D13 sobre monto/grp_campecs06m)
+  amount_col: monto
+  contact_col: prob_value_contact
+  contact_fill: 1.0e-06
+  freshness_col: grp_campecs06m
+  freshness_prob: {G1: 0.066, G2: 0.028, G3: 0.022, G4: 0.008, default: 0.004}
+  dist_ge: [0, 0.035, 0.087, 0.237, 0.393, 0.529, 0.664, 0.787, 0.862, 0.95, 1.0]
