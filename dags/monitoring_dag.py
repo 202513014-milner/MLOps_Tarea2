@@ -1,6 +1,8 @@
 """DAG independiente para monitorear una inferencia mensual."""
 
+import json
 from datetime import datetime, timedelta
+from pathlib import Path
 
 from airflow import DAG
 from airflow.operators.python import PythonOperator
@@ -13,10 +15,26 @@ MON = CFG.get("monitoring", {})
 def _monitorear(dag_run, **_):
     conf = dag_run.conf or {}
     mes = conf.get("mes")
+
+    if not mes:
+        raise ValueError("El DAG requiere 'mes' en dag_run.conf.")
+
+    base = Path(CFG["output_dir"]) / "inference" / mes
     key = conf.get("key")
 
-    if not mes or not key:
-        raise ValueError("El DAG requiere 'mes' y 'key' en dag_run.conf.")
+    if key:
+        contexto_path = base / key / "inference_context.json"
+        if not contexto_path.is_file():
+            raise FileNotFoundError(f"No existe el contexto de inferencia: {contexto_path}")
+    else:
+        candidatos = list(base.glob("*/inference_context.json"))
+        if not candidatos:
+            raise FileNotFoundError(f"No hay inferencias registradas para {mes}.")
+        contexto_path = max(candidatos, key=lambda p: p.stat().st_mtime)
+
+    contexto = json.loads(contexto_path.read_text(encoding="utf-8"))
+    key = contexto.get("key") or contexto_path.parent.name
+    inference_run_id = conf.get("inference_run_id") or contexto.get("inference_run_id")
 
     from src.monitoring_p3 import monitorear_desde_contexto
 
@@ -24,7 +42,7 @@ def _monitorear(dag_run, **_):
         CFG,
         mes=mes,
         key=key,
-        inference_run_id=conf.get("inference_run_id"),
+        inference_run_id=inference_run_id,
     )
 
 
@@ -37,9 +55,7 @@ with DAG(
     default_args={
         "owner": "mlops",
         "retries": MON.get("retries", 1),
-        "retry_delay": timedelta(
-            seconds=MON.get("retry_delay_seconds", 30)
-        ),
+        "retry_delay": timedelta(seconds=MON.get("retry_delay_seconds", 30)),
     },
     tags=["p3", "monitoreo"],
 ) as dag:
