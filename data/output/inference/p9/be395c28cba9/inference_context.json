@@ -1,0 +1,1 @@
+{"mes": "p9", "dir": "/data/output/inference/p9/be395c28cba9", "key": "be395c28cba9", "data_hash": "0cec210d65266fb97f162a0c1117d4798715cb1ba717dc2e1ae44e122b48fef4", "n_clientes": 263753, "target_descartado": true, "model_name": "automl-venta-financiera", "model_version": "1", "inference_run_id": "2b9fd73b3248432b86efb98702f0dcd3"}
