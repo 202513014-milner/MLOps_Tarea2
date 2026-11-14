@@ -15,6 +15,7 @@ import pandas as pd
 from src.monitoring import ComputeMonitor
 from src.posprocessing import grupos_mes, puntuar
 from src.provenance import airflow_info, docker_info, git_info, sha256_file
+from src.inference_validation import validar_probabilidades, validar_tlv
 
 
 def cargar_cfg():
@@ -143,15 +144,70 @@ def generar_scores(cfg, ctx):
 
 
 def posprocesar(cfg, ctx):
-    """Puntuación TLV y grupo de ejecución 1-10; guarda scores_clientes.csv y resumen_grupos.csv."""
+    """Puntuación TLV, validación y grupos de ejecución 1-10."""
     d, p, idc = Path(ctx['dir']), cfg['postprocessing'], cfg['inference']['id_col']
+
     with medir(d, 'posprocesar'):
-        datos = pd.read_pickle(d / 'datos.pkl')[[idc, p['amount_col'], p['contact_col'], p['freshness_col']]]  # solo lo que usa el TLV
+        datos = pd.read_pickle(d / 'datos.pkl')[
+            [idc, p['amount_col'], p['contact_col'], p['freshness_col']]
+        ]
+
+        # Calcular puntuación TLV
         out = puntuar(datos, np.load(d / 'scores.npy'), cfg)
-        out['grupo_ejec_tlv'] = grupos_mes(out['puntuacion_tlv'], cfg)
-        out[[idc, 'prob', 'puntuacion_tlv', 'grupo_ejec_tlv']].to_csv(d / 'scores_clientes.csv', index=False)
-        g = out['grupo_ejec_tlv'].value_counts().reindex(range(1, 11), fill_value=0)
-        pd.DataFrame({'grupo_ejec_tlv': g.index, 'clientes': g.values, 'pct': (g / g.sum()).round(4).values}).to_csv(d / 'resumen_grupos.csv', index=False)
+
+        # Validar las probabilidades generadas
+        validar_probabilidades(out, columna="prob")
+
+        # Adaptar las columnas para la validación del TLV
+        datos_validacion = out.rename(
+            columns={
+                "prob": "probabilidad",
+                "puntuacion_tlv": "tlv",
+            }
+        ).copy()
+
+        # Aplicar el mismo tratamiento utilizado en el posprocesamiento
+        datos_validacion["prob_value_contact"] = (
+            pd.to_numeric(
+                datos_validacion["prob_value_contact"],
+                errors="coerce"
+            ).fillna(p["contact_fill"])
+        )
+
+        datos_validacion["monto"] = (
+            pd.to_numeric(
+                datos_validacion["monto"],
+                errors="coerce"
+            ).fillna(0).clip(lower=0)
+        )
+
+        # Validar la fórmula del TLV
+        validar_tlv(
+            datos_validacion,
+            factores_freshness=p["freshness_prob"]
+        )
+
+        # Asignar grupos de ejecución
+        out["grupo_ejec_tlv"] = grupos_mes(
+            out["puntuacion_tlv"], cfg
+        )
+
+        # Guardar resultados individuales
+        out[
+            [idc, "prob", "puntuacion_tlv", "grupo_ejec_tlv"]
+        ].to_csv(d / "scores_clientes.csv", index=False)
+
+        # Guardar resumen por grupo
+        g = out["grupo_ejec_tlv"].value_counts().reindex(
+            range(1, 11), fill_value=0
+        )
+
+        pd.DataFrame({
+            "grupo_ejec_tlv": g.index,
+            "clientes": g.values,
+            "pct": (g / g.sum()).round(4).values,
+        }).to_csv(d / "resumen_grupos.csv", index=False)
+
     return ctx
 
 

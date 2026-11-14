@@ -137,3 +137,23 @@ def test_champion_con_otro_algoritmo_se_rechaza(monkeypatch):
     monkeypatch.setattr(inference, '_mlflow', lambda cfg: None)
     with pytest.raises(RuntimeError, match='se esperaba CatBoost'):
         inference.cargar_champion({**CFG, 'inference': {**CFG['inference'], 'expected_algorithm': 'CatBoost'}})
+
+
+def test_posprocesamiento_rechaza_tlv_incorrecto(entorno, monkeypatch):
+    """Comprueba que un TLV incorrecto detiene la inferencia."""
+
+    # Guardar la función original de Kim
+    puntuar_original = inference.puntuar
+
+    # Simular un error en el cálculo del TLV
+    def puntuar_incorrecto(df, scores, cfg):
+        resultado = puntuar_original(df, scores, cfg)
+        resultado.loc[resultado.index[0], "puntuacion_tlv"] += 1
+        return resultado
+
+    # Sustituir temporalmente la función durante esta prueba
+    monkeypatch.setattr(inference, "puntuar", puntuar_incorrecto)
+
+    # El pipeline debe detectar el TLV incorrecto y detenerse
+    with pytest.raises(ValueError, match="TLV incorrecto"):
+        correr(entorno[0], "p7")

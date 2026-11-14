@@ -2,6 +2,7 @@
 """Validación de resultados de inferencia - Práctica 3."""
 
 import pandas as pd
+import numpy as np
 
 
 class InferenceValidationError(ValueError):
@@ -44,7 +45,6 @@ def validar_probabilidades(df: pd.DataFrame, columna="probabilidad"):
         "probabilidad_maxima": float(probabilidades.max()),
     }
 
-import numpy as np
 
 FACTORES_FRESHNESS = {
     "G1": 0.066,
@@ -54,7 +54,11 @@ FACTORES_FRESHNESS = {
 }
 
 
-def validar_tlv(df: pd.DataFrame, tolerancia=1e-8):
+def validar_tlv(
+    df: pd.DataFrame,
+    tolerancia=1e-8,
+    factores_freshness=None
+):
     """Verifica que el TLV corresponda a la fórmula de negocio."""
 
     columnas = [
@@ -85,7 +89,15 @@ def validar_tlv(df: pd.DataFrame, tolerancia=1e-8):
         raise InferenceValidationError("Existen valores TLV inválidos.")
 
     grupos = df["grp_campecs06m"].fillna("OTROS").astype(str).str.upper()
-    freshness = grupos.map(FACTORES_FRESHNESS).fillna(0.004)
+
+    factores = (
+        factores_freshness
+        if factores_freshness is not None
+        else FACTORES_FRESHNESS
+    )
+    valor_default = factores.get("default", 0.004)
+
+    freshness = grupos.map(factores).fillna(valor_default)
 
     esperado = (
         pd.to_numeric(df["probabilidad"])
