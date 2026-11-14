@@ -1,0 +1,400 @@
+airflow-scheduler-1  |     reload_configuration_for_dag_processing()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 1479, in reload_configuration_for_dag_processing
+airflow-scheduler-1  |     airflow.settings.initialize()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 782, in initialize
+airflow-scheduler-1  |     import_local_settings()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 730, in import_local_settings
+airflow-scheduler-1  |     import airflow_local_settings
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1138, in _find_and_load_unlocked
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1078, in _find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1507, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1479, in _get_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1619, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1662, in _fill_cache
+airflow-scheduler-1  | OSError: [Errno 5] Input/output error: '/opt/airflow/project'
+airflow-scheduler-1  | [2026-11-14T09:05:48.553+0000] {manager.py:280} WARNING - DagFileProcessorManager (PID=4699) exited with exit code 1 - re-launching
+airflow-scheduler-1  | [2026-11-14T09:05:48.557+0000] {manager.py:174} INFO - Launched DagFileProcessorManager with pid: 4704
+airflow-scheduler-1  | [2026-11-14T09:05:48.565+0000] {settings.py:63} INFO - Configured default timezone UTC
+airflow-scheduler-1  | Process ForkProcess-24:
+airflow-scheduler-1  | Traceback (most recent call last):
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+airflow-scheduler-1  |     self.run()
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 108, in run
+airflow-scheduler-1  |     self._target(*self._args, **self._kwargs)
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 237, in _run_processor_manager
+airflow-scheduler-1  |     reload_configuration_for_dag_processing()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 1479, in reload_configuration_for_dag_processing
+airflow-scheduler-1  |     airflow.settings.initialize()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 782, in initialize
+airflow-scheduler-1  |     import_local_settings()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 730, in import_local_settings
+airflow-scheduler-1  |     import airflow_local_settings
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1138, in _find_and_load_unlocked
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1078, in _find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1507, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1479, in _get_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1619, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1662, in _fill_cache
+airflow-scheduler-1  | OSError: [Errno 5] Input/output error: '/opt/airflow/project'
+airflow-scheduler-1  | [2026-11-14T09:05:49.587+0000] {manager.py:280} WARNING - DagFileProcessorManager (PID=4704) exited with exit code 1 - re-launching
+airflow-scheduler-1  | [2026-11-14T09:05:49.591+0000] {manager.py:174} INFO - Launched DagFileProcessorManager with pid: 4709
+airflow-scheduler-1  | [2026-11-14T09:05:49.597+0000] {settings.py:63} INFO - Configured default timezone UTC
+airflow-scheduler-1  | Process ForkProcess-25:
+airflow-scheduler-1  | Traceback (most recent call last):
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+airflow-scheduler-1  |     self.run()
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 108, in run
+airflow-scheduler-1  |     self._target(*self._args, **self._kwargs)
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 237, in _run_processor_manager
+airflow-scheduler-1  |     reload_configuration_for_dag_processing()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 1479, in reload_configuration_for_dag_processing
+airflow-scheduler-1  |     airflow.settings.initialize()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 782, in initialize
+airflow-scheduler-1  |     import_local_settings()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 730, in import_local_settings
+airflow-scheduler-1  |     import airflow_local_settings
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1138, in _find_and_load_unlocked
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1078, in _find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1507, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1479, in _get_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1619, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1662, in _fill_cache
+airflow-scheduler-1  | OSError: [Errno 5] Input/output error: '/opt/airflow/project'
+airflow-scheduler-1  | [2026-11-14T09:05:50.614+0000] {manager.py:280} WARNING - DagFileProcessorManager (PID=4709) exited with exit code 1 - re-launching
+airflow-scheduler-1  | [2026-11-14T09:05:50.619+0000] {manager.py:174} INFO - Launched DagFileProcessorManager with pid: 4714
+airflow-scheduler-1  | [2026-11-14T09:05:50.628+0000] {settings.py:63} INFO - Configured default timezone UTC
+airflow-scheduler-1  | Process ForkProcess-26:
+airflow-scheduler-1  | Traceback (most recent call last):
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+airflow-scheduler-1  |     self.run()
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 108, in run
+airflow-scheduler-1  |     self._target(*self._args, **self._kwargs)
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 237, in _run_processor_manager
+airflow-scheduler-1  |     reload_configuration_for_dag_processing()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 1479, in reload_configuration_for_dag_processing
+airflow-scheduler-1  |     airflow.settings.initialize()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 782, in initialize
+airflow-scheduler-1  |     import_local_settings()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 730, in import_local_settings
+airflow-scheduler-1  |     import airflow_local_settings
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1138, in _find_and_load_unlocked
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1078, in _find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1507, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1479, in _get_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1619, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1662, in _fill_cache
+airflow-scheduler-1  | OSError: [Errno 5] Input/output error: '/opt/airflow/project'
+airflow-scheduler-1  | [2026-11-14T09:05:51.640+0000] {manager.py:280} WARNING - DagFileProcessorManager (PID=4714) exited with exit code 1 - re-launching
+airflow-scheduler-1  | [2026-11-14T09:05:51.644+0000] {manager.py:174} INFO - Launched DagFileProcessorManager with pid: 4719
+airflow-scheduler-1  | [2026-11-14T09:05:51.652+0000] {settings.py:63} INFO - Configured default timezone UTC
+airflow-scheduler-1  | Process ForkProcess-27:
+airflow-scheduler-1  | Traceback (most recent call last):
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+airflow-scheduler-1  |     self.run()
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 108, in run
+airflow-scheduler-1  |     self._target(*self._args, **self._kwargs)
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 237, in _run_processor_manager
+airflow-scheduler-1  |     reload_configuration_for_dag_processing()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 1479, in reload_configuration_for_dag_processing
+airflow-scheduler-1  |     airflow.settings.initialize()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 782, in initialize
+airflow-scheduler-1  |     import_local_settings()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 730, in import_local_settings
+airflow-scheduler-1  |     import airflow_local_settings
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1138, in _find_and_load_unlocked
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1078, in _find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1507, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1479, in _get_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1619, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1662, in _fill_cache
+airflow-scheduler-1  | OSError: [Errno 5] Input/output error: '/opt/airflow/project'
+airflow-scheduler-1  | [2026-11-14T09:05:51.788+0000] {manager.py:280} WARNING - DagFileProcessorManager (PID=4719) exited with exit code 1 - re-launching
+airflow-scheduler-1  | [2026-11-14T09:05:51.792+0000] {manager.py:174} INFO - Launched DagFileProcessorManager with pid: 4724
+airflow-scheduler-1  | [2026-11-14T09:05:51.800+0000] {settings.py:63} INFO - Configured default timezone UTC
+airflow-scheduler-1  | Process ForkProcess-28:
+airflow-scheduler-1  | Traceback (most recent call last):
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+airflow-scheduler-1  |     self.run()
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 108, in run
+airflow-scheduler-1  |     self._target(*self._args, **self._kwargs)
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 237, in _run_processor_manager
+airflow-scheduler-1  |     reload_configuration_for_dag_processing()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 1479, in reload_configuration_for_dag_processing
+airflow-scheduler-1  |     airflow.settings.initialize()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 782, in initialize
+airflow-scheduler-1  |     import_local_settings()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 730, in import_local_settings
+airflow-scheduler-1  |     import airflow_local_settings
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1138, in _find_and_load_unlocked
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1078, in _find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1507, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1479, in _get_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1619, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1662, in _fill_cache
+airflow-scheduler-1  | OSError: [Errno 5] Input/output error: '/opt/airflow/project'
+airflow-scheduler-1  | [2026-11-14T09:05:52.190+0000] {manager.py:280} WARNING - DagFileProcessorManager (PID=4724) exited with exit code 1 - re-launching
+airflow-scheduler-1  | [2026-11-14T09:05:52.194+0000] {manager.py:174} INFO - Launched DagFileProcessorManager with pid: 4729
+airflow-scheduler-1  | [2026-11-14T09:05:52.202+0000] {settings.py:63} INFO - Configured default timezone UTC
+airflow-scheduler-1  | Process ForkProcess-29:
+airflow-scheduler-1  | Traceback (most recent call last):
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+airflow-scheduler-1  |     self.run()
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 108, in run
+airflow-scheduler-1  |     self._target(*self._args, **self._kwargs)
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 237, in _run_processor_manager
+airflow-scheduler-1  |     reload_configuration_for_dag_processing()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 1479, in reload_configuration_for_dag_processing
+airflow-scheduler-1  |     airflow.settings.initialize()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 782, in initialize
+airflow-scheduler-1  |     import_local_settings()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 730, in import_local_settings
+airflow-scheduler-1  |     import airflow_local_settings
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1138, in _find_and_load_unlocked
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1078, in _find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1507, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1479, in _get_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1619, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1662, in _fill_cache
+airflow-scheduler-1  | OSError: [Errno 5] Input/output error: '/opt/airflow/project'
+airflow-scheduler-1  | [2026-11-14T09:05:53.219+0000] {manager.py:280} WARNING - DagFileProcessorManager (PID=4729) exited with exit code 1 - re-launching
+airflow-scheduler-1  | [2026-11-14T09:05:53.223+0000] {manager.py:174} INFO - Launched DagFileProcessorManager with pid: 4734
+airflow-scheduler-1  | [2026-11-14T09:05:53.229+0000] {settings.py:63} INFO - Configured default timezone UTC
+airflow-scheduler-1  | Process ForkProcess-30:
+airflow-scheduler-1  | Traceback (most recent call last):
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+airflow-scheduler-1  |     self.run()
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 108, in run
+airflow-scheduler-1  |     self._target(*self._args, **self._kwargs)
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 237, in _run_processor_manager
+airflow-scheduler-1  |     reload_configuration_for_dag_processing()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 1479, in reload_configuration_for_dag_processing
+airflow-scheduler-1  |     airflow.settings.initialize()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 782, in initialize
+airflow-scheduler-1  |     import_local_settings()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 730, in import_local_settings
+airflow-scheduler-1  |     import airflow_local_settings
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1138, in _find_and_load_unlocked
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1078, in _find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1507, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1479, in _get_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1619, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1662, in _fill_cache
+airflow-scheduler-1  | OSError: [Errno 5] Input/output error: '/opt/airflow/project'
+airflow-scheduler-1  | [2026-11-14T09:05:54.239+0000] {manager.py:280} WARNING - DagFileProcessorManager (PID=4734) exited with exit code 1 - re-launching
+airflow-scheduler-1  | [2026-11-14T09:05:54.243+0000] {manager.py:174} INFO - Launched DagFileProcessorManager with pid: 4739
+airflow-scheduler-1  | [2026-11-14T09:05:54.249+0000] {settings.py:63} INFO - Configured default timezone UTC
+airflow-scheduler-1  | Process ForkProcess-31:
+airflow-scheduler-1  | Traceback (most recent call last):
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+airflow-scheduler-1  |     self.run()
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 108, in run
+airflow-scheduler-1  |     self._target(*self._args, **self._kwargs)
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 237, in _run_processor_manager
+airflow-scheduler-1  |     reload_configuration_for_dag_processing()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 1479, in reload_configuration_for_dag_processing
+airflow-scheduler-1  |     airflow.settings.initialize()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 782, in initialize
+airflow-scheduler-1  |     import_local_settings()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 730, in import_local_settings
+airflow-scheduler-1  |     import airflow_local_settings
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1138, in _find_and_load_unlocked
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1078, in _find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1507, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1479, in _get_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1619, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1662, in _fill_cache
+airflow-scheduler-1  | OSError: [Errno 5] Input/output error: '/opt/airflow/project'
+airflow-scheduler-1  | [2026-11-14T09:05:55.260+0000] {manager.py:280} WARNING - DagFileProcessorManager (PID=4739) exited with exit code 1 - re-launching
+airflow-scheduler-1  | [2026-11-14T09:05:55.264+0000] {manager.py:174} INFO - Launched DagFileProcessorManager with pid: 4744
+airflow-scheduler-1  | [2026-11-14T09:05:55.271+0000] {settings.py:63} INFO - Configured default timezone UTC
+airflow-scheduler-1  | Process ForkProcess-32:
+airflow-scheduler-1  | Traceback (most recent call last):
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+airflow-scheduler-1  |     self.run()
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 108, in run
+airflow-scheduler-1  |     self._target(*self._args, **self._kwargs)
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 237, in _run_processor_manager
+airflow-scheduler-1  |     reload_configuration_for_dag_processing()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 1479, in reload_configuration_for_dag_processing
+airflow-scheduler-1  |     airflow.settings.initialize()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 782, in initialize
+airflow-scheduler-1  |     import_local_settings()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 730, in import_local_settings
+airflow-scheduler-1  |     import airflow_local_settings
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1138, in _find_and_load_unlocked
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1078, in _find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1507, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1479, in _get_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1619, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1662, in _fill_cache
+airflow-scheduler-1  | OSError: [Errno 5] Input/output error: '/opt/airflow/project'
+airflow-scheduler-1  | [2026-11-14T09:05:56.281+0000] {manager.py:280} WARNING - DagFileProcessorManager (PID=4744) exited with exit code 1 - re-launching
+airflow-scheduler-1  | [2026-11-14T09:05:56.285+0000] {manager.py:174} INFO - Launched DagFileProcessorManager with pid: 4749
+airflow-scheduler-1  | [2026-11-14T09:05:56.291+0000] {settings.py:63} INFO - Configured default timezone UTC
+airflow-scheduler-1  | Process ForkProcess-33:
+airflow-scheduler-1  | Traceback (most recent call last):
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+airflow-scheduler-1  |     self.run()
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 108, in run
+airflow-scheduler-1  |     self._target(*self._args, **self._kwargs)
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 237, in _run_processor_manager
+airflow-scheduler-1  |     reload_configuration_for_dag_processing()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 1479, in reload_configuration_for_dag_processing
+airflow-scheduler-1  |     airflow.settings.initialize()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 782, in initialize
+airflow-scheduler-1  |     import_local_settings()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 730, in import_local_settings
+airflow-scheduler-1  |     import airflow_local_settings
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1138, in _find_and_load_unlocked
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1078, in _find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1507, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1479, in _get_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1619, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1662, in _fill_cache
+airflow-scheduler-1  | OSError: [Errno 5] Input/output error: '/opt/airflow/project'
+airflow-scheduler-1  | [2026-11-14T09:05:56.826+0000] {manager.py:280} WARNING - DagFileProcessorManager (PID=4749) exited with exit code 1 - re-launching
+airflow-scheduler-1  | [2026-11-14T09:05:56.830+0000] {manager.py:174} INFO - Launched DagFileProcessorManager with pid: 4754
+airflow-scheduler-1  | [2026-11-14T09:05:56.839+0000] {settings.py:63} INFO - Configured default timezone UTC
+airflow-scheduler-1  | Process ForkProcess-34:
+airflow-scheduler-1  | Traceback (most recent call last):
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+airflow-scheduler-1  |     self.run()
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 108, in run
+airflow-scheduler-1  |     self._target(*self._args, **self._kwargs)
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 237, in _run_processor_manager
+airflow-scheduler-1  |     reload_configuration_for_dag_processing()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 1479, in reload_configuration_for_dag_processing
+airflow-scheduler-1  |     airflow.settings.initialize()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 782, in initialize
+airflow-scheduler-1  |     import_local_settings()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 730, in import_local_settings
+airflow-scheduler-1  |     import airflow_local_settings
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1138, in _find_and_load_unlocked
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1078, in _find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1507, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1479, in _get_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1619, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1662, in _fill_cache
+airflow-scheduler-1  | OSError: [Errno 5] Input/output error: '/opt/airflow/project'
+airflow-scheduler-1  | [2026-11-14T09:05:57.872+0000] {manager.py:280} WARNING - DagFileProcessorManager (PID=4754) exited with exit code 1 - re-launching
+airflow-scheduler-1  | [2026-11-14T09:05:57.877+0000] {manager.py:174} INFO - Launched DagFileProcessorManager with pid: 4759
+airflow-scheduler-1  | [2026-11-14T09:05:57.885+0000] {settings.py:63} INFO - Configured default timezone UTC
+airflow-scheduler-1  | Process ForkProcess-35:
+airflow-scheduler-1  | Traceback (most recent call last):
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+airflow-scheduler-1  |     self.run()
+airflow-scheduler-1  |   File "/usr/local/lib/python3.11/multiprocessing/process.py", line 108, in run
+airflow-scheduler-1  |     self._target(*self._args, **self._kwargs)
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 237, in _run_processor_manager
+airflow-scheduler-1  |     reload_configuration_for_dag_processing()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/dag_processing/manager.py", line 1479, in reload_configuration_for_dag_processing
+airflow-scheduler-1  |     airflow.settings.initialize()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 782, in initialize
+airflow-scheduler-1  |     import_local_settings()
+airflow-scheduler-1  |   File "/home/airflow/.local/lib/python3.11/site-packages/airflow/settings.py", line 730, in import_local_settings
+airflow-scheduler-1  |     import airflow_local_settings
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1138, in _find_and_load_unlocked
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap>", line 1078, in _find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1507, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1479, in _get_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1619, in find_spec
+airflow-scheduler-1  |   File "<frozen importlib._bootstrap_external>", line 1662, in _fill_cache
+airflow-scheduler-1  | OSError: [Errno 5] Input/output error: '/opt/airflow/project'
+airflow-scheduler-1  | 
+airflow-scheduler-1  | /home/airflow/.local/lib/python3.11/site-packages/airflow/configuration.py:765 FutureWarning: The auth_backends setting in [api] has had airflow.api.auth.backend.session added in the running config, which is needed by the UI. Please update your config before Apache Airflow 3.0.
+airflow-scheduler-1  | /home/airflow/.local/lib/python3.11/site-packages/airflow/configuration.py:765 FutureWarning: The auth_backends setting in [api] has had airflow.api.auth.backend.session added in the running config, which is needed by the UI. Please update your config before Apache Airflow 3.0.
+airflow-scheduler-1  |   ____________       _____________
+airflow-scheduler-1  |  ____    |__( )_________  __/__  /________      __
+airflow-scheduler-1  | ____  /| |_  /__  ___/_  /_ __  /_  __ \_ | /| / /
+airflow-scheduler-1  | ___  ___ |  / _  /   _  __/ _  / / /_/ /_ |/ |/ /
+airflow-scheduler-1  |  _/_/  |_/_/  /_/    /_/    /_/  \____/____/|__/
+airflow-scheduler-1  | [2026-11-14T09:09:51.567+0000] {executor_loader.py:258} INFO - Loaded executor: LocalExecutor
+airflow-scheduler-1  | [2026-11-14 09:09:51 +0000] [17] [INFO] Starting gunicorn 23.0.0
+airflow-scheduler-1  | [2026-11-14T09:09:51.606+0000] {scheduler_job_runner.py:950} INFO - Starting the scheduler
+airflow-scheduler-1  | [2026-11-14 09:09:51 +0000] [17] [INFO] Listening at: http://[::]:8793 (17)
+airflow-scheduler-1  | [2026-11-14 09:09:51 +0000] [17] [INFO] Using worker: sync
+airflow-scheduler-1  | [2026-11-14T09:09:51.607+0000] {scheduler_job_runner.py:957} INFO - Processing each file at most -1 times
+airflow-scheduler-1  | [2026-11-14 09:09:51 +0000] [18] [INFO] Booting worker with pid: 18
+airflow-scheduler-1  | [2026-11-14 09:09:51 +0000] [46] [INFO] Booting worker with pid: 46
+airflow-scheduler-1  | [2026-11-14T09:09:51.828+0000] {manager.py:174} INFO - Launched DagFileProcessorManager with pid: 91
+airflow-scheduler-1  | [2026-11-14T09:09:51.831+0000] {scheduler_job_runner.py:1949} INFO - Adopting or resetting orphaned tasks for active dag runs
+airflow-scheduler-1  | [2026-11-14T09:09:51.835+0000] {settings.py:63} INFO - Configured default timezone UTC
+airflow-scheduler-1  | [2026-11-14T09:09:51.849+0000] {scheduler_job_runner.py:1972} INFO - Marked 1 SchedulerJob instances as failed
+airflow-scheduler-1  | [2026-11-14T09:14:51.875+0000] {scheduler_job_runner.py:1949} INFO - Adopting or resetting orphaned tasks for active dag runs
+airflow-scheduler-1  | [2026-11-14T09:19:51.899+0000] {scheduler_job_runner.py:1949} INFO - Adopting or resetting orphaned tasks for active dag runs
+airflow-scheduler-1  | [2026-11-14T09:24:51.917+0000] {scheduler_job_runner.py:1949} INFO - Adopting or resetting orphaned tasks for active dag runs
+airflow-scheduler-1  | [2026-11-14T09:29:51.937+0000] {scheduler_job_runner.py:1949} INFO - Adopting or resetting orphaned tasks for active dag runs
+airflow-scheduler-1  | [2026-11-14T09:32:07.619+0000] {scheduler_job_runner.py:435} INFO - 1 tasks up for execution:
+airflow-scheduler-1  | 	<TaskInstance: automl_monitoring_pipeline.monitorear manual__2026-11-14T09:32:06+00:00 [scheduled]>
+airflow-scheduler-1  | [2026-11-14T09:32:07.620+0000] {scheduler_job_runner.py:507} INFO - DAG automl_monitoring_pipeline has 0/16 running and queued tasks
+airflow-scheduler-1  | [2026-11-14T09:32:07.620+0000] {scheduler_job_runner.py:646} INFO - Setting the following tasks to queued state:
+airflow-scheduler-1  | 	<TaskInstance: automl_monitoring_pipeline.monitorear manual__2026-11-14T09:32:06+00:00 [scheduled]>
+airflow-scheduler-1  | [2026-11-14T09:32:07.621+0000] {scheduler_job_runner.py:748} INFO - Trying to enqueue tasks: [<TaskInstance: automl_monitoring_pipeline.monitorear manual__2026-11-14T09:32:06+00:00 [scheduled]>] for executor: LocalExecutor(parallelism=16)
+airflow-scheduler-1  | [2026-11-14T09:32:07.622+0000] {scheduler_job_runner.py:692} INFO - Sending TaskInstanceKey(dag_id='automl_monitoring_pipeline', task_id='monitorear', run_id='manual__2026-11-14T09:32:06+00:00', try_number=1, map_index=-1) to LocalExecutor with priority 1 and queue default
+airflow-scheduler-1  | [2026-11-14T09:32:07.623+0000] {base_executor.py:169} INFO - Adding to queue: ['airflow', 'tasks', 'run', 'automl_monitoring_pipeline', 'monitorear', 'manual__2026-11-14T09:32:06+00:00', '--local', '--subdir', 'DAGS_FOLDER/monitoring_dag.py']
+airflow-scheduler-1  | [2026-11-14T09:32:07.636+0000] {local_executor.py:93} INFO - QueuedLocalWorker running ['airflow', 'tasks', 'run', 'automl_monitoring_pipeline', 'monitorear', 'manual__2026-11-14T09:32:06+00:00', '--local', '--subdir', 'DAGS_FOLDER/monitoring_dag.py']
+airflow-scheduler-1  | [2026-11-14T09:32:07.709+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/***/project/dags/monitoring_dag.py
+airflow-scheduler-1  | [2026-11-14T09:32:08.989+0000] {task_command.py:467} INFO - Running <TaskInstance: automl_monitoring_pipeline.monitorear manual__2026-11-14T09:32:06+00:00 [queued]> on host 2150178a8014
+airflow-scheduler-1  | [2026-11-14T09:32:21.268+0000] {dagrun.py:854} INFO - Marking run <DagRun automl_monitoring_pipeline @ 2026-11-14 09:32:06+00:00: manual__2026-11-14T09:32:06+00:00, state:running, queued_at: 2026-11-14 09:32:06.525375+00:00. externally triggered: True> successful
+airflow-scheduler-1  | [2026-11-14T09:32:21.269+0000] {dagrun.py:905} INFO - DagRun Finished: dag_id=automl_monitoring_pipeline, execution_date=2026-11-14 09:32:06+00:00, run_id=manual__2026-11-14T09:32:06+00:00, run_start_date=2026-11-14 09:32:07.583891+00:00, run_end_date=2026-11-14 09:32:21.268851+00:00, run_duration=13.68496, state=success, external_trigger=True, run_type=manual, data_interval_start=2026-11-14 09:32:06+00:00, data_interval_end=2026-11-14 09:32:06+00:00, dag_hash=00253a1c296bb83a20bb8622911410b0
+airflow-scheduler-1  | [2026-11-14T09:32:21.290+0000] {scheduler_job_runner.py:776} INFO - Received executor event with state success for task instance TaskInstanceKey(dag_id='automl_monitoring_pipeline', task_id='monitorear', run_id='manual__2026-11-14T09:32:06+00:00', try_number=1, map_index=-1)
+airflow-scheduler-1  | [2026-11-14T09:32:21.295+0000] {scheduler_job_runner.py:813} INFO - TaskInstance Finished: dag_id=automl_monitoring_pipeline, task_id=monitorear, run_id=manual__2026-11-14T09:32:06+00:00, map_index=-1, run_start_date=2026-11-14 09:32:09.066274+00:00, run_end_date=2026-11-14 09:32:20.575991+00:00, run_duration=11.509717, state=success, executor=LocalExecutor(parallelism=16), executor_state=success, try_number=1, max_tries=1, job_id=62, pool=default_pool, queue=default, priority_weight=1, operator=PythonOperator, queued_dttm=2026-11-14 09:32:07.620868+00:00, queued_by_job_id=61, pid=627
+airflow-scheduler-1  | [2026-11-14T09:32:22.333+0000] {scheduler_job_runner.py:435} INFO - 1 tasks up for execution:
+airflow-scheduler-1  | 	<TaskInstance: automl_monitoring_pipeline.monitorear manual__2026-11-14T09:32:10+00:00 [scheduled]>
+airflow-scheduler-1  | [2026-11-14T09:32:22.333+0000] {scheduler_job_runner.py:507} INFO - DAG automl_monitoring_pipeline has 0/16 running and queued tasks
+airflow-scheduler-1  | [2026-11-14T09:32:22.334+0000] {scheduler_job_runner.py:646} INFO - Setting the following tasks to queued state:
+airflow-scheduler-1  | 	<TaskInstance: automl_monitoring_pipeline.monitorear manual__2026-11-14T09:32:10+00:00 [scheduled]>
+airflow-scheduler-1  | [2026-11-14T09:32:22.336+0000] {scheduler_job_runner.py:748} INFO - Trying to enqueue tasks: [<TaskInstance: automl_monitoring_pipeline.monitorear manual__2026-11-14T09:32:10+00:00 [scheduled]>] for executor: LocalExecutor(parallelism=16)
+airflow-scheduler-1  | [2026-11-14T09:32:22.336+0000] {scheduler_job_runner.py:692} INFO - Sending TaskInstanceKey(dag_id='automl_monitoring_pipeline', task_id='monitorear', run_id='manual__2026-11-14T09:32:10+00:00', try_number=1, map_index=-1) to LocalExecutor with priority 1 and queue default
+airflow-scheduler-1  | [2026-11-14T09:32:22.337+0000] {base_executor.py:169} INFO - Adding to queue: ['airflow', 'tasks', 'run', 'automl_monitoring_pipeline', 'monitorear', 'manual__2026-11-14T09:32:10+00:00', '--local', '--subdir', 'DAGS_FOLDER/monitoring_dag.py']
+airflow-scheduler-1  | [2026-11-14T09:32:22.347+0000] {local_executor.py:93} INFO - QueuedLocalWorker running ['airflow', 'tasks', 'run', 'automl_monitoring_pipeline', 'monitorear', 'manual__2026-11-14T09:32:10+00:00', '--local', '--subdir', 'DAGS_FOLDER/monitoring_dag.py']
+airflow-scheduler-1  | [2026-11-14T09:32:22.383+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/***/project/dags/monitoring_dag.py
+airflow-scheduler-1  | [2026-11-14T09:32:23.479+0000] {task_command.py:467} INFO - Running <TaskInstance: automl_monitoring_pipeline.monitorear manual__2026-11-14T09:32:10+00:00 [queued]> on host 2150178a8014
+airflow-scheduler-1  | [2026-11-14T09:32:34.328+0000] {dagrun.py:854} INFO - Marking run <DagRun automl_monitoring_pipeline @ 2026-11-14 09:32:10+00:00: manual__2026-11-14T09:32:10+00:00, state:running, queued_at: 2026-11-14 09:32:10.919288+00:00. externally triggered: True> successful
+airflow-scheduler-1  | [2026-11-14T09:32:34.329+0000] {dagrun.py:905} INFO - DagRun Finished: dag_id=automl_monitoring_pipeline, execution_date=2026-11-14 09:32:10+00:00, run_id=manual__2026-11-14T09:32:10+00:00, run_start_date=2026-11-14 09:32:22.316228+00:00, run_end_date=2026-11-14 09:32:34.329018+00:00, run_duration=12.01279, state=success, external_trigger=True, run_type=manual, data_interval_start=2026-11-14 09:32:10+00:00, data_interval_end=2026-11-14 09:32:10+00:00, dag_hash=00253a1c296bb83a20bb8622911410b0
+airflow-scheduler-1  | [2026-11-14T09:32:34.340+0000] {scheduler_job_runner.py:776} INFO - Received executor event with state success for task instance TaskInstanceKey(dag_id='automl_monitoring_pipeline', task_id='monitorear', run_id='manual__2026-11-14T09:32:10+00:00', try_number=1, map_index=-1)
+airflow-scheduler-1  | [2026-11-14T09:32:34.344+0000] {scheduler_job_runner.py:813} INFO - TaskInstance Finished: dag_id=automl_monitoring_pipeline, task_id=monitorear, run_id=manual__2026-11-14T09:32:10+00:00, map_index=-1, run_start_date=2026-11-14 09:32:23.539615+00:00, run_end_date=2026-11-14 09:32:33.888051+00:00, run_duration=10.348436, state=success, executor=LocalExecutor(parallelism=16), executor_state=success, try_number=1, max_tries=1, job_id=63, pool=default_pool, queue=default, priority_weight=1, operator=PythonOperator, queued_dttm=2026-11-14 09:32:22.334799+00:00, queued_by_job_id=61, pid=689
+airflow-scheduler-1  | [2026-11-14T09:32:35.380+0000] {scheduler_job_runner.py:435} INFO - 1 tasks up for execution:
+airflow-scheduler-1  | 	<TaskInstance: automl_monitoring_pipeline.monitorear manual__2026-11-14T09:32:15+00:00 [scheduled]>
+airflow-scheduler-1  | [2026-11-14T09:32:35.380+0000] {scheduler_job_runner.py:507} INFO - DAG automl_monitoring_pipeline has 0/16 running and queued tasks
+airflow-scheduler-1  | [2026-11-14T09:32:35.380+0000] {scheduler_job_runner.py:646} INFO - Setting the following tasks to queued state:
+airflow-scheduler-1  | 	<TaskInstance: automl_monitoring_pipeline.monitorear manual__2026-11-14T09:32:15+00:00 [scheduled]>
+airflow-scheduler-1  | [2026-11-14T09:32:35.382+0000] {scheduler_job_runner.py:748} INFO - Trying to enqueue tasks: [<TaskInstance: automl_monitoring_pipeline.monitorear manual__2026-11-14T09:32:15+00:00 [scheduled]>] for executor: LocalExecutor(parallelism=16)
+airflow-scheduler-1  | [2026-11-14T09:32:35.383+0000] {scheduler_job_runner.py:692} INFO - Sending TaskInstanceKey(dag_id='automl_monitoring_pipeline', task_id='monitorear', run_id='manual__2026-11-14T09:32:15+00:00', try_number=1, map_index=-1) to LocalExecutor with priority 1 and queue default
+airflow-scheduler-1  | [2026-11-14T09:32:35.383+0000] {base_executor.py:169} INFO - Adding to queue: ['airflow', 'tasks', 'run', 'automl_monitoring_pipeline', 'monitorear', 'manual__2026-11-14T09:32:15+00:00', '--local', '--subdir', 'DAGS_FOLDER/monitoring_dag.py']
+airflow-scheduler-1  | [2026-11-14T09:32:35.392+0000] {local_executor.py:93} INFO - QueuedLocalWorker running ['airflow', 'tasks', 'run', 'automl_monitoring_pipeline', 'monitorear', 'manual__2026-11-14T09:32:15+00:00', '--local', '--subdir', 'DAGS_FOLDER/monitoring_dag.py']
+airflow-scheduler-1  | [2026-11-14T09:32:35.427+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/***/project/dags/monitoring_dag.py
+airflow-scheduler-1  | [2026-11-14T09:32:36.579+0000] {task_command.py:467} INFO - Running <TaskInstance: automl_monitoring_pipeline.monitorear manual__2026-11-14T09:32:15+00:00 [queued]> on host 2150178a8014
+airflow-scheduler-1  | [2026-11-14T09:32:46.694+0000] {dagrun.py:854} INFO - Marking run <DagRun automl_monitoring_pipeline @ 2026-11-14 09:32:15+00:00: manual__2026-11-14T09:32:15+00:00, state:running, queued_at: 2026-11-14 09:32:15.758630+00:00. externally triggered: True> successful
+airflow-scheduler-1  | [2026-11-14T09:32:46.694+0000] {dagrun.py:905} INFO - DagRun Finished: dag_id=automl_monitoring_pipeline, execution_date=2026-11-14 09:32:15+00:00, run_id=manual__2026-11-14T09:32:15+00:00, run_start_date=2026-11-14 09:32:35.364360+00:00, run_end_date=2026-11-14 09:32:46.694671+00:00, run_duration=11.330311, state=success, external_trigger=True, run_type=manual, data_interval_start=2026-11-14 09:32:15+00:00, data_interval_end=2026-11-14 09:32:15+00:00, dag_hash=00253a1c296bb83a20bb8622911410b0
+airflow-scheduler-1  | [2026-11-14T09:32:46.706+0000] {scheduler_job_runner.py:776} INFO - Received executor event with state success for task instance TaskInstanceKey(dag_id='automl_monitoring_pipeline', task_id='monitorear', run_id='manual__2026-11-14T09:32:15+00:00', try_number=1, map_index=-1)
+airflow-scheduler-1  | [2026-11-14T09:32:46.710+0000] {scheduler_job_runner.py:813} INFO - TaskInstance Finished: dag_id=automl_monitoring_pipeline, task_id=monitorear, run_id=manual__2026-11-14T09:32:15+00:00, map_index=-1, run_start_date=2026-11-14 09:32:36.658580+00:00, run_end_date=2026-11-14 09:32:46.551048+00:00, run_duration=9.892468, state=success, executor=LocalExecutor(parallelism=16), executor_state=success, try_number=1, max_tries=1, job_id=64, pool=default_pool, queue=default, priority_weight=1, operator=PythonOperator, queued_dttm=2026-11-14 09:32:35.381297+00:00, queued_by_job_id=61, pid=736
+airflow-scheduler-1  | [2026-11-14T09:32:47.779+0000] {scheduler_job_runner.py:435} INFO - 1 tasks up for execution:
+airflow-scheduler-1  | 	<TaskInstance: automl_monitoring_pipeline.monitorear manual__2026-11-14T09:32:20+00:00 [scheduled]>
+airflow-scheduler-1  | [2026-11-14T09:32:47.780+0000] {scheduler_job_runner.py:507} INFO - DAG automl_monitoring_pipeline has 0/16 running and queued tasks
+airflow-scheduler-1  | [2026-11-14T09:32:47.780+0000] {scheduler_job_runner.py:646} INFO - Setting the following tasks to queued state:
+airflow-scheduler-1  | 	<TaskInstance: automl_monitoring_pipeline.monitorear manual__2026-11-14T09:32:20+00:00 [scheduled]>
+airflow-scheduler-1  | [2026-11-14T09:32:47.783+0000] {scheduler_job_runner.py:748} INFO - Trying to enqueue tasks: [<TaskInstance: automl_monitoring_pipeline.monitorear manual__2026-11-14T09:32:20+00:00 [scheduled]>] for executor: LocalExecutor(parallelism=16)
+airflow-scheduler-1  | [2026-11-14T09:32:47.783+0000] {scheduler_job_runner.py:692} INFO - Sending TaskInstanceKey(dag_id='automl_monitoring_pipeline', task_id='monitorear', run_id='manual__2026-11-14T09:32:20+00:00', try_number=1, map_index=-1) to LocalExecutor with priority 1 and queue default
+airflow-scheduler-1  | [2026-11-14T09:32:47.784+0000] {base_executor.py:169} INFO - Adding to queue: ['airflow', 'tasks', 'run', 'automl_monitoring_pipeline', 'monitorear', 'manual__2026-11-14T09:32:20+00:00', '--local', '--subdir', 'DAGS_FOLDER/monitoring_dag.py']
+airflow-scheduler-1  | [2026-11-14T09:32:47.798+0000] {local_executor.py:93} INFO - QueuedLocalWorker running ['airflow', 'tasks', 'run', 'automl_monitoring_pipeline', 'monitorear', 'manual__2026-11-14T09:32:20+00:00', '--local', '--subdir', 'DAGS_FOLDER/monitoring_dag.py']
+airflow-scheduler-1  | [2026-11-14T09:32:47.835+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/***/project/dags/monitoring_dag.py
+airflow-scheduler-1  | [2026-11-14T09:32:48.991+0000] {task_command.py:467} INFO - Running <TaskInstance: automl_monitoring_pipeline.monitorear manual__2026-11-14T09:32:20+00:00 [queued]> on host 2150178a8014
+airflow-scheduler-1  | [2026-11-14T09:33:00.617+0000] {dagrun.py:854} INFO - Marking run <DagRun automl_monitoring_pipeline @ 2026-11-14 09:32:20+00:00: manual__2026-11-14T09:32:20+00:00, state:running, queued_at: 2026-11-14 09:32:20.678357+00:00. externally triggered: True> successful
+airflow-scheduler-1  | [2026-11-14T09:33:00.618+0000] {dagrun.py:905} INFO - DagRun Finished: dag_id=automl_monitoring_pipeline, execution_date=2026-11-14 09:32:20+00:00, run_id=manual__2026-11-14T09:32:20+00:00, run_start_date=2026-11-14 09:32:47.740508+00:00, run_end_date=2026-11-14 09:33:00.617947+00:00, run_duration=12.877439, state=success, external_trigger=True, run_type=manual, data_interval_start=2026-11-14 09:32:20+00:00, data_interval_end=2026-11-14 09:32:20+00:00, dag_hash=00253a1c296bb83a20bb8622911410b0
+airflow-scheduler-1  | [2026-11-14T09:33:00.629+0000] {scheduler_job_runner.py:776} INFO - Received executor event with state success for task instance TaskInstanceKey(dag_id='automl_monitoring_pipeline', task_id='monitorear', run_id='manual__2026-11-14T09:32:20+00:00', try_number=1, map_index=-1)
+airflow-scheduler-1  | [2026-11-14T09:33:00.632+0000] {scheduler_job_runner.py:813} INFO - TaskInstance Finished: dag_id=automl_monitoring_pipeline, task_id=monitorear, run_id=manual__2026-11-14T09:32:20+00:00, map_index=-1, run_start_date=2026-11-14 09:32:49.058748+00:00, run_end_date=2026-11-14 09:32:59.609697+00:00, run_duration=10.550949, state=success, executor=LocalExecutor(parallelism=16), executor_state=success, try_number=1, max_tries=1, job_id=65, pool=default_pool, queue=default, priority_weight=1, operator=PythonOperator, queued_dttm=2026-11-14 09:32:47.781393+00:00, queued_by_job_id=61, pid=790
+airflow-scheduler-1  | [2026-11-14T09:34:51.949+0000] {scheduler_job_runner.py:1949} INFO - Adopting or resetting orphaned tasks for active dag runs

@@ -141,7 +141,15 @@ def monitorear_desde_contexto(
 
     # Compara la distribución de probabilidades con las probabilidades del
     # champion sobre los archivos de referencia. Esto tampoco entrena el modelo.
-    referencia_prob = champion.predict_proba(referencia[columnas])[:, 1]
+    matriz_ref = champion.named_steps["preprocessing"].transform(
+    referencia[columnas]
+    )
+    if hasattr(matriz_ref, "toarray"):
+        matriz_ref = matriz_ref.toarray()
+
+    referencia_prob = champion.named_steps["model"].predict_proba(
+        np.asarray(matriz_ref)
+    )[:, 1]
     perfil_prob = ajustar_referencia_numerica(referencia_prob, bins=bins)
     resultado_prob = comparar_con_referencia(
         perfil_prob,
