@@ -10,7 +10,7 @@
 - Registro usa artefacto final, tags de versión atómicos y comparación en mismo conjunto de evaluación.
 - Sin campeón válido: backtesting/reporte continúan; se omite promoción.
 - Reporte incluye recursos de generate_report, todas las olas y trazabilidad.
-- Entrada local P3 comparte etapas con DAG; ruta P2 preservada mediante --legacy.
+- Entrada local y DAG de entrenamiento comparten la implementación centralizada en src/stages.py. Se retiró la ruta heredada de la Práctica 2.
 - Validación de diez meses consecutivos, fechas decimales y objetivo binario.
 - Dependencias directas fijadas; cliente/servidor MLflow alineados; SQLAlchemy servidor/local fijado por incompatibilidad detectada.
 - Pruebas antiguas redirigidas a integración vigente; documentación actualizada sin afirmar validación Docker/GPU.

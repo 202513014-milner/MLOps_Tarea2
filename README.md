@@ -83,9 +83,20 @@ python main.py --input data/input --config config/smoke.yaml
 Esto ejecuta el pipeline P3 completo sin Airflow, con las mismas funciones de etapas.
 Sin `MLFLOW_TRACKING_URI` utiliza SQLite local bajo `data/mlflow`; si se desea el servidor Docker,
 configurar `$env:MLFLOW_TRACKING_URI="http://localhost:5000"`.
-`python main.py --legacy --config config/config.yaml` conserva la ruta modular P2 y sus switches;
-**no es la ruta de entrega P3**, porque no ejecuta el tracking/orquestación completos.
-`main_p2.py` conserva la entrada previa; `src/parallelism.py` es un alias compatible de `src/parallel.py`.
+La ejecución local utiliza `main.py` como punto de entrada y
+`src/stages.py` como implementación centralizada de las etapas,
+compartida con el DAG de entrenamiento de Airflow.
+
+Se eliminó la ruta de ejecución heredada de la Práctica 2 (--legacy y main_p2.py) para evitar duplicaciones y mantener una única implementación centralizada del pipeline de entrenamiento.
+
+Se mantienen las funcionalidades de HPO, paralelismo y
+backtesting en sus respectivos módulos de `src/`.
+
+Para consultar las etapas individuales disponibles:
+
+```powershell
+docker compose exec airflow-webserver python -m src.stages --help
+```
 
 ## Qué se ejecuta
 
@@ -183,6 +194,49 @@ Detalle y limitaciones: [docs/evidencia_idempotencia.md](docs/evidencia_idempote
 
 ![Airflow: ejecuciones de la corrida final](docs/img/airflow_idempotencia.png)
 ![MLflow: 26 runs tras la repetición, sin duplicados](docs/img/mlflow_idempotencia.png)
+
+
+## Inferencia mensual (P3)
+
+El DAG `automl_inference_pipeline` puntúa un mes por ejecución con el campeón registrado (alias `champion`), sin reentrenar.
+
+Detalle de las tareas y de las salidas: [`docs/INFERENCIA_KIM.md`](docs/INFERENCIA_KIM.md).
+
+```bash
+docker compose up -d
+docker compose exec airflow-scheduler airflow dags trigger automl_inference_pipeline --conf '{"mes": "p7"}'  # luego p8, p9 y p10, en ese orden
+```
+
+Entrada: `data/input/<mes>_extrac.csv`. Salida: `data/output/inference/<mes>/<corrida>/` (`scores_clientes.csv` no se sube a git).
+
+### Validación de resultados de inferencia
+
+El pipeline incorpora controles automáticos para verificar que las probabilidades estén entre 0 y 1 y que el TLV cumpla la fórmula de negocio.
+
+Las validaciones se ejecutan durante el posprocesamiento y detienen la generación de resultados si se detectan inconsistencias.
+
+Se ejecutaron 15 pruebas automatizadas, todas satisfactorias, incluyendo una prueba que comprueba el rechazo de un TLV incorrecto.
+
+Documentación y evidencias: [Validación de inferencia P3](docs/VALIDACION_INFERENCIA_P3.md).
+
+### Clientes por grupo de ejecución y mes
+
+Clientes puntuados por grupo (1 = 5 % de mayor puntuación TLV, 10 = 3,5 % de menor puntuación), tomados de `data/output/inference/<mes>/<corrida>/resumen_grupos.csv`. Los cortes `dist_ge` fijan la misma proporción en todos los meses; lo que cambia es el volumen de cada mes.
+
+| Grupo | p7 | p8 | p9 | p10 |
+|---|---|---|---|---|
+| 1 | 12 234 | 12 037 | 13 188 | 15 869 |
+| 2 | 21 530 | 21 184 | 23 210 | 27 930 |
+| 3 | 18 350 | 18 054 | 19 782 | 23 803 |
+| 4 | 30 094 | 29 609 | 32 441 | 39 037 |
+| 5 | 33 030 | 32 498 | 35 607 | 42 846 |
+| 6 | 33 274 | 32 739 | 35 870 | 43 163 |
+| 7 | 38 168 | 37 553 | 41 145 | 49 511 |
+| 8 | 36 700 | 36 108 | 39 563 | 47 607 |
+| 9 | 12 722 | 12 518 | 13 715 | 16 503 |
+| 10 | 8 564 | 8 426 | 9 232 | 11 109 |
+| **Total** | **244 666** | **240 726** | **263 753** | **317 378** |
+
 
 ## Pruebas
 

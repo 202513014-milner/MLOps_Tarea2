@@ -38,7 +38,14 @@ Reporte incluye su propia fase de armado; excluye su subida final de logs y escr
 
 Nueve modelos, semilla, división 6/4, muestreo estratificado, pipelines de preprocesamiento, Optuna,
 validación de fechas, ROC, Docker y alias. El entrenamiento normal no compara secuencial/paralelo salvo
-modo benchmark. La ruta local principal ahora usa las mismas etapas de P3; la antigua está en main_p2.py.
+modo benchmark. La ejecución local mediante main.py y el DAG de Airflow comparten las etapas centralizadas en src/stages.py. Se retiraron main_p2.py y la opción --legacy para eliminar rutas redundantes, sin modificar los algoritmos de entrenamiento ni el registro de modelos.
+
+## Posprocesamiento de la inferencia (P3, Sección 5)
+
+La regla del enunciado se implementa con dos ajustes en `src/posprocessing.py`:
+
+- **Monto nulo o negativo cuenta como 0** (`log(monto + 1) = 0`). Con un monto nulo la puntuación sale nula y no se puede asignar grupo. Alternativa descartada: excluir al cliente, que dejaría clientes sin puntuar.
+- **Los grupos se asignan sobre el ranking de la puntuación** (`rank(method='first')` y luego `qcut` con `dist_ge`). Muchos clientes empatan en puntuaciones bajas y `qcut` directo falla con cortes repetidos. Se mantienen las proporciones del enunciado (5 % en el grupo 1, 3,5 % en el 10) y los empates se resuelven por orden de aparición. Alternativa descartada: `duplicates='drop'`, que reduciría el número de grupos.
 
 ## Evidencia pendiente de adjuntar
 

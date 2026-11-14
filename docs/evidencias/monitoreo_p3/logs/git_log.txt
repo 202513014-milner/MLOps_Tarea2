@@ -1,0 +1,4 @@
+1d803b3 tmp: probar monitoreo de Milner (PR #7)
+f6cd9e4 docs: evidencia de inferencia y monitoreo p7-p10
+d4d191a merge: integrar inferencia y validaciones P3
+6df0415 fix: localizar contexto de inferencia para monitoreo
