@@ -286,3 +286,18 @@ validation:
   strict_temporal_order: true
 use_gpu: false
 drift_alert_threshold: 10.0
+monitoring:
+  dag_id: automl_monitoring_pipeline
+  retries: 1
+  retry_delay_seconds: 30
+  reference_files:
+    - p6_extrac.csv
+  bins: 10
+  max_categories: 20
+  epsilon: 1.0e-6
+  psi:
+    warn: 0.10
+    alarm: 0.25
+  kl:
+    warn: 0.10
+    alarm: 0.25
