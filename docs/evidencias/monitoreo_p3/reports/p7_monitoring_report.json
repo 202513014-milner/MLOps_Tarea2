@@ -1,0 +1,1092 @@
+{
+  "mes": "p7",
+  "key": "785725f6b8e0",
+  "fecha_monitoreo_utc": "2026-11-14T09:32:19.583070+00:00",
+  "estado_general": "moderado",
+  "reentrena_modelo": false,
+  "model_name": "automl-venta-financiera",
+  "model_version": "1",
+  "inference_run_id": "168004c49588403a855158d3d14c29b7",
+  "referencias": [
+    "p6_extrac.csv"
+  ],
+  "filas_referencia": 236914,
+  "filas_actuales": 244666,
+  "variables_predictoras": {
+    "monto": {
+      "psi": 0.0012455406032182807,
+      "kl": 0.0006192046868141732,
+      "distribucion_actual": [
+        23004,
+        24148,
+        23227,
+        24694,
+        24221,
+        23978,
+        24752,
+        24354,
+        26459,
+        25829,
+        0
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "grp_campecs06m": {
+      "psi": 0.007734510809009361,
+      "kl": 0.0038543245062422835,
+      "distribucion_actual": [
+        109505.0,
+        53244.0,
+        58944.0,
+        14676.0,
+        8297.0,
+        0.0,
+        0.0
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "tea": {
+      "psi": 0.0006538732660716948,
+      "kl": 0.0003286738014046352,
+      "distribucion_actual": [
+        3326,
+        38961,
+        38997,
+        32162,
+        33885,
+        12587,
+        26256,
+        58492,
+        0
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "ingreso_neto": {
+      "psi": 0.0011083560559960756,
+      "kl": 0.0005502644841441989,
+      "distribucion_actual": [
+        26548,
+        23460,
+        23805,
+        23920,
+        24163,
+        23976,
+        24564,
+        24898,
+        24607,
+        24725,
+        0
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "mnt_ptm": {
+      "psi": 0.0041809481847644644,
+      "kl": 0.002049246454731781,
+      "distribucion_actual": [
+        141950,
+        23624,
+        23851,
+        26313,
+        28928,
+        0
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "ent_1erlntcrallsfm01": {
+      "psi": 0.0008158337770996903,
+      "kl": 0.0003737822359603572,
+      "distribucion_actual": [
+        156767.0,
+        22815.0,
+        14520.0,
+        12907.0,
+        10992.0,
+        7597.0,
+        7528.0,
+        5681.0,
+        2101.0,
+        1782.0,
+        1359.0,
+        467.0,
+        62.0,
+        8.0,
+        0.0,
+        80.0
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "sldvig_tcrsrcf": {
+      "psi": 0.0002195058442569777,
+      "kl": 0.00010983782969135273,
+      "distribucion_actual": [
+        11134,
+        10700,
+        10586,
+        10578,
+        10634,
+        10649,
+        10696,
+        10707,
+        10581,
+        10525,
+        137876
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "ant_ultprdallsf": {
+      "psi": 0.0034346785203635917,
+      "kl": 0.0017213739993095192,
+      "distribucion_actual": [
+        14456,
+        30041,
+        25404,
+        19290,
+        25537,
+        27778,
+        28909,
+        23488,
+        24746,
+        24999,
+        18
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "nro_configuracion_6m": {
+      "psi": 0.0002993004433748883,
+      "kl": 0.00014915195815980165,
+      "distribucion_actual": [
+        72347,
+        32619,
+        20012,
+        17280,
+        19137,
+        19169,
+        64102
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "nro_transfer_6m": {
+      "psi": 0.0008349127687868839,
+      "kl": 0.00041350846031673865,
+      "distribucion_actual": [
+        51929,
+        18312,
+        17493,
+        18218,
+        18460,
+        18004,
+        18534,
+        19614,
+        64102
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "nro_producto_6m": {
+      "psi": 0.00019763449966800017,
+      "kl": 9.873572616792177e-05,
+      "distribucion_actual": [
+        39975,
+        20243,
+        24052,
+        24540,
+        15563,
+        18860,
+        19471,
+        17860,
+        64102
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "cre_sldtotfinprm03": {
+      "psi": 0.03777429567830046,
+      "kl": 0.019554156127306224,
+      "distribucion_actual": [
+        20249,
+        20373,
+        20860,
+        7859,
+        113622,
+        30708,
+        30902,
+        93
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "ctd_campecsm01": {
+      "psi": 0.00015646997659471065,
+      "kl": 6.510077783411092e-05,
+      "distribucion_actual": [
+        244608,
+        58
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "max_campecs06m": {
+      "psi": 0.0,
+      "kl": 0.0,
+      "distribucion_actual": [
+        244666,
+        0
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "ctd_camptotm01": {
+      "psi": 0.02412039894837567,
+      "kl": 0.012230376210220115,
+      "distribucion_actual": [
+        13254,
+        29148,
+        56951,
+        64834,
+        46607,
+        33814,
+        58
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "ctd_camptot06m": {
+      "psi": 0.002260275164453263,
+      "kl": 0.0011369942875664152,
+      "distribucion_actual": [
+        19301,
+        24172,
+        17188,
+        30610,
+        22986,
+        22906,
+        31584,
+        25456,
+        24811,
+        25652,
+        0
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "ctd_camptototrcnl06m": {
+      "psi": 0.1226383448438343,
+      "kl": 0.0722229544783503,
+      "distribucion_actual": [
+        14589,
+        74044,
+        21305,
+        37344,
+        34954,
+        55047,
+        7383,
+        0
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "moderado",
+      "nivel_kl": "estable",
+      "nivel": "moderado"
+    },
+    "ctd_sms_received": {
+      "psi": 0.031132453077122212,
+      "kl": 0.01655199152144486,
+      "distribucion_actual": [
+        184047,
+        13520,
+        26381,
+        20718,
+        0
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "prm_cnt_fee_amt_u7d": {
+      "psi": 0.019186064574843825,
+      "kl": 0.009403162587711143,
+      "distribucion_actual": [
+        148623,
+        23344,
+        72699
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "telefonos_6meses": {
+      "psi": 0.005303081540498253,
+      "kl": 0.00261447174053356,
+      "distribucion_actual": [
+        27806,
+        27865,
+        16520,
+        13243,
+        15965,
+        15372,
+        127895
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "prom_score_acepta_12meses": {
+      "psi": 0.001940687586950007,
+      "kl": 0.000991587865779792,
+      "distribucion_actual": [
+        163748,
+        17081,
+        63837
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "dif_no_gestionado_4meses": {
+      "psi": 0.002279979397520768,
+      "kl": 0.00112236547899543,
+      "distribucion_actual": [
+        190591,
+        27757,
+        25705,
+        613
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "dif_contacto_efectivo_10meses": {
+      "psi": 0.001477934250383457,
+      "kl": 0.0007451736003403611,
+      "distribucion_actual": [
+        174644,
+        23914,
+        22997,
+        22498,
+        613
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "ctd_app_productos_m1": {
+      "psi": 0.0028036989361715265,
+      "kl": 0.0014349794781421544,
+      "distribucion_actual": [
+        222223,
+        21830,
+        613
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "monto_consumos_ecommerce_tc": {
+      "psi": 0.0008817888198629539,
+      "kl": 0.00043865351951284946,
+      "distribucion_actual": [
+        143668,
+        24608,
+        24850,
+        25474,
+        26063,
+        3
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "avg_sald_pas_3m": {
+      "psi": 0.0004612839448092764,
+      "kl": 0.00023108017952798952,
+      "distribucion_actual": [
+        43656,
+        22193,
+        21929,
+        22948,
+        22867,
+        23082,
+        22938,
+        23006,
+        22810,
+        19237
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "act_avg6m_max12m": {
+      "psi": 0.00010601775464420121,
+      "kl": 5.30407167681963e-05,
+      "distribucion_actual": [
+        20758,
+        20681,
+        20646,
+        20480,
+        20241,
+        21063,
+        20592,
+        20921,
+        20928,
+        20646,
+        37710
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "act_1m_avg3m": {
+      "psi": 0.0026376112574631686,
+      "kl": 0.0013211734456874328,
+      "distribucion_actual": [
+        20718,
+        21249,
+        20318,
+        20409,
+        19710,
+        18766,
+        17832,
+        18233,
+        18740,
+        19089,
+        49602
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "pas_avg6m_max12m": {
+      "psi": 0.00029570875236167485,
+      "kl": 0.00014767591824480734,
+      "distribucion_actual": [
+        18273,
+        18858,
+        18589,
+        18816,
+        18764,
+        18823,
+        18985,
+        19330,
+        18329,
+        19236,
+        56663
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "pas_1m_avg6m": {
+      "psi": 0.001078429069960873,
+      "kl": 0.0005389435134480597,
+      "distribucion_actual": [
+        17309,
+        19328,
+        19029,
+        19094,
+        19324,
+        18576,
+        17866,
+        18161,
+        18059,
+        18706,
+        59214
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "pas_1m_avg3m": {
+      "psi": 0.006463508639151271,
+      "kl": 0.0032640281886966976,
+      "distribucion_actual": [
+        17171,
+        19488,
+        19220,
+        18905,
+        10350,
+        29882,
+        14830,
+        17856,
+        17943,
+        17874,
+        61147
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "prop_atm_4m": {
+      "psi": 0.0003262801350992281,
+      "kl": 0.0001636830694869239,
+      "distribucion_actual": [
+        61528,
+        163901,
+        19237
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "cnl_atm_p4m_p12m": {
+      "psi": 0.00042802142712511756,
+      "kl": 0.00021403712995940634,
+      "distribucion_actual": [
+        17069,
+        6944,
+        114029,
+        20936,
+        18787,
+        66901
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "cnl_age_p4m_p12m": {
+      "psi": 0.00011452681824352261,
+      "kl": 5.7633448166129935e-05,
+      "distribucion_actual": [
+        20042,
+        70135,
+        10621,
+        12367,
+        131501
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "max_nact_12m": {
+      "psi": 2.1928395687385937e-05,
+      "kl": 1.0942648114980742e-05,
+      "distribucion_actual": [
+        7923,
+        217506,
+        19237
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "nprod_1m": {
+      "psi": 0.0001132209545961353,
+      "kl": 5.6715979999430607e-05,
+      "distribucion_actual": [
+        4,
+        50424,
+        117128,
+        57873,
+        19237
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "senthtml_1m": {
+      "psi": 0.12747406705938924,
+      "kl": 0.06385127494433114,
+      "distribucion_actual": [
+        19328,
+        7674,
+        38183,
+        34564,
+        21805,
+        15872,
+        15373,
+        13939,
+        16528,
+        19845,
+        41555
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "moderado",
+      "nivel_kl": "estable",
+      "nivel": "moderado"
+    },
+    "openhtml_1m": {
+      "psi": 0.004556147150877425,
+      "kl": 0.002315358535890077,
+      "distribucion_actual": [
+        103298,
+        17129,
+        20584,
+        20034,
+        20788,
+        21278,
+        41555
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "avg_openhtml_6m": {
+      "psi": 0.0016277210632724697,
+      "kl": 0.0008062736312767424,
+      "distribucion_actual": [
+        63165,
+        19741,
+        21440,
+        22631,
+        20294,
+        21507,
+        20799,
+        23837,
+        31252
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "bpitrx_1m": {
+      "psi": 7.1950379985337795e-06,
+      "kl": 3.595958783374209e-06,
+      "distribucion_actual": [
+        175574,
+        69092
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "apppag_1m": {
+      "psi": 0.001750782365006144,
+      "kl": 0.0008830860939050712,
+      "distribucion_actual": [
+        57347,
+        28238,
+        22249,
+        16103,
+        12293,
+        21381,
+        17963,
+        69092
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "cre_lin_tc_rccibk_m07": {
+      "psi": 0.000782500149599371,
+      "kl": 0.0003938207403845744,
+      "distribucion_actual": [
+        24291,
+        3563,
+        170423,
+        23420,
+        22969,
+        0
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "lin_tcrrstsf03m": {
+      "psi": 0.0007609222262310406,
+      "kl": 0.0003797783239782434,
+      "distribucion_actual": [
+        47578,
+        23708,
+        23606,
+        24454,
+        24604,
+        24451,
+        25321,
+        25331,
+        25613,
+        0
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "max_usotcribksf06m": {
+      "psi": 0.0004813601393571646,
+      "kl": 0.00024134844346102372,
+      "distribucion_actual": [
+        74325,
+        24888,
+        25171,
+        24614,
+        24428,
+        23988,
+        23729,
+        23523,
+        0
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "max_usotcrrstsf03m": {
+      "psi": 0.0003029453821081604,
+      "kl": 0.00015230665368968967,
+      "distribucion_actual": [
+        98334,
+        24688,
+        24978,
+        24774,
+        24401,
+        24157,
+        23334,
+        0
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "prom_pct_saldopprcc6m": {
+      "psi": 0.00013504990147351388,
+      "kl": 6.727397489098095e-05,
+      "distribucion_actual": [
+        194536,
+        24819,
+        25311,
+        0
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "prm_lintcribksf03m": {
+      "psi": 0.0008416085837993138,
+      "kl": 0.0004207473433096177,
+      "distribucion_actual": [
+        22846,
+        24405,
+        23522,
+        24015,
+        23826,
+        25108,
+        24994,
+        25064,
+        25400,
+        25486,
+        0
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "prom_sow_lintcribksf3m": {
+      "psi": 0.00010013187245055499,
+      "kl": 5.002718854665985e-05,
+      "distribucion_actual": [
+        24261,
+        24252,
+        24390,
+        24920,
+        24984,
+        24400,
+        24242,
+        24778,
+        48439,
+        0
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "prom_uso_tc_rccsf3m": {
+      "psi": 0.000654596239908376,
+      "kl": 0.00032792520519887933,
+      "distribucion_actual": [
+        50022,
+        23948,
+        25366,
+        25193,
+        24883,
+        24320,
+        23779,
+        23682,
+        23473,
+        0
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "dsv_svppallsf06m": {
+      "psi": 0.00015581234786970173,
+      "kl": 7.78085965343323e-05,
+      "distribucion_actual": [
+        170737,
+        24894,
+        25112,
+        23923,
+        0
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "prm_svprmlibdis06m": {
+      "psi": 0.0,
+      "kl": 0.0,
+      "distribucion_actual": [
+        244666,
+        0
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "prm_svprmecs06m": {
+      "psi": 0.0002055410842932343,
+      "kl": 0.0001034352418043151,
+      "distribucion_actual": [
+        221241,
+        23425,
+        0
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "flg_saltotppe12m": {
+      "psi": 1.93654537246884e-06,
+      "kl": 9.710880922748905e-07,
+      "distribucion_actual": [
+        243152,
+        1514
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "num_incrsaldispefe06m": {
+      "psi": 4.8931581473474415e-05,
+      "kl": 2.4506964408915993e-05,
+      "distribucion_actual": [
+        193991,
+        49161,
+        1514
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "seg_un": {
+      "psi": 0.00021391221582699757,
+      "kl": 0.00010728599514149697,
+      "distribucion_actual": [
+        38249,
+        151529,
+        53374,
+        1514
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "beta_pctusotcr12m": {
+      "psi": 0.0012939720703948833,
+      "kl": 0.0006515270105296369,
+      "distribucion_actual": [
+        22342,
+        21871,
+        24551,
+        23443,
+        19784,
+        53805,
+        26716,
+        26484,
+        23933,
+        1737
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "rat_disefepnm01": {
+      "psi": 0.00012076453823308122,
+      "kl": 6.0244130420794486e-05,
+      "distribucion_actual": [
+        169484,
+        20929,
+        20924,
+        33329
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "pct_usotcrm01": {
+      "psi": 0.0017323806001396775,
+      "kl": 0.0008718874871660124,
+      "distribucion_actual": [
+        50843,
+        24532,
+        25380,
+        24573,
+        24289,
+        24422,
+        23706,
+        23150,
+        22201,
+        1570
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "beta_saltotppe12m": {
+      "psi": 0.0004367886446114709,
+      "kl": 0.00021674801838851218,
+      "distribucion_actual": [
+        10345,
+        10210,
+        9955,
+        9746,
+        9660,
+        9663,
+        9657,
+        9404,
+        9461,
+        9639,
+        146926
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "ctd_entrdm01": {
+      "psi": 0.00012782804734324274,
+      "kl": 6.392372743791423e-05,
+      "distribucion_actual": [
+        19829,
+        55533,
+        71985,
+        52867,
+        42896,
+        1556
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    },
+    "prm_saltotrdpj03m": {
+      "psi": 0.0001656927067838147,
+      "kl": 8.356582887418963e-05,
+      "distribucion_actual": [
+        1819,
+        1816,
+        1813,
+        1762,
+        1822,
+        1775,
+        1849,
+        1811,
+        1891,
+        1862,
+        226446
+      ],
+      "n_actual": 244666,
+      "nivel_psi": "estable",
+      "nivel_kl": "estable",
+      "nivel": "estable"
+    }
+  },
+  "probabilidad": {
+    "psi": 0.002704786502944672,
+    "kl": 0.0013729021463799677,
+    "distribucion_actual": [
+      26013,
+      24310,
+      24798,
+      24873,
+      25348,
+      25121,
+      25002,
+      24317,
+      23685,
+      21199,
+      0
+    ],
+    "n_actual": 244666,
+    "nivel_psi": "estable",
+    "nivel_kl": "estable",
+    "nivel": "estable"
+  }
+}
