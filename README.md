@@ -195,9 +195,11 @@ Detalle y limitaciones: [docs/evidencia_idempotencia.md](docs/evidencia_idempote
 ![Airflow: ejecuciones de la corrida final](docs/img/airflow_idempotencia.png)
 ![MLflow: 26 runs tras la repetición, sin duplicados](docs/img/mlflow_idempotencia.png)
 
+
 ## Inferencia mensual (P3)
 
 El DAG `automl_inference_pipeline` puntúa un mes por ejecución con el campeón registrado (alias `champion`), sin reentrenar.
+
 Detalle de las tareas y de las salidas: [`docs/INFERENCIA_KIM.md`](docs/INFERENCIA_KIM.md).
 
 ```bash
@@ -206,6 +208,16 @@ docker compose exec airflow-scheduler airflow dags trigger automl_inference_pipe
 ```
 
 Entrada: `data/input/<mes>_extrac.csv`. Salida: `data/output/inference/<mes>/<corrida>/` (`scores_clientes.csv` no se sube a git).
+
+### Validación de resultados de inferencia
+
+El pipeline incorpora controles automáticos para verificar que las probabilidades estén entre 0 y 1 y que el TLV cumpla la fórmula de negocio.
+
+Las validaciones se ejecutan durante el posprocesamiento y detienen la generación de resultados si se detectan inconsistencias.
+
+Se ejecutaron 15 pruebas automatizadas, todas satisfactorias, incluyendo una prueba que comprueba el rechazo de un TLV incorrecto.
+
+Documentación y evidencias: [Validación de inferencia P3](docs/VALIDACION_INFERENCIA_P3.md).
 
 ### Clientes por grupo de ejecución y mes
 
@@ -224,6 +236,7 @@ Clientes puntuados por grupo (1 = 5 % de mayor puntuación TLV, 10 = 3,5 % de me
 | 9 | 12 722 | 12 518 | 13 715 | 16 503 |
 | 10 | 8 564 | 8 426 | 9 232 | 11 109 |
 | **Total** | **244 666** | **240 726** | **263 753** | **317 378** |
+
 
 ## Pruebas
 
